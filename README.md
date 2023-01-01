@@ -1,2 +1,3 @@
-# clrs4e-implementations
-Implementations of algorithms and data structures from "Introduction to Algorithms", Fourth Edition by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein
+# Introduction to Algorithms, 4th ed. &ndash; implementations of algorithms and data structures
+
+Stay tuned for new content.
