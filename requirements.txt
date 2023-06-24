@@ -2,3 +2,4 @@ sympy
 numpy
 mpmath
 pyhamcrest>=2.0.0
+hypothesis
