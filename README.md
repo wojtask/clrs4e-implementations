@@ -1,5 +1,7 @@
 # Introduction to Algorithms, Fourth Edition &mdash; implementations of algorithms and data structures
 
+![Build & test](https://github.com/wojtask/clrs4e-implementations/actions/workflows/build.yml/badge.svg)
+
 ### Overview 
 
 This project provides implementations of algorithms and data structures found in *Introduction to Algorithms, Fourth
