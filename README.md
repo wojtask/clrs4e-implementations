@@ -300,6 +300,14 @@ instructions.
         <img src="img/light/square_root.png">
       </picture><br/>
       <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/floor.png">
+        <img src="img/light/floor.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/ceiling.png">
+        <img src="img/light/ceiling.png">
+      </picture><br/>
+      <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/minimum.png">
         <img src="img/light/minimum.png">
       </picture><br/>
@@ -319,6 +327,8 @@ instructions.
       <pre lang="python">x % y</pre>
       <pre lang="python">x ** y</pre>
       <pre lang="python">math.sqrt(x)</pre>
+      <pre lang="python">math.floor(x)</pre>
+      <pre lang="python">math.ceil(x)</pre>
       <pre lang="python">max(x, y)</pre>
       <pre lang="python">min(x, y)</pre>
     </td>
