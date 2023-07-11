@@ -70,34 +70,487 @@ asynchronous mechanism for running the other tests.
 The table below lists the rules followed in the implementation from translating pseudocode constructs into Python
 instructions.
 
-| Type                       | Pseudocode construct                                                                                                                                                                                                                                                                                                                                            | Translated Python code                                                                                     | Remarks                                                      |
-|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
-| predefined constant        | ![](img/light/true.png#gh-light-mode-only)![](img/dark/true.png#gh-dark-mode-only)<br/>![](img/light/false.png#gh-light-mode-only)![](img/dark/false.png#gh-dark-mode-only)<br/>![](img/light/nil.png#gh-light-mode-only)![](img/dark/nil.png#gh-dark-mode-only)<br/>![](img/light/infinity.png#gh-light-mode-only)![](img/dark/infinity.png#gh-dark-mode-only) | `True`<br/>`False`<br/>`None`<br/>`math.inf`                                                               |                                                              |
-| custom constant            | ![](img/light/constant.png#gh-light-mode-only)![](img/dark/constant.png#gh-dark-mode-only)<br/>![](img/light/dashed_constant.png#gh-light-mode-only)![](img/dark/dashed_constant.png#gh-dark-mode-only)                                                                                                                                                         | `RED`<br/>`NO_SUCH_PATH`                                                                                   | defined as a standalone or an enum value                     |
-| variable                   | ![](img/light/variable.png#gh-light-mode-only)![](img/dark/variable.png#gh-dark-mode-only)<br/>![](img/light/decorated_variable.png#gh-light-mode-only)![](img/dark/decorated_variable.png#gh-dark-mode-only)<br/>![](img/light/dashed_variable.png#gh-light-mode-only)![](img/dark/dashed_variable.png#gh-dark-mode-only)                                      | `k`<br/>`k2_`<br/>`best_score`                                                                             |                                                              |
-| object's attribute         | ![](img/light/attribute.png#gh-light-mode-only)![](img/dark/attribute.png#gh-dark-mode-only)<br/>![](img/light/dashed_attribute.png#gh-light-mode-only)![](img/dark/dashed_attribute.png#gh-dark-mode-only)<br/>![](img/light/indexed_attribute.png#gh-light-mode-only)![](img/dark/indexed_attribute.png#gh-dark-mode-only)                                    | `T.root`<br/>`A.heap_size`<br/>`x.key[i]`                                                                  | indexed attributes are implemented as an `Array`             |
-| fixed function             | ![](img/light/fixed_function.png#gh-light-mode-only)![](img/dark/fixed_function.png#gh-dark-mode-only)                                                                                                                                                                                                                                                          | `out_degree(v)`                                                                                            | defined in a separate module                                 |
-| assignment                 | ![](img/light/assignment.png#gh-light-mode-only)![](img/dark/assignment.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                  | `x = y`                                                                                                    |                                                              |
-| shifting a variable        | ![](img/light/increment.png#gh-light-mode-only)![](img/dark/increment.png#gh-dark-mode-only)<br/>![](img/light/decrement.png#gh-light-mode-only)![](img/dark/decrement.png#gh-dark-mode-only)                                                                                                                                                                   | `i += 1`<br/>`j -= 4`                                                                                      |                                                              |
-| condition                  | ![](img/light/is_equal.png#gh-light-mode-only)![](img/dark/is_equal.png#gh-dark-mode-only)<br/>![](img/light/is_not_equal.png#gh-light-mode-only)![](img/dark/is_not_equal.png#gh-dark-mode-only)<br/>![](img/light/compound_condition.png#gh-light-mode-only)![](img/dark/compound_condition.png#gh-dark-mode-only)                                            | `x == y` or `x is y`<br/>`x != y` or `x is not y`<br/>`x < y or (x > y and not found)`                     | depends on the compared variables type: scalars or pointers  |
-| procedure call             | ![](img/light/procedure_call.png#gh-light-mode-only)![](img/dark/procedure_call.png#gh-dark-mode-only)                                                                                                                                                                                                                                                          | `insertion_sort(A, n)`                                                                                     |                                                              |
-| returning from a procedure | ![](img/light/return_no_value.png#gh-light-mode-only)![](img/dark/return_no_value.png#gh-dark-mode-only)<br/>![](img/light/return_single_value.png#gh-light-mode-only)![](img/dark/return_single_value.png#gh-dark-mode-only)<br/>![](img/light/return_multiple_values.png#gh-light-mode-only)![](img/dark/return_multiple_values.png#gh-dark-mode-only)        | `return`<br/>`return x`<br/>`return x, y`                                                                  |                                                              |
-| exchanging values          | ![](img/light/exchange.png#gh-light-mode-only)![](img/dark/exchange.png#gh-dark-mode-only)<br/>![](img/light/swap.png#gh-light-mode-only)![](img/dark/swap.png#gh-dark-mode-only)                                                                                                                                                                               | `x, y = y, x`                                                                                              |
-| signaling error            | ![](img/light/error.png#gh-light-mode-only)![](img/dark/error.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                            | `raise ValueError('overflow')`                                                                             |
-| printing                   | ![](img/light/print.png#gh-light-mode-only)![](img/dark/print.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                            | `print(x)`                                                                                                 |
-| creating a new array       | ![](img/light/new_array.png#gh-light-mode-only)![](img/dark/new_array.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                    | `A = Array(0, n)`                                                                                          |
-| referencing an array cell  | ![](img/light/array_cell.png#gh-light-mode-only)![](img/dark/array_cell.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                  | `A[i]`                                                                                                     |
-| creating a new set         | ![](img/light/new_set.png#gh-light-mode-only)![](img/dark/new_set.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                        | `S = set()`                                                                                                |
-| union of sets              | ![](img/light/set_union.png#gh-light-mode-only)![](img/dark/set_union.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                    | `S \| {x}`                                                                                                 |
-| set cardinality            | ![](img/light/set_cardinality.png#gh-light-mode-only)![](img/dark/set_cardinality.png#gh-dark-mode-only)                                                                                                                                                                                                                                                        | `len(S)`                                                                                                   |
-| floor division             | ![](img/light/floor_division.png#gh-light-mode-only)![](img/dark/floor_division.png#gh-dark-mode-only)                                                                                                                                                                                                                                                          | `a // b`                                                                                                   |
-| ceiling division           | ![](img/light/ceiling_division.png#gh-light-mode-only)![](img/dark/ceiling_division.png#gh-dark-mode-only)                                                                                                                                                                                                                                                      | `-(a // -b)`                                                                                               |
-| minimum                    | ![](img/light/minimum.png#gh-light-mode-only)![](img/dark/minimum.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                        | `min(x, y)`                                                                                                |
-| maximum                    | ![](img/light/maximum.png#gh-light-mode-only)![](img/dark/maximum.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                        | `max(x, y)`                                                                                                |
-| *if* statement             | ![](img/light/if_statement.png#gh-light-mode-only)![](img/dark/if_statement.png#gh-dark-mode-only)                                                                                                                                                                                                                                                              | <pre>if condition1:<br/>  statement1<br/>elif condition2:<br/>  statement<br/>else:<br/>  statement3</pre> |
-| indexed *for* loop         | ![](img/light/for_to_loop.png#gh-light-mode-only)![](img/dark/for_to_loop.png#gh-dark-mode-only)<br/>![](img/light/for_downto_loop.png#gh-light-mode-only)![](img/dark/for_downto_loop.png#gh-dark-mode-only)                                                                                                                                                   | <pre>for i in a \|to\| b:<br/>  body</pre><br/><pre>for i in b \|downto\| a:<br/>  body</pre>              | `\|to\|` and `\|downto\|` are custom defined infix operators |
-| *for each* loop            | ![](img/light/for_each_loop.png#gh-light-mode-only)![](img/dark/for_each_loop.png#gh-dark-mode-only)                                                                                                                                                                                                                                                            | <pre>for v in V:<br/>  body</pre>                                                                          |                                                              |
-| *while* loop               | ![](img/light/while_loop.png#gh-light-mode-only)![](img/dark/while_loop.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                  | <pre>while condition:<br/>  body</pre>                                                                     |                                                              |
-| *repeat* loop              | ![](img/light/repeat_loop.png#gh-light-mode-only)![](img/dark/repeat_loop.png#gh-dark-mode-only)                                                                                                                                                                                                                                                                | <pre>while True:<br/>  body<br/>  if condition:<br/>    break</pre>                                        |                                                              |
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Pseudocode construct</th>
+    <th>Python code</th>
+    <th>Remarks</th>
+  </tr>
+  <tr>
+    <td>predefined constant</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/true.png">
+        <img src="img/light/true.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/false.png">
+        <img src="img/light/false.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/nil.png">
+        <img src="img/light/nil.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/infinity.png">
+        <img src="img/light/infinity.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">True</pre><br/>
+      <pre lang="python">False</pre><br/>
+      <pre lang="python">None</pre><br/>
+      <pre lang="python">math.inf</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>custom constant</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/constant.png">
+        <img src="img/light/constant.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">NO_SUCH_PATH</pre>
+    </td>
+    <td>defined as a standalone or an enum value</td>
+  </tr>
+  <tr>
+    <td>variable</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/variable.png">
+        <img src="img/light/variable.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/decorated_variable.png">
+        <img src="img/light/decorated_variable.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/dashed_variable.png">
+        <img src="img/light/dashed_variable.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x</pre><br/>
+      <pre lang="python">y2_</pre><br/>
+      <pre lang="python">best_score</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>object's attribute</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/attribute.png">
+        <img src="img/light/attribute.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/dashed_attribute.png">
+        <img src="img/light/dashed_attribute.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/indexed_attribute.png">
+        <img src="img/light/indexed_attribute.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">T.root</pre><br/>
+      <pre lang="python">A.heap_size</pre><br/>
+      <pre lang="python">x.key[i]</pre>
+    </td>
+    <td>indexed attributes are implemented as an `Array`</td>
+  </tr>
+  <tr>
+    <td>assignment</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/assignment.png">
+        <img src="img/light/assignment.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x = y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>condition</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
+        <img src="img/light/is_equal.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_not_equal.png">
+        <img src="img/light/is_not_equal.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/less.png">
+        <img src="img/light/less.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/greater.png">
+        <img src="img/light/greater.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/less_equal.png">
+        <img src="img/light/less_equal.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/greater_equal.png">
+        <img src="img/light/greater_equal.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/and.png">
+        <img src="img/light/and.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/or.png">
+        <img src="img/light/or.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/not.png">
+        <img src="img/light/not.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x == y</pre>(scalars)<pre lang="python">x is y</pre>(pointers)<br/>
+      <pre lang="python">x != y</pre>(scalars)<pre lang="python">x is not y</pre>(pointers)<br/>
+      <pre lang="python">x &lt; y</pre><br/>
+      <pre lang="python">x &lt; y</pre><br/>
+      <pre lang="python">x &gt;= y</pre><br/>
+      <pre lang="python">x &gt;= y</pre><br/>
+      <pre lang="python">condition1 and condition2</pre><br/>
+      <pre lang="python">condition1 or condition2</pre><br/>
+      <pre lang="python">not condition</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>mathematical operation</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/increment.png">
+        <img src="img/light/increment.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/decrement.png">
+        <img src="img/light/decrement.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/addition.png">
+        <img src="img/light/addition.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/subtraction.png">
+        <img src="img/light/subtraction.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/multiplication.png">
+        <img src="img/light/multiplication.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/floor_division.png">
+        <img src="img/light/floor_division.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/ceiling_division.png">
+        <img src="img/light/ceiling_division.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/modulo.png">
+        <img src="img/light/modulo.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/exponent.png">
+        <img src="img/light/exponent.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/square_root.png">
+        <img src="img/light/square_root.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/minimum.png">
+        <img src="img/light/minimum.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/maximum.png">
+        <img src="img/light/maximum.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x += y</pre><br/>
+      <pre lang="python">x -= y</pre><br/>
+      <pre lang="python">x + y</pre><br/>
+      <pre lang="python">x - y</pre><br/>
+      <pre lang="python">x * y</pre><br/>
+      <pre lang="python">x // y</pre><br/>
+      <pre lang="python">-(x // -y)</pre><br/>
+      <pre lang="python">x % y</pre><br/>
+      <pre lang="python">x ** y</pre><br/>
+      <pre lang="python">math.sqrt(x)</pre><br/>
+      <pre lang="python">max(x, y)</pre><br/>
+      <pre lang="python">min(x, y)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>value exchange</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/exchange.png">
+        <img src="img/light/exchange.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/swap.png">
+        <img src="img/light/swap.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x, y = y, x</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>printing</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/print.png">
+        <img src="img/light/print.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">print(x)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>procedure definition</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/procedure_definition.png">
+        <img src="img/light/procedure_definition.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">
+def insertion_sort(A, n):
+  block
+      </pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>procedure call</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/procedure_call.png">
+        <img src="img/light/procedure_call.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">insertion_sort(A, n)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>procedure return</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_no_value.png">
+        <img src="img/light/return_no_value.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_single_value.png">
+        <img src="img/light/return_single_value.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_multiple_values.png">
+        <img src="img/light/return_multiple_values.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">return</pre><br/>
+      <pre lang="python">return x</pre><br/>
+      <pre lang="python">return x, y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>array creation</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/new_array.png">
+        <img src="img/light/new_array.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">A = Array(0, n)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>array call reference</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/array_cell.png">
+        <img src="img/light/array_cell.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">A[i]</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>set creation</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/new_set.png">
+        <img src="img/light/new_set.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">S = set()</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>sets union</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/set_union.png">
+        <img src="img/light/set_union.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">S | {x}</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>set cardinality</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/set_cardinality.png">
+        <img src="img/light/set_cardinality.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">len(S)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>signaling error</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/error.png">
+        <img src="img/light/error.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">raise ValueError('overflow')</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><em>if</em> statement</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/if_statement.png">
+        <img src="img/light/if_statement.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">
+if condition1:
+  block1
+elif condition2:
+  block2
+else:
+  block3
+      </pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>indexed <em>for</em> loop</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_to_loop.png">
+        <img src="img/light/procedure_call.png">
+      </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_downto_loop.png">
+        <img src="img/light/procedure_call.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">
+for i in a |to| b:
+  block
+      </pre><br/>
+      <pre lang="python">
+for i in b |downto| a:
+  block
+      </pre>
+    </td>
+    <td>`|to|` and `|downto|` are custom defined infix operators</td>
+  </tr>
+  <tr>
+    <td><em>for-each</em> loop</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_each_loop.png">
+        <img src="img/light/for_each_loop.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">
+for v in V:
+  block
+      </pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><em>while</em> loop</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/while_loop.png">
+        <img src="img/light/while_loop.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">
+while condition:
+  block
+      </pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><em>repeat</em> loop</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/repeat_loop.png">
+        <img src="img/light/repeat_loop.png">
+      </picture></td>
+    <td>
+      <pre lang="python">
+while True:
+  block
+  if condition:
+    break
+      </pre>
+    </td>
+    <td></td>
+  </tr>
+</table>
 
 **Stay tuned for more information once I migrate some amount of code.**
