@@ -98,9 +98,9 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">True</pre><br/>
-      <pre lang="python">False</pre><br/>
-      <pre lang="python">None</pre><br/>
+      <pre lang="python">True</pre>
+      <pre lang="python">False</pre>
+      <pre lang="python">None</pre>
       <pre lang="python">math.inf</pre>
     </td>
     <td></td>
@@ -135,8 +135,8 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">x</pre><br/>
-      <pre lang="python">y2_</pre><br/>
+      <pre lang="python">x</pre>
+      <pre lang="python">y2_</pre>
       <pre lang="python">best_score</pre>
     </td>
     <td></td>
@@ -158,11 +158,11 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">T.root</pre><br/>
-      <pre lang="python">A.heap_size</pre><br/>
+      <pre lang="python">T.root</pre>
+      <pre lang="python">A.heap_size</pre>
       <pre lang="python">x.key[i]</pre>
     </td>
-    <td>indexed attributes are implemented as an `Array`</td>
+    <td>indexed attributes are implemented as an <code>Array</code></td>
   </tr>
   <tr>
     <td>assignment</td>
@@ -178,7 +178,7 @@ instructions.
     <td></td>
   </tr>
   <tr>
-    <td>condition</td>
+    <td>scalar comparison</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
@@ -203,7 +203,39 @@ instructions.
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/greater_equal.png">
         <img src="img/light/greater_equal.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x == y</pre>
+      <pre lang="python">x != y</pre>
+      <pre lang="python">x &lt; y</pre>
+      <pre lang="python">x &lt; y</pre>
+      <pre lang="python">x &gt;= y</pre>
+      <pre lang="python">x &gt;= y</pre>
+    </td>
+    <td>assuming that <code>x</code> and <code>y</code> are scalars</td>
+  </tr>
+  <tr>
+    <td>pointer comparison</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
+        <img src="img/light/is_equal.png">
       </picture><br/>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_not_equal.png">
+        <img src="img/light/is_not_equal.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x is y</pre>
+      <pre lang="python">x is not y</pre>
+    </td>
+    <td>assuming that <code>x</code> and <code>y</code> are pointers</td>
+  </tr>
+  <tr>
+    <td>logical operation</td>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/and.png">
         <img src="img/light/and.png">
@@ -218,20 +250,14 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">x == y</pre>(scalars)<pre lang="python">x is y</pre>(pointers)<br/>
-      <pre lang="python">x != y</pre>(scalars)<pre lang="python">x is not y</pre>(pointers)<br/>
-      <pre lang="python">x &lt; y</pre><br/>
-      <pre lang="python">x &lt; y</pre><br/>
-      <pre lang="python">x &gt;= y</pre><br/>
-      <pre lang="python">x &gt;= y</pre><br/>
-      <pre lang="python">condition1 and condition2</pre><br/>
-      <pre lang="python">condition1 or condition2</pre><br/>
+      <pre lang="python">condition1 and condition2</pre>
+      <pre lang="python">condition1 or condition2</pre>
       <pre lang="python">not condition</pre>
     </td>
     <td></td>
   </tr>
   <tr>
-    <td>mathematical operation</td>
+    <td>arithmetic operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/increment.png">
@@ -283,17 +309,17 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">x += y</pre><br/>
-      <pre lang="python">x -= y</pre><br/>
-      <pre lang="python">x + y</pre><br/>
-      <pre lang="python">x - y</pre><br/>
-      <pre lang="python">x * y</pre><br/>
-      <pre lang="python">x // y</pre><br/>
-      <pre lang="python">-(x // -y)</pre><br/>
-      <pre lang="python">x % y</pre><br/>
-      <pre lang="python">x ** y</pre><br/>
-      <pre lang="python">math.sqrt(x)</pre><br/>
-      <pre lang="python">max(x, y)</pre><br/>
+      <pre lang="python">x += y</pre>
+      <pre lang="python">x -= y</pre>
+      <pre lang="python">x + y</pre>
+      <pre lang="python">x - y</pre>
+      <pre lang="python">x * y</pre>
+      <pre lang="python">x // y</pre>
+      <pre lang="python">-(x // -y)</pre>
+      <pre lang="python">x % y</pre>
+      <pre lang="python">x ** y</pre>
+      <pre lang="python">math.sqrt(x)</pre>
+      <pre lang="python">max(x, y)</pre>
       <pre lang="python">min(x, y)</pre>
     </td>
     <td></td>
@@ -374,8 +400,8 @@ def insertion_sort(A, n):
       </picture>
     </td>
     <td>
-      <pre lang="python">return</pre><br/>
-      <pre lang="python">return x</pre><br/>
+      <pre lang="python">return</pre>
+      <pre lang="python">return x</pre>
       <pre lang="python">return x, y</pre>
     </td>
     <td></td>
@@ -493,14 +519,12 @@ else:
     <td>
       <pre lang="python">
 for i in a |to| b:
-  block
-      </pre><br/>
+  block</pre>
       <pre lang="python">
 for i in b |downto| a:
-  block
-      </pre>
+  block</pre>
     </td>
-    <td>`|to|` and `|downto|` are custom defined infix operators</td>
+    <td><code>|to|</code> and <code>|downto|</code> are custom defined infix operators</td>
   </tr>
   <tr>
     <td><em>for-each</em> loop</td>
@@ -513,8 +537,7 @@ for i in b |downto| a:
     <td>
       <pre lang="python">
 for v in V:
-  block
-      </pre>
+  block</pre>
     </td>
     <td></td>
   </tr>
@@ -529,8 +552,7 @@ for v in V:
     <td>
       <pre lang="python">
 while condition:
-  block
-      </pre>
+  block</pre>
     </td>
     <td></td>
   </tr>
