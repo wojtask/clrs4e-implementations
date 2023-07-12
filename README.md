@@ -69,6 +69,11 @@ asynchronous mechanism for running the other tests.
 
 The table below lists the rules followed in the implementation from translating pseudocode constructs into Python
 instructions.
+A pseudocode may also contain lines that don't match any of the categories in this table, like instructions in plain
+English or more sophisticated mathematical expressions. In such cases the rule is to implement these lines as a separate
+helper function in Python, named appropriately. The function should implement only the step reflected by that line.
+Pseudocode
+comments are ignored.
 
 <table>
   <tr>
@@ -612,7 +617,7 @@ instructions.
 def insertion_sort(A, n):
   &lt;block&gt;</pre>
     </td>
-    <td></td>
+    <td>May include type hints for the parameters or the return value.</td>
   </tr>
   <tr></tr>
   <tr>
