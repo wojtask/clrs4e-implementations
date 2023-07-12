@@ -78,7 +78,7 @@ instructions.
     <th>Remarks</th>
   </tr>
   <tr>
-    <td rowspan="4">predefined constant</td>
+    <td rowspan="8">predefined constant</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/true.png">
@@ -90,6 +90,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -102,6 +103,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -114,6 +116,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -126,8 +129,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>custom constant</td>
+    <td rowspan="2">custom constant</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/constant.png">
@@ -139,8 +143,9 @@ instructions.
     </td>
     <td>Defined as a standalone or an enum value.</td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="3">variable</td>
+    <td rowspan="6">variable</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/variable.png">
@@ -152,6 +157,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -164,6 +170,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -176,8 +183,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="3">object's attribute</td>
+    <td rowspan="6">object's attribute</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/attribute.png">
@@ -189,6 +197,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -201,6 +210,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -213,8 +223,9 @@ instructions.
     </td>
     <td>Implemented as an <code>Array</code>.</td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>assignment</td>
+    <td rowspan="2">assignment</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/assignment.png">
@@ -226,8 +237,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="6">scalar comparison</td>
+    <td rowspan="12">scalar comparison</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
@@ -237,8 +249,9 @@ instructions.
     <td>
       <pre lang="python">x == y</pre>
     </td>
-    <td rowspan="6"><code>x</code> and <code>y</code> are scalars.</td>
+    <td rowspan="12"><code>x</code> and <code>y</code> are scalars.</td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -250,6 +263,7 @@ instructions.
       <pre lang="python">x != y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -261,6 +275,7 @@ instructions.
       <pre lang="python">x &lt; y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -272,6 +287,7 @@ instructions.
       <pre lang="python">x &lt; y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -283,6 +299,7 @@ instructions.
       <pre lang="python">x &gt;= y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -294,8 +311,9 @@ instructions.
       <pre lang="python">x &gt;= y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="2">pointer comparison</td>
+    <td rowspan="4">pointer comparison</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
@@ -305,8 +323,9 @@ instructions.
     <td>
       <pre lang="python">x is y</pre>
     </td>
-    <td rowspan="2"><code>x</code> and <code>y</code> are pointers.</td>
+    <td rowspan="4"><code>x</code> and <code>y</code> are pointers.</td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -318,8 +337,9 @@ instructions.
       <pre lang="python">x is not y</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="3">logical operation</td>
+    <td rowspan="6">logical operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/and.png">
@@ -331,6 +351,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -343,6 +364,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -355,8 +377,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="14">arithmetic operation</td>
+    <td rowspan="28">arithmetic operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/increment.png">
@@ -368,6 +391,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -380,6 +404,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -392,6 +417,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -404,6 +430,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -416,6 +443,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -428,6 +456,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -440,6 +469,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -452,6 +482,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -464,6 +495,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -476,6 +508,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -488,6 +521,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -500,6 +534,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -512,6 +547,7 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -524,19 +560,21 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="2">value exchange</td>
+    <td rowspan="4">value exchange</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/exchange.png">
         <img src="img/light/exchange.png">
       </picture>
     </td>
-    <td rowspan="2">
+    <td rowspan="4">
       <pre lang="python">x, y = y, x</pre>
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -546,8 +584,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>printing</td>
+    <td rowspan="2">printing</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/print.png">
@@ -559,8 +598,9 @@ instructions.
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>procedure definition</td>
+    <td rowspan="2">procedure definition</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/procedure_definition.png">
@@ -574,8 +614,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>procedure call</td>
+    <td rowspan="2">procedure call</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/procedure_call.png">
@@ -587,8 +628,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="3">procedure return</td>
+    <td rowspan="6">procedure return</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_no_value.png">
@@ -600,6 +642,7 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -612,6 +655,7 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -624,8 +668,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>array creation</td>
+    <td rowspan="2">array creation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/new_array.png">
@@ -637,8 +682,9 @@ def insertion_sort(A, n):
     </td>
     <td>The created array consists of <code>None</code> values on each position.</td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>array cell reference</td>
+    <td rowspan="2">array cell reference</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/array_cell.png">
@@ -650,8 +696,9 @@ def insertion_sort(A, n):
     </td>
     <td>Either as an accessor or a mutator.</td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>set creation</td>
+    <td rowspan="2">set creation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/new_set.png">
@@ -663,8 +710,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>sets union</td>
+    <td rowspan="2">sets union</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/set_union.png">
@@ -676,8 +724,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>set cardinality</td>
+    <td rowspan="2">set cardinality</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/set_cardinality.png">
@@ -689,8 +738,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td>error</td>
+    <td rowspan="2">error</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/error.png">
@@ -702,8 +752,9 @@ def insertion_sort(A, n):
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td><em>if</em> statement</td>
+    <td rowspan="2"><em>if</em> statement</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/if_statement.png">
@@ -721,8 +772,9 @@ else:
     </td>
     <td>Can have zero or more <code>elif</code> branches and zero or one <code>else</code> branch.</td>
   </tr>
+  <tr></tr>
   <tr>
-    <td rowspan="2"><em>for</em> loop</td>
+    <td rowspan="4"><em>for</em> loop</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_to_loop.png">
@@ -734,8 +786,9 @@ else:
 for i in a |to| b:
   block</pre>
     </td>
-    <td rowspan="2"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
+    <td rowspan="4"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
   </tr>
+  <tr></tr>
   <tr>
     <td>
       <picture>
@@ -749,8 +802,9 @@ for i in b |downto| a:
   block</pre>
     </td>
   </tr>
+  <tr></tr>
   <tr>
-    <td><em>for-each</em> loop</td>
+    <td rowspan="2"><em>for-each</em> loop</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_each_loop.png">
@@ -764,8 +818,9 @@ for v in V:
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td><em>while</em> loop</td>
+    <td rowspan="2"><em>while</em> loop</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/while_loop.png">
@@ -779,8 +834,9 @@ while condition:
     </td>
     <td></td>
   </tr>
+  <tr></tr>
   <tr>
-    <td><em>repeat</em> loop</td>
+    <td rowspan="2"><em>repeat</em> loop</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/repeat_loop.png">
@@ -795,6 +851,7 @@ while True:
     </td>
     <td></td>
   </tr>
+  <tr></tr>
 </table>
 
 **Stay tuned for more information once I migrate some amount of code.**
