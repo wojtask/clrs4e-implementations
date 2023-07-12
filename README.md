@@ -221,7 +221,7 @@ instructions.
     <td>
       <pre lang="python">x.key[i]</pre>
     </td>
-    <td>Implemented as an <code>Array</code>.</td>
+    <td><code>key</code> is implemented as an <code>Array</code>.</td>
   </tr>
   <tr></tr>
   <tr>
