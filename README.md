@@ -783,10 +783,10 @@ else:
     </td>
     <td>
       <pre lang="python">
-for i in x |to| y:
+for i in range_of(x, to=y):
   &lt;block&gt;</pre>
     </td>
-    <td rowspan="4"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
+    <td rowspan="2"><code>range_of(x, to=y)</code> is equivalent to <code>range(x, y + 1)</code>.</td>
   </tr>
   <tr></tr>
   <tr>
@@ -798,9 +798,10 @@ for i in x |to| y:
     </td>
     <td>
       <pre lang="python">
-for i in y |downto| x:
+for i in range_of(y, downto=x):
   &lt;block&gt;</pre>
     </td>
+    <td><code>range_of(y, downto=x)</code> is equivalent to <code>range(y, x - 1, -1)</code>.</td>
   </tr>
   <tr></tr>
   <tr>
