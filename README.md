@@ -78,29 +78,50 @@ instructions.
     <th>Remarks</th>
   </tr>
   <tr>
-    <td>predefined constant</td>
+    <td rowspan="4">predefined constant</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/true.png">
         <img src="img/light/true.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">True</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/false.png">
         <img src="img/light/false.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">False</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/nil.png">
         <img src="img/light/nil.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">None</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/infinity.png">
         <img src="img/light/infinity.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">True</pre>
-      <pre lang="python">False</pre>
-      <pre lang="python">None</pre>
       <pre lang="python">math.inf</pre>
     </td>
     <td></td>
@@ -116,53 +137,81 @@ instructions.
     <td>
       <pre lang="python">NO_SUCH_PATH</pre>
     </td>
-    <td>defined as a standalone or an enum value</td>
+    <td>Defined as a standalone or an enum value.</td>
   </tr>
   <tr>
-    <td>variable</td>
+    <td rowspan="3">variable</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/variable.png">
         <img src="img/light/variable.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/decorated_variable.png">
         <img src="img/light/decorated_variable.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">y2_</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/dashed_variable.png">
         <img src="img/light/dashed_variable.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">x</pre>
-      <pre lang="python">y2_</pre>
       <pre lang="python">best_score</pre>
     </td>
     <td></td>
   </tr>
   <tr>
-    <td>object's attribute</td>
+    <td rowspan="3">object's attribute</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/attribute.png">
         <img src="img/light/attribute.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">T.root</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/dashed_attribute.png">
         <img src="img/light/dashed_attribute.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">A.heap_size</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/indexed_attribute.png">
         <img src="img/light/indexed_attribute.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">T.root</pre>
-      <pre lang="python">A.heap_size</pre>
       <pre lang="python">x.key[i]</pre>
     </td>
-    <td>indexed attributes are implemented as an <code>Array</code></td>
+    <td>Implemented as an <code>Array</code>.</td>
   </tr>
   <tr>
     <td>assignment</td>
@@ -178,176 +227,322 @@ instructions.
     <td></td>
   </tr>
   <tr>
-    <td>scalar comparison</td>
+    <td rowspan="6">scalar comparison</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
         <img src="img/light/is_equal.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x == y</pre>
+    </td>
+    <td rowspan="6"><code>x</code> and <code>y</code> are scalars.</td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_not_equal.png">
         <img src="img/light/is_not_equal.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x != y</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/less.png">
         <img src="img/light/less.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x &lt; y</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/greater.png">
         <img src="img/light/greater.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x &lt; y</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/less_equal.png">
         <img src="img/light/less_equal.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x &gt;= y</pre>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/greater_equal.png">
         <img src="img/light/greater_equal.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">x == y</pre>
-      <pre lang="python">x != y</pre>
-      <pre lang="python">x &lt; y</pre>
-      <pre lang="python">x &lt; y</pre>
-      <pre lang="python">x &gt;= y</pre>
       <pre lang="python">x &gt;= y</pre>
     </td>
-    <td>assuming that <code>x</code> and <code>y</code> are scalars</td>
   </tr>
   <tr>
-    <td>pointer comparison</td>
+    <td rowspan="2">pointer comparison</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_equal.png">
         <img src="img/light/is_equal.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x is y</pre>
+    </td>
+    <td rowspan="2"><code>x</code> and <code>y</code> are pointers.</td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/is_not_equal.png">
         <img src="img/light/is_not_equal.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">x is y</pre>
       <pre lang="python">x is not y</pre>
     </td>
-    <td>assuming that <code>x</code> and <code>y</code> are pointers</td>
   </tr>
   <tr>
-    <td>logical operation</td>
+    <td rowspan="3">logical operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/and.png">
         <img src="img/light/and.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">condition1 and condition2</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/or.png">
         <img src="img/light/or.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">condition1 or condition2</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/not.png">
         <img src="img/light/not.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">condition1 and condition2</pre>
-      <pre lang="python">condition1 or condition2</pre>
       <pre lang="python">not condition</pre>
     </td>
     <td></td>
   </tr>
   <tr>
-    <td>arithmetic operation</td>
+    <td rowspan="14">arithmetic operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/increment.png">
         <img src="img/light/increment.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x += y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/decrement.png">
         <img src="img/light/decrement.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x -= y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/addition.png">
         <img src="img/light/addition.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x + y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/subtraction.png">
         <img src="img/light/subtraction.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x - y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/multiplication.png">
         <img src="img/light/multiplication.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x * y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/floor_division.png">
         <img src="img/light/floor_division.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x // y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/ceiling_division.png">
         <img src="img/light/ceiling_division.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">-(x // -y)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/modulo.png">
         <img src="img/light/modulo.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x % y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/exponent.png">
         <img src="img/light/exponent.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x ** y</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/square_root.png">
         <img src="img/light/square_root.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">math.sqrt(x)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/floor.png">
         <img src="img/light/floor.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">math.floor(x)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/ceiling.png">
         <img src="img/light/ceiling.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">math.ceil(x)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/minimum.png">
         <img src="img/light/minimum.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">min(x, y)</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/maximum.png">
         <img src="img/light/maximum.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">x += y</pre>
-      <pre lang="python">x -= y</pre>
-      <pre lang="python">x + y</pre>
-      <pre lang="python">x - y</pre>
-      <pre lang="python">x * y</pre>
-      <pre lang="python">x // y</pre>
-      <pre lang="python">-(x // -y)</pre>
-      <pre lang="python">x % y</pre>
-      <pre lang="python">x ** y</pre>
-      <pre lang="python">math.sqrt(x)</pre>
-      <pre lang="python">math.floor(x)</pre>
-      <pre lang="python">math.ceil(x)</pre>
       <pre lang="python">max(x, y)</pre>
-      <pre lang="python">min(x, y)</pre>
     </td>
     <td></td>
   </tr>
   <tr>
-    <td>value exchange</td>
+    <td rowspan="2">value exchange</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/exchange.png">
         <img src="img/light/exchange.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td rowspan="2">
+      <pre lang="python">x, y = y, x</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/swap.png">
         <img src="img/light/swap.png">
       </picture>
-    </td>
-    <td>
-      <pre lang="python">x, y = y, x</pre>
     </td>
     <td></td>
   </tr>
@@ -375,8 +570,7 @@ instructions.
     <td>
       <pre lang="python">
 def insertion_sort(A, n):
-  block
-      </pre>
+  block</pre>
     </td>
     <td></td>
   </tr>
@@ -394,24 +588,38 @@ def insertion_sort(A, n):
     <td></td>
   </tr>
   <tr>
-    <td>procedure return</td>
+    <td rowspan="3">procedure return</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_no_value.png">
         <img src="img/light/return_no_value.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">return</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_single_value.png">
         <img src="img/light/return_single_value.png">
-      </picture><br/>
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">return x</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/return_multiple_values.png">
         <img src="img/light/return_multiple_values.png">
       </picture>
     </td>
     <td>
-      <pre lang="python">return</pre>
-      <pre lang="python">return x</pre>
       <pre lang="python">return x, y</pre>
     </td>
     <td></td>
@@ -427,10 +635,10 @@ def insertion_sort(A, n):
     <td>
       <pre lang="python">A = Array(0, n)</pre>
     </td>
-    <td></td>
+    <td>The created array consists of <code>None</code> values on each position.</td>
   </tr>
   <tr>
-    <td>array call reference</td>
+    <td>array cell reference</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/array_cell.png">
@@ -440,7 +648,7 @@ def insertion_sort(A, n):
     <td>
       <pre lang="python">A[i]</pre>
     </td>
-    <td></td>
+    <td>Either as an accessor or a mutator.</td>
   </tr>
   <tr>
     <td>set creation</td>
@@ -482,7 +690,7 @@ def insertion_sort(A, n):
     <td></td>
   </tr>
   <tr>
-    <td>signaling error</td>
+    <td>error</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/error.png">
@@ -509,20 +717,15 @@ if condition1:
 elif condition2:
   block2
 else:
-  block3
-      </pre>
+  block3</pre>
     </td>
-    <td></td>
+    <td>Can have zero or more <code>elif</code> branches and zero or one <code>else</code> branch.</td>
   </tr>
   <tr>
-    <td>indexed <em>for</em> loop</td>
+    <td rowspan="2"><em>for</em> loop</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_to_loop.png">
-        <img src="img/light/procedure_call.png">
-      </picture><br/>
-      <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_downto_loop.png">
         <img src="img/light/procedure_call.png">
       </picture>
     </td>
@@ -530,11 +733,21 @@ else:
       <pre lang="python">
 for i in a |to| b:
   block</pre>
+    </td>
+    <td rowspan="2"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
+  </tr>
+  <tr>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/for_downto_loop.png">
+        <img src="img/light/procedure_call.png">
+      </picture>
+    </td>
+    <td>
       <pre lang="python">
 for i in b |downto| a:
   block</pre>
     </td>
-    <td><code>|to|</code> and <code>|downto|</code> are custom defined infix operators</td>
   </tr>
   <tr>
     <td><em>for-each</em> loop</td>
@@ -578,8 +791,7 @@ while condition:
 while True:
   block
   if condition:
-    break
-      </pre>
+    break</pre>
     </td>
     <td></td>
   </tr>
