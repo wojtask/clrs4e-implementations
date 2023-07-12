@@ -284,7 +284,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">x &lt; y</pre>
+      <pre lang="python">x &gt; y</pre>
     </td>
   </tr>
   <tr></tr>
@@ -296,7 +296,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">x &gt;= y</pre>
+      <pre lang="python">x &lt;= y</pre>
     </td>
   </tr>
   <tr></tr>
@@ -373,7 +373,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">not &lt;condition<&gt;/pre>
+      <pre lang="python">not &lt;condition&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -783,7 +783,7 @@ else:
     </td>
     <td>
       <pre lang="python">
-for i in a |to| b:
+for i in x |to| y:
   &lt;block&gt;</pre>
     </td>
     <td rowspan="4"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
@@ -798,7 +798,7 @@ for i in a |to| b:
     </td>
     <td>
       <pre lang="python">
-for i in b |downto| a:
+for i in y |downto| x:
   &lt;block&gt;</pre>
     </td>
   </tr>
