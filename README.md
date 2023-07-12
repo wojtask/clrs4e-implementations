@@ -347,7 +347,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">condition1 and condition2</pre>
+      <pre lang="python">&lt;condition1&gt; and &lt;condition2&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -360,7 +360,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">condition1 or condition2</pre>
+      <pre lang="python">&lt;condition1&gt; or &lt;condition2&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -373,7 +373,7 @@ instructions.
       </picture>
     </td>
     <td>
-      <pre lang="python">not condition</pre>
+      <pre lang="python">not &lt;condition<&gt;/pre>
     </td>
     <td></td>
   </tr>
@@ -610,7 +610,7 @@ instructions.
     <td>
       <pre lang="python">
 def insertion_sort(A, n):
-  block</pre>
+  &lt;block&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -763,12 +763,12 @@ def insertion_sort(A, n):
     </td>
     <td>
       <pre lang="python">
-if condition1:
-  block1
-elif condition2:
-  block2
+if &lt;condition1&gt;:
+  &lt;block1&gt;
+elif &lt;condition2&gt;:
+  &lt;block2&gt;
 else:
-  block3</pre>
+  &lt;block3&gt;</pre>
     </td>
     <td>Can have zero or more <code>elif</code> branches and zero or one <code>else</code> branch.</td>
   </tr>
@@ -784,7 +784,7 @@ else:
     <td>
       <pre lang="python">
 for i in a |to| b:
-  block</pre>
+  &lt;block&gt;</pre>
     </td>
     <td rowspan="4"><code>|to|</code> and <code>|downto|</code> are custom defined infix operators.</td>
   </tr>
@@ -799,7 +799,7 @@ for i in a |to| b:
     <td>
       <pre lang="python">
 for i in b |downto| a:
-  block</pre>
+  &lt;block&gt;</pre>
     </td>
   </tr>
   <tr></tr>
@@ -814,7 +814,7 @@ for i in b |downto| a:
     <td>
       <pre lang="python">
 for v in V:
-  block</pre>
+  &lt;block&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -829,8 +829,8 @@ for v in V:
     </td>
     <td>
       <pre lang="python">
-while condition:
-  block</pre>
+while &lt;condition&gt;:
+  &lt;block&gt;</pre>
     </td>
     <td></td>
   </tr>
@@ -845,8 +845,8 @@ while condition:
     <td>
       <pre lang="python">
 while True:
-  block
-  if condition:
+  &lt;block&gt;
+  if &lt;condition&gt;:
     break</pre>
     </td>
     <td></td>
