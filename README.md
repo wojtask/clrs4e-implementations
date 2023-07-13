@@ -4,12 +4,14 @@
 
 ### Overview
 
-This project provides implementations of algorithms and data structures found in *Introduction to Algorithms, Fourth
-Edition* by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and Clifford Stein, as well as in the book's [
-*Solutions to exercises and problems*](https://github.com/wojtask/clrs4e-solutions)
-by Krzysztof Wojtas.
-It serves as a companion to the solutions project helping in detecting and fixing bugs or limitations in the suggested
-algorithms and data structures.
+The goal of this project is to provide implementations of algorithms and data structures from [*Introduction to
+Algorithms, Fourth Edition*](http://mitpress.mit.edu/algorithms4), and from [*Solutions to exercises and
+problems*](https://github.com/wojtask/clrs4e-solutions).
+The book was written by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.
+The solutions are developed by myself, and are currently work in progress.
+The implementations here serve as a companion project to the solutions and play an invaluable role in verifying the
+theoretical work in practice.
+They help detecting and fixing bugs or limitations in the suggested algorithms and data structures.
 
 ### Project objectives
 
@@ -17,7 +19,8 @@ algorithms and data structures.
 * Implementation of algorithms and data structures with no explicit pseudocodes, yet precisely described in any of the
   source positions.
 * Testing the implementations, especially those from the solutions, to increase confidence in algorithms correctness.
-* Laying a foundation for a more sophisticated or practical library of algorithms and data structures for real use.
+* Laying a foundation for a more practical (or "production-ready") library of algorithms and data structures for real
+  use cases.
 
 ### Choice of a programming language
 
@@ -27,11 +30,11 @@ algorithms and data structures.
   courses.
   It is also widely used in many business applications.
   That makes it widely known in many communities, both academic and professional.
-* Python's syntax and semantic show many similarities to pseudocode used in the textbook and the solutions.
+* Python syntax and semantic show many similarities to pseudocode used in the textbook and the solutions.
   This enables easily transitioning between the two ways of expressing algorithms.
 * Python does not limit developers with a single programming paradigm, making it elastic to adapt to different models
   found in pseudocodes.
-* Python's typing system resembles the rules followed in pseudocode, particularly dynamic typing and duck typing.
+* Python typing system resembles the rules followed in pseudocode, particularly dynamic typing and duck typing.
 
 The implementations are written in a way to be as close as possible to the algorithms in the textbook or in the
 solutions, both in terms of syntax, and behavior.
@@ -43,14 +46,14 @@ The code in such cases is often appropriately structured to increase readability
 
 ### History and Future
 
-A couple of yeas ago I started implementing the algorithms from the second edition of the book while working on the
-book's [solutions](https://github.com/wojtask/CormenSol) in Polish.
+A couple of yeas ago I started implementing the algorithms from the second edition of the book while working on
+the [solutions](https://github.com/wojtask/CormenSol) in Polish.
 On GitHub there are legacy projects written in [Java](https://github.com/wojtask/CormenImpl)
 and [Python](https://github.com/wojtask/CormenPy).
 Soon after the fourth edition of the book got published, I deprecated those projects and began working on the solutions
-to the fourth edition by migrating the old material, i.e. adapting it to the new edition and translating it to English.
+to the fourth edition by migrating the old material, i.e., adapting it to the new edition and translating it to English.
 
-I plan to adapt the implementations similarly by moving (and if necessary updating) the legacy code as I work on solving
+I plan to adapt the implementations similarly by moving the legacy code and keeping it consistent as I work on solving
 exercises in each chapter.
 Therefore, the progress on the implementations almost entirely depends on
 the [progress](https://github.com/wojtask/clrs4e-solutions#progress) in the solutions.
@@ -70,10 +73,10 @@ asynchronous mechanism for running the other tests.
 The table below lists the rules followed in the implementation from translating pseudocode constructs into Python
 instructions.
 A pseudocode may also contain lines that don't match any of the categories in this table, like instructions in plain
-English or more sophisticated mathematical expressions. In such cases the rule is to implement these lines as a separate
-helper function in Python, named appropriately. The function should implement only the step reflected by that line.
-Pseudocode
-comments are ignored.
+English or more sophisticated mathematical expressions.
+In such cases the rule is to implement these lines as a separate helper function in Python, named appropriately.
+The function should implement only the step reflected by that line.
+Pseudocode comments are ignored.
 
 <table>
   <tr>
