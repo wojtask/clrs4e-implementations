@@ -18,3 +18,21 @@ def insertion_sort(A: Array, n: int) -> None:
             A[j + 1] = A[j]
             j -= 1
         A[j + 1] = key
+
+
+def sum_array(A: Array, n: int) -> int:
+    """Computes the sum of numbers in a sequence.
+
+    Implements pseudocode procedure Sum-Array from Section 2.1 of the book.
+
+    Args:
+        A: an Array containing the numbers to sum up
+        n: the number of numbers to sum up
+
+    Returns:
+        The sum of the numbers in A[1:n].
+    """
+    sum = 0
+    for i in range_of(1, to=n):
+        sum += A[i]
+    return sum
