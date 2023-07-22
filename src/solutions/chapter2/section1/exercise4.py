@@ -1,8 +1,10 @@
+from typing import Optional
+
 from book.data_structures import Array
 from util import range_of
 
 
-def linear_search(A: Array, n: int, x: int) -> int | None:
+def linear_search(A: Array, n: int, x: int) -> Optional[int]:
     """Searches for a number in a sequence of numbers.
 
     Implements pseudocode procedure Linear-Search.
