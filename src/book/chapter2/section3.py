@@ -58,3 +58,31 @@ def merge_sort(A: Array, p: int, r: int) -> None:
     merge_sort(A, p, q)
     merge_sort(A, q + 1, r)
     merge(A, p, q, r)
+
+
+def insertion_sort_with_binary_search(A: Array, n: int) -> None:
+    """Reorders a sequence of values according to their "<=" relation.
+
+    Args:
+        A: an Array containing the values to be sorted
+        n: the number of values to sort
+    """
+    for i in range_of(2, to=n):
+        key = A[i]
+        k = __binary_search_position(A, key, 1, i - 1)
+        for j in range_of(i - 1, downto=k):
+            A[j + 1] = A[j]
+            j -= 1
+        A[k] = key
+
+
+def __binary_search_position(A: Array, x: int, p: int, r: int) -> int:
+    if p > r:
+        return p
+    q = (p + r) // 2
+    if x == A[q]:
+        return q
+    if x < A[q]:
+        return __binary_search_position(A, x, p, q - 1)
+    else:
+        return __binary_search_position(A, x, q + 1, r)
