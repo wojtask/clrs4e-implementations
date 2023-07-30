@@ -8,10 +8,10 @@ def merge(A: Array, p: int, q: int, r: int) -> None:
     Implements pseudocode procedure Merge.
 
     Args:
-        A: an Array containing the values to be
-        p: the lower index of the first subarray to merge
-        q: the upper index of the first subarray to merge
-        r: the upper index of the second subarray to merge
+        A: an Array with subarrays to be merged
+        p: the lower index of the first sorted subarray
+        q: the upper index of the first sorted subarray
+        r: the upper index of the second sorted subarray
     """
     nL = q - p + 1
     nR = r - q
