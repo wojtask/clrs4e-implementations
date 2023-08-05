@@ -17,7 +17,7 @@ class TestBinarySearch(TestCase):
         array[5] = 58
         array[6] = 59
 
-        actual_index = binary_search(array, 58, 1, 6)
+        actual_index = binary_search(array, 1, 6, 58)
 
         assert_that(actual_index, is_(5))
 
@@ -30,6 +30,6 @@ class TestBinarySearch(TestCase):
         array[5] = 58
         array[6] = 59
 
-        actual_index = binary_search(array, 40, 1, 6)
+        actual_index = binary_search(array, 1, 6, 40)
 
         assert_that(actual_index, is_(None))
