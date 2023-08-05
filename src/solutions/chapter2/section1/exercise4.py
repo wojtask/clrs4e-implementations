@@ -5,9 +5,10 @@ from util import range_of
 
 
 def linear_search(A: Array, n: int, x: int) -> Optional[int]:
-    """Searches for a number in a sequence of numbers.
+    """Searches for a number in a sequence of numbers using linear search.
 
-    Implements pseudocode procedure Linear-Search.
+    Implements:
+        Linear-Search
 
     Args:
         A: an Array containing the sequence of numbers

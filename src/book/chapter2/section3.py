@@ -3,9 +3,10 @@ from util import range_of
 
 
 def merge(A: Array, p: int, q: int, r: int) -> None:
-    """Merges two sorted subarrays to form a single sorted subarray in place.
+    """Merges two sorted subarrays into a single sorted subarray in place.
 
-    Implements pseudocode procedure Merge.
+    Implements:
+        Merge
 
     Args:
         A: an Array with subarrays to be merged
@@ -43,9 +44,10 @@ def merge(A: Array, p: int, q: int, r: int) -> None:
 
 
 def merge_sort(A: Array, p: int, r: int) -> None:
-    """Reorders a sequence of values according to their "<=" relation.
+    """Sorts an array using merge sort.
 
-    Implements pseudocode procedure Merge-Sort.
+    Implements:
+        Merge-Sort
 
     Args:
         A: an Array containing the values to be sorted
@@ -61,7 +63,7 @@ def merge_sort(A: Array, p: int, r: int) -> None:
 
 
 def insertion_sort_with_binary_search(A: Array, n: int) -> None:
-    """Reorders a sequence of values according to their "<=" relation.
+    """Sorts an array using insertion sort with binary search instead of linear search.
 
     Args:
         A: an Array containing the values to be sorted

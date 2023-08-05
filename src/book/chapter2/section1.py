@@ -3,9 +3,10 @@ from util import range_of
 
 
 def insertion_sort(A: Array, n: int) -> None:
-    """Reorders a sequence of values according to their "<=" relation.
+    """Sorts an array using insertion sort.
 
-    Implements pseudocode procedure Insertion-Sort from Section 2.1 of the book.
+    Implements:
+        Insertion-Sort
 
     Args:
         A: an Array containing the values to be sorted
@@ -23,7 +24,8 @@ def insertion_sort(A: Array, n: int) -> None:
 def sum_array(A: Array, n: int) -> int:
     """Computes the sum of numbers in a sequence.
 
-    Implements pseudocode procedure Sum-Array from Section 2.1 of the book.
+    Implements:
+        Sum-Array
 
     Args:
         A: an Array containing the numbers to sum up

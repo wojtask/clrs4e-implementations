@@ -3,7 +3,7 @@ from util import range_of
 
 
 def insertion_sort_decreasing(A: Array, n: int) -> None:
-    """Sorts a sequence into monotonically decreasing order.
+    """Sorts an array into monotonically decreasing order using insertion sort.
 
     Args:
         A: an Array containing the values to be sorted

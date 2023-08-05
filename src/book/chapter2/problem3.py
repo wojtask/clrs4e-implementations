@@ -5,7 +5,8 @@ from util import range_of
 def horner(A: Array, n: int, x: float) -> float:
     """Evaluates a polynomial for a given value using Horner's rule.
 
-    Implements pseudocode procedure Horner.
+    Implements:
+        Horner
 
     Args:
         A: a 0-origin indexed array of the polynomial's coefficients;

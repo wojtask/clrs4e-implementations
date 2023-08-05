@@ -5,7 +5,8 @@ from util import range_of
 def polynomial_evaluate(A: Array, n: int, x: float) -> float:
     """Evaluates a polynomial for a given value using the naive method.
 
-    Implements pseudocode procedure Polynomial-Evaluate.
+    Implements:
+        Polynomial-Evaluate
 
     Args:
         A: a 0-origin indexed array of the polynomial's coefficients;

@@ -5,7 +5,8 @@ from util import range_of
 def bubblesort(A: Array, n: int) -> None:
     """Sorts an array using bubblesort.
 
-    Implements pseudocode procedure Bubblesort.
+    Implements:
+        Bubblesort
 
     Args:
         A: an Array containing the values to be sorted

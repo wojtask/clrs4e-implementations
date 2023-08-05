@@ -2,9 +2,10 @@ from book.data_structures import Array
 
 
 def recursive_insertion_sort(A: Array, n: int) -> None:
-    """Reorders a sequence of values according to their "<=" relation.
+    """Sorts an array using a recursive version of insertion sort.
 
-    Implements pseudocode procedure Recursive-Insertion-Sort.
+    Implements:
+        Recursive-Insertion-Sort
 
     Args:
         A: an Array containing the values to be sorted

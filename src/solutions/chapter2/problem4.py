@@ -49,7 +49,8 @@ def merge_inversions(A: Array, p: int, q: int, r: int) -> int:
 def count_inversions(A: Array, p: int, r: int) -> int:
     """Counts inversions in an array. Sorts the input array as a side effect.
 
-    Implements pseudocode procedure Count-Inversions.
+    Implements:
+        Count-Inversions
 
     Args:
         A: an Array with inversions to count

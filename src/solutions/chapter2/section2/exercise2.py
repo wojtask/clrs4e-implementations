@@ -3,9 +3,10 @@ from util import range_of
 
 
 def selection_sort(A: Array, n: int) -> None:
-    """Sorts a sequence into monotonically decreasing order.
+    """Sorts an array using selection sort.
 
-    Implements pseudocode procedure Selection-Sort.
+    Implements:
+        Selection-Sort
 
     Args:
         A: an Array containing the values to be sorted

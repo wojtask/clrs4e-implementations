@@ -3,9 +3,10 @@ from util import range_of
 
 
 def add_binary_integers(A: Array, B: Array, n: int) -> Array:
-    """Adds two integers a and b, given as binary representations.
+    """Adds two integers, a and b, given as binary representations.
 
-    Implements pseudocode procedure Add-Binary-Integers.
+    Implements:
+        Add-Binary-Integers
 
     Args:
         A: the 0-origin indexed Array containing the binary representation of a
