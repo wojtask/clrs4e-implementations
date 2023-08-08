@@ -26,7 +26,7 @@ def __insertion_sort_sublist(A: Array, p: int, r: int) -> None:
     for i in range_of(p + 1, to=r):
         key = A[i]
         j = i - 1
-        while j > 0 and A[j] > key:
+        while j >= p and A[j] > key:
             A[j + 1] = A[j]
             j -= 1
         A[j + 1] = key
