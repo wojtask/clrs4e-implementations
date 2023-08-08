@@ -1,35 +1,24 @@
 from unittest import TestCase
 
-from hamcrest import *
+from hamcrest import assert_that, is_
+from hypothesis import given
+from hypothesis.strategies import lists, integers
 
-from book.data_structures import Array
+from array_util import create_array
 from solutions.chapter2.section3.exercise6 import binary_search
 
 
 class TestBinarySearch(TestCase):
 
-    def test_binary_search_positive(self):
-        array = Array(1, 6)
-        array[1] = 26
-        array[2] = 31
-        array[3] = 41
-        array[4] = 41
-        array[5] = 58
-        array[6] = 59
+    @given(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20).map(sorted),
+           integers(min_value=-10, max_value=10))
+    def test_binary_search(self, elements, x):
+        A = create_array(elements)
+        n = len(elements)
 
-        actual_index = binary_search(array, 1, 6, 58)
+        actual_index = binary_search(A, 1, n, x)
 
-        assert_that(actual_index, is_(5))
-
-    def test_binary_search_negative(self):
-        array = Array(1, 6)
-        array[1] = 26
-        array[2] = 31
-        array[3] = 41
-        array[4] = 41
-        array[5] = 58
-        array[6] = 59
-
-        actual_index = binary_search(array, 1, 6, 40)
-
-        assert_that(actual_index, is_(None))
+        if actual_index:
+            assert_that(A[actual_index], is_(x))
+        else:
+            assert_that(x not in elements)

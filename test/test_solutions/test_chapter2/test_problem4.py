@@ -1,21 +1,35 @@
 from unittest import TestCase
 
-from hamcrest import *
+from hamcrest import assert_that, is_
+from hypothesis import given
+from hypothesis.strategies import lists, integers
 
-from book.data_structures import Array
+from array_util import create_array
 from solutions.chapter2.problem4 import count_inversions
+from util import range_of
+
+
+def get_inversions(elements):
+    A = create_array(elements)
+    n = len(elements)
+    inversions = 0
+    for i in range_of(1, to=n-1):
+        for j in range_of(i + 1, to=n):
+            if A[i] > A[j]:
+                inversions += 1
+    return inversions
 
 
 class TestCountInversions(TestCase):
 
-    def test_count_inversions(self):
-        array = Array(1, 5)
-        array[1] = 2
-        array[2] = 3
-        array[3] = 8
-        array[4] = 6
-        array[5] = 1
+    @given(lists(integers(), min_size=1))
+    def test_count_inversions(self, elements):
+        A = create_array(elements)
+        n = len(elements)
 
-        actual_inversions = count_inversions(array, 1, 5)
+        actual_inversions = count_inversions(A, 1, n)
 
-        assert_that(actual_inversions, is_(5))
+        # expected_inversions = sum(
+        #     len([y for y in elements[i + 1:] if y < x]) for i, x in enumerate(elements, start=1))
+        expected_inversions = get_inversions(elements)
+        assert_that(actual_inversions, is_(expected_inversions))

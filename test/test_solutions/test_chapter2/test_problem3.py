@@ -1,26 +1,23 @@
 from unittest import TestCase
 
-from hamcrest import *
+from hamcrest import assert_that, is_, close_to
+from hypothesis import given
+from hypothesis.strategies import lists, floats
+from numpy.polynomial import polynomial
 
-from book.data_structures import Array
+from array_util import create_array
 from solutions.chapter2.problem3 import polynomial_evaluate
 
 
 class TestPolynomialEvaluate(TestCase):
 
-    def test_polynomial_evaluate(self):
-        coefficients = Array(0, 3)
-        coefficients[0] = 2.1
-        coefficients[1] = -4
-        coefficients[2] = 0
-        coefficients[3] = 1.5
-        x = 2
+    @given(lists(floats(min_value=-10.0, max_value=10.0), min_size=1, max_size=5),
+           floats(min_value=-10.0, max_value=10.0))
+    def test_polynomial_evaluate(self, coefficients, x):
+        A = create_array(coefficients, start=0)
+        n = len(coefficients) - 1
 
-        actual_value = polynomial_evaluate(coefficients, 3, x)
+        actual_value = polynomial_evaluate(A, n, x)
 
-        expected_value = \
-            coefficients[0] + \
-            coefficients[1] * x + \
-            coefficients[2] * x ** 2 + \
-            coefficients[3] * x ** 3
-        assert_that(actual_value, is_(expected_value))
+        expected_value = float(polynomial.polyval(x, coefficients))
+        assert_that(actual_value, is_(close_to(expected_value, 1e-7)))

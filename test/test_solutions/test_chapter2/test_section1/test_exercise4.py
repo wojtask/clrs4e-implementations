@@ -1,31 +1,24 @@
 from unittest import TestCase
 
-from hamcrest import *
+from hamcrest import assert_that, is_
+from hypothesis import given
+from hypothesis.strategies import lists, integers
 
-from book.data_structures import Array
+from array_util import create_array
 from solutions.chapter2.section1.exercise4 import linear_search
 
 
 class TestLinearSearch(TestCase):
 
-    def test_linear_search_positive(self):
-        array = Array(1, 4)
-        array[1] = 5
-        array[2] = 2
-        array[3] = 4
-        array[4] = 6
+    @given(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20),
+           integers(min_value=-10, max_value=10))
+    def test_linear_search(self, elements, x):
+        A = create_array(elements)
+        n = len(elements)
 
-        actual_index = linear_search(array, 4, array[3])
+        actual_index = linear_search(A, n, x)
 
-        assert_that(actual_index, is_(equal_to(3)))
-
-    def test_linear_search_negative(self):
-        array = Array(1, 4)
-        array[1] = 5
-        array[2] = 2
-        array[3] = 4
-        array[4] = 6
-
-        actual_index = linear_search(array, 4, 1)
-
-        assert_that(actual_index, is_(None))
+        if actual_index:
+            assert_that(A[actual_index], is_(x))
+        else:
+            assert_that(x not in elements)
