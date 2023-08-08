@@ -1,12 +1,10 @@
 import operator
-import unittest
 
-from hamcrest import assert_that, is_, close_to
 from hypothesis import given
 from hypothesis.strategies import lists, integers, composite, floats
 from numpy.polynomial import polynomial
 
-from array_util import create_array, is_sorted, is_permutation
+from array_util import create_array
 from solutions.chapter2.problem1 import merge_sort_with_insertion_sort
 from solutions.chapter2.problem3 import polynomial_evaluate
 from solutions.chapter2.problem4 import count_inversions
@@ -17,6 +15,7 @@ from solutions.chapter2.section2.exercise2 import selection_sort
 from solutions.chapter2.section3.exercise5 import recursive_insertion_sort
 from solutions.chapter2.section3.exercise6 import binary_search
 from solutions.chapter2.section3.exercise8 import sum_search
+from test_case import ClrsTestCase
 from util import range_of
 
 
@@ -39,14 +38,14 @@ def count_inversions_naive(elements):
     A = create_array(elements)
     n = len(elements)
     inversions = 0
-    for i in range_of(1, to=n-1):
+    for i in range_of(1, to=n - 1):
         for j in range_of(i + 1, to=n):
             if A[i] > A[j]:
                 inversions += 1
     return inversions
 
 
-class TestChapter2(unittest.TestCase):
+class TestChapter2(ClrsTestCase):
 
     @given(lists(integers(), min_size=1))
     def test_insertion_sort_decreasing(self, elements):
@@ -55,8 +54,8 @@ class TestChapter2(unittest.TestCase):
 
         insertion_sort_decreasing(A, n)
 
-        assert_that(is_sorted(A, end=n, cmp=operator.ge))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n, cmp=operator.ge)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20),
            integers(min_value=-10, max_value=10))
@@ -67,9 +66,9 @@ class TestChapter2(unittest.TestCase):
         actual_index = linear_search(A, n, x)
 
         if actual_index:
-            assert_that(A[actual_index], is_(x))
+            self.assertEqual(A[actual_index], x)
         else:
-            assert_that(x not in elements)
+            self.assertNotIn(x, elements)
 
     @given(operands_in_binary())
     def test_add_binary_integers(self, operands):
@@ -82,7 +81,7 @@ class TestChapter2(unittest.TestCase):
         C = add_binary_integers(A, B, n)
 
         c = binary_to_decimal(C, n + 1)
-        assert_that(c, is_(a + b))
+        self.assertEqual(c, a + b)
 
     @given(lists(integers(), min_size=1))
     def test_selection_sort(self, elements):
@@ -91,8 +90,8 @@ class TestChapter2(unittest.TestCase):
 
         selection_sort(A, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(), min_size=1))
     def test_recursive_insertion_sort(self, elements):
@@ -101,8 +100,8 @@ class TestChapter2(unittest.TestCase):
 
         recursive_insertion_sort(A, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20).map(sorted),
            integers(min_value=-10, max_value=10))
@@ -113,9 +112,9 @@ class TestChapter2(unittest.TestCase):
         actual_index = binary_search(A, 1, n, x)
 
         if actual_index:
-            assert_that(A[actual_index], is_(x))
+            self.assertEqual(A[actual_index], x)
         else:
-            assert_that(x not in elements)
+            self.assertNotIn(x, elements)
 
     @given(lists(integers(min_value=-10, max_value=10), min_size=1, unique=True),
            integers(min_value=-20, max_value=20))
@@ -127,7 +126,7 @@ class TestChapter2(unittest.TestCase):
 
         all_sums = {a + b for a in elements for b in elements if a != b}
         expected_found = x in all_sums
-        assert_that(actual_found, is_(expected_found))
+        self.assertEqual(actual_found, expected_found)
 
     @given(lists(integers(), min_size=1), integers(min_value=1))
     def test_merge_sort_with_insertion_sort(self, elements, k):
@@ -136,8 +135,8 @@ class TestChapter2(unittest.TestCase):
 
         merge_sort_with_insertion_sort(A, 1, n, k)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(floats(min_value=-10.0, max_value=10.0), min_size=1, max_size=5),
            floats(min_value=-10.0, max_value=10.0))
@@ -148,7 +147,7 @@ class TestChapter2(unittest.TestCase):
         actual_value = polynomial_evaluate(A, n, x)
 
         expected_value = float(polynomial.polyval(x, coefficients))
-        assert_that(actual_value, is_(close_to(expected_value, 1e-7)))
+        self.assertAlmostEqual(actual_value, expected_value, places=7)
 
     @given(lists(integers(), min_size=1))
     def test_count_inversions(self, elements):
@@ -158,4 +157,4 @@ class TestChapter2(unittest.TestCase):
         actual_inversions = count_inversions(A, 1, n)
 
         expected_inversions = count_inversions_naive(elements)
-        assert_that(actual_inversions, is_(expected_inversions))
+        self.assertEqual(actual_inversions, expected_inversions)

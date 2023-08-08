@@ -1,18 +1,16 @@
-import unittest
-
-from hamcrest import assert_that, is_, close_to
 from hypothesis import given
 from hypothesis.strategies import lists, integers, floats
 from numpy.polynomial import polynomial
 
-from array_util import create_array, is_sorted, is_permutation
+from array_util import create_array
 from book.chapter2.problem2 import bubblesort
 from book.chapter2.problem3 import horner
 from book.chapter2.section1 import insertion_sort, sum_array
 from book.chapter2.section3 import merge_sort, insertion_sort_with_binary_search
+from test_case import ClrsTestCase
 
 
-class TestChapter2(unittest.TestCase):
+class TestChapter2(ClrsTestCase):
 
     @given(lists(integers(), min_size=1))
     def test_insertion_sort(self, elements):
@@ -21,8 +19,8 @@ class TestChapter2(unittest.TestCase):
 
         insertion_sort(A, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(), min_size=1))
     def test_sum_array(self, elements):
@@ -32,7 +30,7 @@ class TestChapter2(unittest.TestCase):
         actual_sum = sum_array(A, n)
 
         expected_sum = sum(elements)
-        assert_that(actual_sum, is_(expected_sum))
+        self.assertEqual(actual_sum, expected_sum)
 
     @given(lists(integers(), min_size=1))
     def test_merge_sort(self, elements):
@@ -41,8 +39,8 @@ class TestChapter2(unittest.TestCase):
 
         merge_sort(A, 1, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(), min_size=1))
     def test_insertion_sort_with_binary_search(self, elements):
@@ -51,8 +49,8 @@ class TestChapter2(unittest.TestCase):
 
         insertion_sort_with_binary_search(A, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(integers(), min_size=1))
     def test_bubblesort(self, elements):
@@ -61,8 +59,8 @@ class TestChapter2(unittest.TestCase):
 
         bubblesort(A, n)
 
-        assert_that(is_sorted(A, end=n))
-        assert_that(is_permutation(A, elements, end=n))
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
 
     @given(lists(floats(min_value=-10.0, max_value=10.0), min_size=1, max_size=5),
            floats(min_value=-10.0, max_value=10.0))
@@ -73,4 +71,4 @@ class TestChapter2(unittest.TestCase):
         actual_value = horner(A, n, x)
 
         expected_value = float(polynomial.polyval(x, coefficients))
-        assert_that(actual_value, is_(close_to(expected_value, 1e-7)))
+        self.assertAlmostEqual(actual_value, expected_value, places=7)

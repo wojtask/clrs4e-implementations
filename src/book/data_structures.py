@@ -19,4 +19,4 @@ class Array:
         self.__elements[index - self.__start] = value
 
     def __repr__(self):
-        return '[%d:%d]: %s' % self.__start, len(self.__elements), (list(iter(self.__elements)))
+        return str(self.__elements)
