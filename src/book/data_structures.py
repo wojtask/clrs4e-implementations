@@ -54,3 +54,26 @@ class Matrix:
         except AssertionError:
             pass
         return True
+
+
+class Submatrix:
+    def __init__(self, matrix: Matrix, row_range: range, col_range: range) -> None:
+        self.__matrix = matrix
+        self.__start_row = row_range.start
+        self.__end_row = row_range.stop
+        self.__start_col = col_range.start
+        self.__end_col = col_range.stop
+
+    def __getitem__(self, indices: tuple) -> int | float:
+        i = indices[0]
+        j = indices[1]
+        assert 1 <= i <= self.__end_row - self.__start_row + 1
+        assert 1 <= j <= self.__end_col - self.__start_col + 1
+        return self.__matrix[self.__start_row + i - 1, self.__start_col + j - 1]
+
+    def __setitem__(self, indices: tuple, value: int | float) -> None:
+        i = indices[0]
+        j = indices[1]
+        assert 1 <= i <= self.__end_row - self.__start_row + 1
+        assert 1 <= j <= self.__end_col - self.__start_col + 1
+        self.__matrix[self.__start_row + i - 1, self.__start_col + j - 1] = value
