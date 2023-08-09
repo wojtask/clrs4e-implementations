@@ -1,5 +1,7 @@
 from builtins import len
 from typing import Any
+from typing import Tuple
+from typing import Union
 
 
 class Array:
@@ -22,14 +24,14 @@ class Matrix:
         assert rows >= 0 and cols >= 0
         self.__elements = [[0] * cols for _ in range(rows)]
 
-    def __getitem__(self, indices: tuple) -> int | float:
+    def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
         row = indices[0]
         col = indices[1]
         assert 1 <= row <= len(self.__elements)
         assert 1 <= col <= len(self.__elements[0])
         return self.__elements[row - 1][col - 1]
 
-    def __setitem__(self, indices: tuple, value: int | float) -> None:
+    def __setitem__(self, indices: Tuple[int, int], value: Union[int, float]) -> None:
         row = indices[0]
         col = indices[1]
         assert 1 <= row <= len(self.__elements)
@@ -64,14 +66,14 @@ class Submatrix:
         self.__start_col = col_range.start
         self.__end_col = col_range.stop
 
-    def __getitem__(self, indices: tuple) -> int | float:
+    def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
         i = indices[0]
         j = indices[1]
         assert 1 <= i <= self.__end_row - self.__start_row + 1
         assert 1 <= j <= self.__end_col - self.__start_col + 1
         return self.__matrix[self.__start_row + i - 1, self.__start_col + j - 1]
 
-    def __setitem__(self, indices: tuple, value: int | float) -> None:
+    def __setitem__(self, indices: Tuple[int, int], value: Union[int, float]) -> None:
         i = indices[0]
         j = indices[1]
         assert 1 <= i <= self.__end_row - self.__start_row + 1

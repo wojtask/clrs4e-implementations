@@ -1,3 +1,5 @@
+from typing import Union
+
 from book.data_structures import Matrix
 from book.data_structures import Submatrix
 from util import range_of
@@ -21,7 +23,11 @@ def matrix_multiply(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
                 C[i, j] += A[i, k] * B[k, j]
 
 
-def matrix_multiply_recursive(A: Matrix | Submatrix, B: Matrix | Submatrix, C: Matrix | Submatrix, n: int) -> None:
+def matrix_multiply_recursive(
+        A: Union[Matrix, Submatrix],
+        B: Union[Matrix, Submatrix],
+        C: Union[Matrix, Submatrix],
+        n: int) -> None:
     """Recursively multiplies two square matrices and adds the result to the third square matrix.
 
     Implements:
