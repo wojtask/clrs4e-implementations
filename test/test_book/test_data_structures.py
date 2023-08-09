@@ -1,4 +1,5 @@
-from hypothesis import given, assume
+from hypothesis import assume
+from hypothesis import given
 from hypothesis.strategies import integers
 
 from book.data_structures import Array

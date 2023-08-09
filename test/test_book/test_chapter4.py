@@ -1,12 +1,14 @@
 import numpy
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
-from array_util import create_matrix
-from book.chapter4.section1 import matrix_multiply, matrix_multiply_recursive
+from book.chapter4.section1 import matrix_multiply
+from book.chapter4.section1 import matrix_multiply_recursive
 from book.data_structures import Matrix
 from test_case import ClrsTestCase
+from test_util import create_matrix
 
 
 class TestChapter4(ClrsTestCase):

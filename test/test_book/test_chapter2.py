@@ -1,13 +1,17 @@
 from hypothesis import given
-from hypothesis.strategies import lists, integers, floats
+from hypothesis.strategies import floats
+from hypothesis.strategies import integers
+from hypothesis.strategies import lists
 from numpy.polynomial import polynomial
 
-from array_util import create_array
 from book.chapter2.problem2 import bubblesort
 from book.chapter2.problem3 import horner
-from book.chapter2.section1 import insertion_sort, sum_array
-from book.chapter2.section3 import merge_sort, insertion_sort_with_binary_search
+from book.chapter2.section1 import insertion_sort
+from book.chapter2.section1 import sum_array
+from book.chapter2.section3 import insertion_sort_with_binary_search
+from book.chapter2.section3 import merge_sort
 from test_case import ClrsTestCase
+from test_util import create_array
 
 
 class TestChapter2(ClrsTestCase):

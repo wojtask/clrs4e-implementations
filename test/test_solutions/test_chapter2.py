@@ -1,10 +1,12 @@
 import operator
 
 from hypothesis import given
-from hypothesis.strategies import lists, integers, composite, floats
+from hypothesis.strategies import composite
+from hypothesis.strategies import floats
+from hypothesis.strategies import integers
+from hypothesis.strategies import lists
 from numpy.polynomial import polynomial
 
-from array_util import create_array
 from solutions.chapter2.problem1 import merge_sort_with_insertion_sort
 from solutions.chapter2.problem3 import polynomial_evaluate
 from solutions.chapter2.problem4 import count_inversions
@@ -16,6 +18,7 @@ from solutions.chapter2.section3.exercise5 import recursive_insertion_sort
 from solutions.chapter2.section3.exercise6 import binary_search
 from solutions.chapter2.section3.exercise8 import sum_search
 from test_case import ClrsTestCase
+from test_util import create_array
 from util import range_of
 
 

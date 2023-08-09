@@ -1,4 +1,5 @@
-from book.data_structures import Matrix, Submatrix
+from book.data_structures import Matrix
+from book.data_structures import Submatrix
 from util import range_of
 
 
