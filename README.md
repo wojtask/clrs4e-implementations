@@ -387,7 +387,7 @@ Pseudocode comments are ignored.
   </tr>
   <tr></tr>
   <tr>
-    <td rowspan="30">arithmetic operation</td>
+    <td rowspan="32">arithmetic operation</td>
     <td>
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/increment.png">
@@ -453,7 +453,7 @@ Pseudocode comments are ignored.
   </tr>
   <tr></tr>
   <tr>
-    <td>
+    <td rowspan="4">
       <picture>
         <source media="(prefers-color-scheme: dark)" srcset="img/dark/division.png">
         <img src="img/light/division.png">
@@ -462,7 +462,14 @@ Pseudocode comments are ignored.
     <td>
       <pre lang="python">x / y</pre>
     </td>
-    <td></td>
+    <td>For real <code>x</code> and <code>y</code>.</td>
+  </tr>
+  <tr></tr>
+  <tr>
+    <td>
+      <pre lang="python">x // y</pre>
+    </td>
+    <td>For integer <code>x</code> and <code>y</code>.</td>
   </tr>
   <tr></tr>
   <tr>
