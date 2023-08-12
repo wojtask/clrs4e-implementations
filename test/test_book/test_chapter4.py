@@ -15,7 +15,7 @@ class TestChapter4(ClrsTestCase):
 
     @given(st.data())
     def test_matrix_multiply(self, data):
-        n = data.draw(integers(min_value=1, max_value=10), label="Matrices dimension")
+        n = data.draw(integers(min_value=1, max_value=15), label="Matrices dimension")
         elements1 = data.draw(
             lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")

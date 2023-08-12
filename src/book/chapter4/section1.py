@@ -1,7 +1,4 @@
-from typing import Union
-
 from book.data_structures import Matrix
-from book.data_structures import Submatrix
 from util import range_of
 
 
@@ -23,11 +20,7 @@ def matrix_multiply(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
                 C[i, j] += A[i, k] * B[k, j]
 
 
-def matrix_multiply_recursive(
-        A: Union[Matrix, Submatrix],
-        B: Union[Matrix, Submatrix],
-        C: Union[Matrix, Submatrix],
-        n: int) -> None:
+def matrix_multiply_recursive(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     """Recursively multiplies two square matrices and adds the result to the third square matrix.
 
     Implements:
@@ -60,7 +53,7 @@ def __partition_matrices(A, B, C, n):
 
 
 def __partition_matrix(M, n):
-    return Submatrix(M, range_of(1, to=n // 2), range_of(1, to=n // 2)), \
-        Submatrix(M, range_of(1, to=n // 2), range_of(n // 2 + 1, to=n)), \
-        Submatrix(M, range_of(n // 2 + 1, to=n), range_of(1, to=n // 2)), \
-        Submatrix(M, range_of(n // 2 + 1, to=n), range_of(n // 2 + 1, to=n))
+    return M.submatrix((1, n // 2), (1, n // 2)), \
+        M.submatrix((1, n // 2), (n // 2 + 1, n)), \
+        M.submatrix((n // 2 + 1, n), (1, n // 2)), \
+        M.submatrix((n // 2 + 1, n), (n // 2 + 1, n))

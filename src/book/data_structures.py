@@ -20,23 +20,46 @@ class Array:
 
 
 class Matrix:
-    def __init__(self, rows: int, cols: int) -> None:
-        assert rows >= 0 and cols >= 0
+    def __init__(self, rows: Union[int, Tuple[int, int]], cols: Union[int, Tuple[int, int]], elements=None) -> None:
+        if isinstance(rows, int) and isinstance(cols, int) and elements is None:
+            assert rows >= 0
+            assert cols >= 0
+            self.__create_matrix(rows, cols)
+        elif isinstance(rows, tuple) and isinstance(cols, tuple) and elements is not None:
+            self.__create_submatrix(rows, cols, elements)
+        else:
+            raise TypeError('Invalid parameters')
+
+    def __create_matrix(self, rows, cols):
+        self.__start_row, self.__end_row = 1, rows
+        self.__start_col, self.__end_col = 1, cols
         self.__elements = [[0] * cols for _ in range(rows)]
+
+    def __create_submatrix(self, rows, cols, elements):
+        self.__start_row, self.__end_row = rows[0], rows[1]
+        self.__start_col, self.__end_col = cols[0], cols[1]
+        self.__elements = elements
+
+    def submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int]):
+        assert 1 <= rows[0] <= rows[1] <= len(self.__elements)
+        assert 1 <= cols[0] <= cols[1] <= len(self.__elements[0])
+        rows_shifted = rows[0] + self.__start_row - 1, rows[1] + self.__start_row - 1
+        cols_shifted = cols[0] + self.__start_col - 1, cols[1] + self.__start_col - 1
+        return Matrix(rows_shifted, cols_shifted, self.__elements)
 
     def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
         row = indices[0]
         col = indices[1]
-        assert 1 <= row <= len(self.__elements)
-        assert 1 <= col <= len(self.__elements[0])
-        return self.__elements[row - 1][col - 1]
+        assert 1 <= row <= self.__end_row - self.__start_row + 1
+        assert 1 <= col <= self.__end_col - self.__start_col + 1
+        return self.__elements[self.__start_row - 1 + row - 1][self.__start_col - 1 + col - 1]
 
     def __setitem__(self, indices: Tuple[int, int], value: Union[int, float]) -> None:
         row = indices[0]
         col = indices[1]
-        assert 1 <= row <= len(self.__elements)
-        assert 1 <= col <= len(self.__elements[0])
-        self.__elements[row - 1][col - 1] = value
+        assert 1 <= row <= self.__end_row - self.__start_row + 1
+        assert 1 <= col <= self.__end_col - self.__start_col + 1
+        self.__elements[self.__start_row - 1 + row - 1][self.__start_col - 1 + col - 1] = value
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, self.__class__):
@@ -56,26 +79,3 @@ class Matrix:
         except AssertionError:
             pass
         return True
-
-
-class Submatrix:
-    def __init__(self, matrix: Matrix, row_range: range, col_range: range) -> None:
-        self.__matrix = matrix
-        self.__start_row = row_range.start
-        self.__end_row = row_range.stop
-        self.__start_col = col_range.start
-        self.__end_col = col_range.stop
-
-    def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
-        i = indices[0]
-        j = indices[1]
-        assert 1 <= i <= self.__end_row - self.__start_row + 1
-        assert 1 <= j <= self.__end_col - self.__start_col + 1
-        return self.__matrix[self.__start_row + i - 1, self.__start_col + j - 1]
-
-    def __setitem__(self, indices: Tuple[int, int], value: Union[int, float]) -> None:
-        i = indices[0]
-        j = indices[1]
-        assert 1 <= i <= self.__end_row - self.__start_row + 1
-        assert 1 <= j <= self.__end_col - self.__start_col + 1
-        self.__matrix[self.__start_row + i - 1, self.__start_col + j - 1] = value
