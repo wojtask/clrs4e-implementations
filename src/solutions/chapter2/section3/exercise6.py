@@ -4,7 +4,7 @@ from book.data_structures import Array
 
 
 def binary_search(A: Array, p: int, r: int, x: int) -> Optional[int]:
-    """Searches for a number in a sorted sequence of numbers using binary serach.
+    """Searches for a number in a sorted sequence of numbers using binary search.
 
     Implements:
         Binary-Search
