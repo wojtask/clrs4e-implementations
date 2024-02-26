@@ -18,6 +18,9 @@ class Array:
         assert self.__start <= index < self.__start + len(self.__elements)
         self.__elements[index - self.__start] = value
 
+    def __repr__(self) -> str:
+        return '%d-based: %s' % (self.__start, self.__elements)
+
 
 class Matrix:
     def __init__(self, rows: Union[int, Tuple[int, int]], cols: Union[int, Tuple[int, int]], elements=None) -> None:
@@ -79,3 +82,8 @@ class Matrix:
         except AssertionError:
             pass
         return True
+
+    def __repr__(self) -> str:
+        return repr(
+            [row[self.__start_col - 1: self.__end_col] for row in
+             self.__elements[self.__start_row - 1: self.__end_row]])
