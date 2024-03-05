@@ -28,9 +28,8 @@ class TestChapter4(ClrsTestCase):
 
         matrix_multiply(A, B, C, n)
 
-        actual_product = create_matrix(numpy.matmul(elements1, elements2))
-
-        self.assertEqual(C, actual_product)
+        expected_product = create_matrix(numpy.matmul(elements1, elements2))
+        self.assertEqual(C, expected_product)
 
     @given(st.data())
     def test_matrix_multiply_recursive(self, data):
@@ -48,6 +47,5 @@ class TestChapter4(ClrsTestCase):
 
         matrix_multiply_recursive(A, B, C, n)
 
-        actual_product = create_matrix(numpy.matmul(elements1, elements2))
-
-        self.assertEqual(C, actual_product)
+        expected_product = create_matrix(numpy.matmul(elements1, elements2))
+        self.assertEqual(C, expected_product)
