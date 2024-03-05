@@ -10,11 +10,11 @@ def matrix_add_recursive(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     Args:
         A: the first square matrix to add
         B: the second square matrix to add
-        C: the matrix to store the matrix sum
+        C: the matrix to add the matrix sum
         n: the dimension of matrices A and B
     """
     if n == 1:
-        C[1, 1] = A[1, 1] + B[1, 1]
+        C[1, 1] += A[1, 1] + B[1, 1]
         return
     (A11, A12, A21, A22), (B11, B12, B21, B22), (C11, C12, C21, C22) = __partition_matrices(A, B, C, n)
     matrix_add_recursive(A11, B11, C11, n // 2)
