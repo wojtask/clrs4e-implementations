@@ -5,12 +5,14 @@ from hypothesis.strategies import complex_numbers
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
+from book.chapter4.section1 import matrix_multiply
 from book.data_structures import Matrix
 from solutions.chapter4.section1.exercise1 import matrix_multiply_recursive_general
 from solutions.chapter4.section1.exercise3 import matrix_multiply_recursive_by_copying
 from solutions.chapter4.section1.exercise4 import matrix_add_recursive
 from solutions.chapter4.section2.exercise2 import strassen
 from solutions.chapter4.section2.exercise5 import complex_multiply
+from solutions.chapter4.section2.exercise6 import matrix_multiply_by_squaring
 from test_case import ClrsTestCase
 from test_util import create_matrix
 
@@ -102,3 +104,24 @@ class TestChapter4(ClrsTestCase):
         actual_product = complex(real, imag)
         expected_product = z1 * z2
         self.assertAlmostEqual(actual_product, expected_product, places=7)
+
+    @given(st.data())
+    def test_matrix_multiply_by_squaring(self, data):
+        n = data.draw(integers(min_value=1, max_value=15), label="Matrices dimension")
+        elements1 = data.draw(
+            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            label="First matrix elements")
+        elements2 = data.draw(
+            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            label="Second matrix elements")
+        A = create_matrix(elements1)
+        B = create_matrix(elements2)
+        C = Matrix(n, n)
+
+        def matrix_square_function(D, E, m):
+            matrix_multiply(D, D, E, m)
+
+        matrix_multiply_by_squaring(A, B, C, matrix_square_function, n)
+
+        expected_product = create_matrix(numpy.matmul(elements1, elements2))
+        self.assertEqual(C, expected_product)
