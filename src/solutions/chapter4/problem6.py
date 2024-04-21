@@ -45,6 +45,26 @@ def identify_good_chip(chips: set[Chip], *, strategy: BadChipStrategy = BadChipS
     return identify_good_chip(selected_chips, strategy=strategy)
 
 
+def identify_all_good_chips(chips: set[Chip], *, strategy: BadChipStrategy = BadChipStrategy.COIN_FLIP) -> set[Chip]:
+    """Identifies all good chips in a set of chips that contains more good than bad chips.
+
+    Args:
+        chips: A set of chips containing more good than bad chips.
+        strategy: A strategy that bad chips use when reporting on the condition of another chip.
+
+    Returns:
+        All the good chips from the input set.
+    """
+    c0 = identify_good_chip(chips.copy(), strategy=strategy)
+    chips.remove(c0)
+    good_chips = {c0}
+    while len(chips) > 0:
+        second = chips.pop()
+        if __test_chips(c0, second, strategy=strategy) == (ChipCondition.GOOD, ChipCondition.GOOD):
+            good_chips.add(second)
+    return good_chips
+
+
 def __test_chips(first: Chip, second: Chip, *, strategy: BadChipStrategy) \
         -> (ChipCondition, ChipCondition):
     return (second.condition if first.condition == ChipCondition.GOOD else strategy.report(),

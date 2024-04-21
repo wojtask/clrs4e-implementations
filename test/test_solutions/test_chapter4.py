@@ -4,9 +4,14 @@ from hypothesis import strategies as st
 from hypothesis.strategies import complex_numbers
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
+from hypothesis.strategies import sampled_from
 
 from book.chapter4.section1 import matrix_multiply
 from book.data_structures import Matrix
+from solutions.chapter4.problem6 import BadChipStrategy
+from solutions.chapter4.problem6 import Chip
+from solutions.chapter4.problem6 import ChipCondition
+from solutions.chapter4.problem6 import identify_all_good_chips
 from solutions.chapter4.section1.exercise1 import matrix_multiply_recursive_general
 from solutions.chapter4.section1.exercise3 import matrix_multiply_recursive_by_copying
 from solutions.chapter4.section1.exercise4 import matrix_add_recursive
@@ -15,6 +20,7 @@ from solutions.chapter4.section2.exercise5 import complex_multiply
 from solutions.chapter4.section2.exercise6 import matrix_multiply_by_squaring
 from test_case import ClrsTestCase
 from test_util import create_matrix
+from util import range_of
 
 
 class TestChapter4(ClrsTestCase):
@@ -125,3 +131,17 @@ class TestChapter4(ClrsTestCase):
 
         expected_product = create_matrix(numpy.matmul(elements1, elements2))
         self.assertEqual(C, expected_product)
+
+    @given(st.data())
+    def test_identify_all_good_chips(self, data):
+        n = data.draw(integers(min_value=1, max_value=1000), label="The number of all chips")
+        good_chips_number = data.draw(integers(min_value=n // 2 + 1, max_value=n), label="The number of good chips")
+        bad_chip_strategy = data.draw(sampled_from(BadChipStrategy))
+        chips = (set(Chip(ChipCondition.GOOD) for _ in range_of(1, to=good_chips_number))
+                 | set(Chip(ChipCondition.BAD) for _ in range_of(good_chips_number + 1, to=n)))
+
+        actual_good_chips = identify_all_good_chips(chips, strategy=bad_chip_strategy)
+
+        self.assertEqual(len(actual_good_chips), good_chips_number)
+        for chip in actual_good_chips:
+            self.assertEqual(chip.condition, ChipCondition.GOOD)
