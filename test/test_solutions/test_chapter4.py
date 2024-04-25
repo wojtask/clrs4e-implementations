@@ -1,4 +1,5 @@
 import numpy
+from hypothesis import assume
 from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.strategies import complex_numbers
@@ -12,6 +13,7 @@ from solutions.chapter4.problem6 import BadChipStrategy
 from solutions.chapter4.problem6 import Chip
 from solutions.chapter4.problem6 import ChipCondition
 from solutions.chapter4.problem6 import identify_all_good_chips
+from solutions.chapter4.problem7 import monge_leftmost_minimums
 from solutions.chapter4.section1.exercise1 import matrix_multiply_recursive_general
 from solutions.chapter4.section1.exercise3 import matrix_multiply_recursive_by_copying
 from solutions.chapter4.section1.exercise4 import matrix_add_recursive
@@ -19,8 +21,17 @@ from solutions.chapter4.section2.exercise2 import strassen
 from solutions.chapter4.section2.exercise5 import complex_multiply
 from solutions.chapter4.section2.exercise6 import matrix_multiply_by_squaring
 from test_case import ClrsTestCase
+from test_util import create_array
 from test_util import create_matrix
 from util import range_of
+
+
+def is_monge_array(A, m, n):
+    for i in range_of(1, to=m - 1):
+        for j in range_of(1, to=n - 1):
+            if A[i, j] + A[i + 1, j + 1] > A[i, j + 1] + A[i + 1, j]:
+                return False
+    return True
 
 
 class TestChapter4(ClrsTestCase):
@@ -145,3 +156,18 @@ class TestChapter4(ClrsTestCase):
         self.assertEqual(len(actual_good_chips), good_chips_number)
         for chip in actual_good_chips:
             self.assertEqual(chip.condition, ChipCondition.GOOD)
+
+    @given(st.data())
+    def test_monge_leftmost_minimums(self, data):
+        m = data.draw(integers(min_value=1, max_value=15), label="Monge array row dimension")
+        n = data.draw(integers(min_value=1, max_value=15), label="Monge array column dimension")
+        elements = data.draw(
+            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=m, max_size=m),
+            label="Monge array elements")
+        A = create_matrix(elements)
+        assume(is_monge_array(A, m, n))
+
+        actual_minimums = monge_leftmost_minimums(A, m, n)
+
+        expected_minimums = create_array([min(row) for row in elements])
+        self.assertEqual(actual_minimums, expected_minimums)

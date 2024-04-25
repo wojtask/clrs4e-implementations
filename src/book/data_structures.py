@@ -18,6 +18,14 @@ class Array:
         assert self.__start <= index < self.__start + len(self.__elements)
         self.__elements[index - self.__start] = value
 
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, self.__class__):
+            return NotImplemented
+        for i, element in enumerate(self.__elements, start=self.__start):
+            if element != other[i]:
+                return False
+        return True
+
     def __repr__(self) -> str:
         return '%d-based: %s' % (self.__start, self.__elements)
 
@@ -49,6 +57,11 @@ class Matrix:
         rows_shifted = rows[0] + self.__start_row - 1, rows[1] + self.__start_row - 1
         cols_shifted = cols[0] + self.__start_col - 1, cols[1] + self.__start_col - 1
         return Matrix(rows_shifted, cols_shifted, self.__elements)
+
+    def even_rows_submatrix(self):
+        even_rows = [row for i, row in enumerate(self.__elements, start=1) if i % 2 == 0]
+        submatrix_rows_indices = self.__start_row, self.__start_row + len(even_rows) - 1
+        return Matrix(submatrix_rows_indices, (self.__start_col, self.__end_col), even_rows)
 
     def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
         row = indices[0]

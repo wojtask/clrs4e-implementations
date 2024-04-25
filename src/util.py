@@ -4,3 +4,7 @@ def range_of(_from, to=None, downto=None, by=None):
     if to is None and by is None:
         return range(_from, downto - 1, -1)
     AssertionError('Invalid range bounds')
+
+
+def ceil_div(x, y):
+    return -(x // -y)
