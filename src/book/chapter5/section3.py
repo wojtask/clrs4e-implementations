@@ -29,6 +29,24 @@ def randomly_permute(A: Array, n: int) -> None:
         n: the number of elements in array A
     """
     for i in range_of(1, to=n):
-        # if we used two calls to Random(i, n) in the swap instruction, each call could generate a different value
+        # if we used two calls to Random(i, n) in the swap instruction, each call might generate a different value
         j = random(i, n)
+        A[i], A[j] = A[j], A[i]
+
+
+def permute_without_identity(A: Array, n: int) -> None:
+    """A deliberately faulty algorithm for producing any permutation of an array without the identity permutation.
+    Fails to produce any permutation in which an element on a given position occupied the same position in the original
+    array.
+
+    Implements:
+        Permute-Without-Identity
+
+    Args:
+        A: the array to permute
+        n: the number of elements in array A
+    """
+    for i in range_of(1, to=n - 1):
+        # if we used two calls to Random(i + 1, n) in the swap instruction, each call might generate a different value
+        j = random(i + 1, n)
         A[i], A[j] = A[j], A[i]

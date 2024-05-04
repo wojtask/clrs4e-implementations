@@ -8,6 +8,7 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
 from book.chapter5.section1 import hire_assistant
+from book.chapter5.section3 import permute_without_identity
 from book.chapter5.section3 import randomized_hire_assistant
 from book.chapter5.section3 import randomly_permute
 from test_case import ClrsTestCase
@@ -65,10 +66,23 @@ class TestChapter5(ClrsTestCase):
 
     @given(st.data())
     def test_randomly_permute(self, data):
-        elements = data.draw(lists(integers(), min_size=1))
+        elements = data.draw(lists(integers(), min_size=1, unique=True))
         A = create_array(elements)
         n = len(elements)
 
         randomly_permute(A, n)
 
         self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_permute_without_identity(self, data):
+        elements = data.draw(lists(integers(), min_size=1, unique=True))
+        A = create_array(elements)
+        n = len(elements)
+
+        permute_without_identity(A, n)
+
+        self.assertArrayPermuted(A, elements, end=n)
+        if n > 1:
+            for i in range_of(1, to=n):
+                self.assertNotEqual(A[i], elements[i - 1])
