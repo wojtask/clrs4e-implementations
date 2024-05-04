@@ -4,8 +4,11 @@ from unittest.mock import patch
 
 from hypothesis import given
 from hypothesis import strategies as st
+from hypothesis.strategies import integers
+from hypothesis.strategies import lists
 
 from book.chapter5.section1 import hire_assistant
+from book.chapter5.section3 import randomly_permute
 from test_case import ClrsTestCase
 from test_util import create_array
 from util import range_of
@@ -35,3 +38,13 @@ class TestChapter5(ClrsTestCase):
             self.assertEqual(interviewed_candidates, list(range_of(1, to=n)))
             self.assertEqual(hired_candidates, sorted(hired_candidates))
             self.assertTrue(set(hired_candidates).issubset(set(interviewed_candidates)))
+
+    @given(st.data())
+    def test_randomly_permute(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
+        A = create_array(elements)
+        n = len(elements)
+
+        randomly_permute(A, n)
+
+        self.assertArrayPermuted(A, elements, end=n)
