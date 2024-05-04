@@ -740,6 +740,20 @@ def insertion_sort(A, n):
   </tr>
   <tr></tr>
   <tr>
+    <td rowspan="2">set membership</td>
+    <td>
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="img/dark/set_membership.png">
+        <img src="img/light/set_membership.png">
+      </picture>
+    </td>
+    <td>
+      <pre lang="python">x in S</pre>
+    </td>
+    <td></td>
+  </tr>
+  <tr></tr>
+  <tr>
     <td rowspan="2">sets union</td>
     <td>
       <picture>
