@@ -50,3 +50,19 @@ def permute_without_identity(A: Array, n: int) -> None:
         # if we used two calls to Random(i + 1, n) in the swap instruction, each call might generate a different value
         j = random(i + 1, n)
         A[i], A[j] = A[j], A[i]
+
+
+def permute_with_all(A: Array, n: int) -> None:
+    """Permutes an array in place. Can't produce a uniform random permutation.
+
+    Implements:
+        Permute-With-All
+
+    Args:
+        A: the array to permute
+        n: the number of elements in array A
+    """
+    for i in range_of(1, to=n):
+        # if we used two calls to Random(1, n) in the swap instruction, each call might generate a different value
+        j = random(1, n)
+        A[i], A[j] = A[j], A[i]
