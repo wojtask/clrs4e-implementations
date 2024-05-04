@@ -1,10 +1,14 @@
 from hypothesis import assume
 from hypothesis import given
 from hypothesis import strategies as st
+from hypothesis.strategies import integers
+from hypothesis.strategies import lists
 
 from solutions.chapter5.section1.exercise2 import random
 from solutions.chapter5.section1.exercise3 import unbiased_random
+from solutions.chapter5.section3.exercise1 import randomly_permute_
 from test_case import ClrsTestCase
+from test_util import create_array
 from util import range_of
 
 
@@ -31,3 +35,13 @@ class TestChapter5(ClrsTestCase):
             if x == 0:
                 count0 += 1
         self.assertAlmostEqual(count0 / samples, 0.5, delta=0.1)
+
+    @given(st.data())
+    def test_randomly_permute_(self, data):
+        elements = data.draw(lists(integers(), min_size=1, unique=True))
+        A = create_array(elements)
+        n = len(elements)
+
+        randomly_permute_(A, n)
+
+        self.assertArrayPermuted(A, elements, end=n)
