@@ -1,4 +1,7 @@
-from random import randint
+from random import Random
+
+# explicitly instantiate Random to prevent Hypothesis making calls to PRNG deterministic in tests
+rng = Random()
 
 
 def random(a: int, b: int) -> int:
@@ -14,7 +17,7 @@ def random(a: int, b: int) -> int:
     while a < b:
         mid = (a + b) // 2
         # the Random(0, 1) call is implemented as a call to the standard pseudo-random generator
-        if randint(0, 1) == 0:
+        if rng.randint(0, 1) == 0:
             a = mid + 1
         else:
             b = mid
