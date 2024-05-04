@@ -66,3 +66,26 @@ def permute_with_all(A: Array, n: int) -> None:
         # if we used two calls to Random(1, n) in the swap instruction, each call might generate a different value
         j = random(1, n)
         A[i], A[j] = A[j], A[i]
+
+
+def permute_by_cycle(A: Array, n: int) -> Array:
+    """Permutes an array in place. Can't produce a uniform random permutation.
+
+    Implements:
+        Permute-By-Cycle
+
+    Args:
+        A: the array to permute
+        n: the number of elements in array A
+
+    Returns:
+        The permuted array.
+    """
+    B = Array(1, n)
+    offset = random(1, n)
+    for i in range_of(1, to=n):
+        dest = i + offset
+        if dest > n:
+            dest -= n
+        B[dest] = A[i]
+    return B

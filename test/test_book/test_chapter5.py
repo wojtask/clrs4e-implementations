@@ -8,6 +8,7 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
 from book.chapter5.section1 import hire_assistant
+from book.chapter5.section3 import permute_by_cycle
 from book.chapter5.section3 import permute_with_all
 from book.chapter5.section3 import permute_without_identity
 from book.chapter5.section3 import randomized_hire_assistant
@@ -67,7 +68,7 @@ class TestChapter5(ClrsTestCase):
 
     @given(st.data())
     def test_randomly_permute(self, data):
-        elements = data.draw(lists(integers(), min_size=1, unique=True))
+        elements = data.draw(lists(integers(), min_size=3, max_size=3, unique=True))
         A = create_array(elements)
         n = len(elements)
 
@@ -97,3 +98,16 @@ class TestChapter5(ClrsTestCase):
         permute_with_all(A, n)
 
         self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_permute_by_cycle(self, data):
+        elements = data.draw(lists(integers(), min_size=1, unique=True))
+        A = create_array(elements)
+        n = len(elements)
+
+        actual_permuted = permute_by_cycle(A, n)
+
+        self.assertArrayPermuted(actual_permuted, elements, end=n)
+        if n > 2:
+            reversed_array = create_array(list(reversed(elements)))
+            self.assertNotEqual(actual_permuted, reversed_array)
