@@ -11,6 +11,7 @@ from book.chapter5.section1 import hire_assistant
 from book.chapter5.section3 import permute_by_cycle
 from book.chapter5.section3 import permute_with_all
 from book.chapter5.section3 import permute_without_identity
+from book.chapter5.section3 import random_sample
 from book.chapter5.section3 import randomized_hire_assistant
 from book.chapter5.section3 import randomly_permute
 from test_case import ClrsTestCase
@@ -68,7 +69,7 @@ class TestChapter5(ClrsTestCase):
 
     @given(st.data())
     def test_randomly_permute(self, data):
-        elements = data.draw(lists(integers(), min_size=3, max_size=3, unique=True))
+        elements = data.draw(lists(integers(), min_size=1, unique=True))
         A = create_array(elements)
         n = len(elements)
 
@@ -111,3 +112,14 @@ class TestChapter5(ClrsTestCase):
         if n > 2:
             reversed_array = create_array(list(reversed(elements)))
             self.assertNotEqual(actual_permuted, reversed_array)
+
+    @given(st.data())
+    def test_random_sample(self, data):
+        n = data.draw(st.integers(min_value=0, max_value=10))
+        m = data.draw(st.integers(min_value=0, max_value=n))
+
+        actual_sample = random_sample(m, n)
+
+        set_1_to_n = set(range_of(1, to=n))
+        self.assertEqual(len(actual_sample), m)
+        self.assertTrue(actual_sample.issubset(set_1_to_n))
