@@ -7,6 +7,7 @@ from hypothesis import strategies as st
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
+from book.chapter5.problem1 import increment
 from book.chapter5.section1 import hire_assistant
 from book.chapter5.section3 import permute_by_cycle
 from book.chapter5.section3 import permute_with_all
@@ -15,6 +16,7 @@ from book.chapter5.section3 import random_sample
 from book.chapter5.section3 import randomized_hire_assistant
 from book.chapter5.section3 import randomly_permute
 from test_case import ClrsTestCase
+from test_solutions.test_chapter2 import binary_to_decimal
 from test_util import create_array
 from util import range_of
 
@@ -123,3 +125,23 @@ class TestChapter5(ClrsTestCase):
         set_1_to_n = set(range_of(1, to=n))
         self.assertEqual(len(actual_sample), m)
         self.assertTrue(actual_sample.issubset(set_1_to_n))
+
+    @given(st.data())
+    def test_increment(self, data):
+        b = data.draw(st.integers(min_value=1, max_value=10))
+        n = data.draw(st.integers(min_value=1, max_value=1000))
+        elements = data.draw(
+            lists(integers(min_value=1, max_value=1000), min_size=2 ** b - 1, max_size=2 ** b - 1, unique=True))
+        count_sequence = create_array([0] + sorted(elements), start=0)
+        A = create_array([0] * b, start=0)
+
+        previous_value = 0
+        for _ in range_of(1, to=n):
+            try:
+                increment(A, b, count_sequence)
+                current_value = binary_to_decimal(A, b)
+                self.assertIn(current_value, [previous_value, previous_value + 1])
+                previous_value = current_value
+            except ValueError as e:
+                self.assertEqual(str(e), 'overflow')
+                break
