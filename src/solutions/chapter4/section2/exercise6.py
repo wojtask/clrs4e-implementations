@@ -5,8 +5,13 @@ from solutions.chapter4.section2.exercise2 import matrix_add
 from util import range_of
 
 
-def matrix_multiply_by_squaring(A: Matrix, B: Matrix, C: Matrix, matrix_square: Callable[[Matrix, Matrix, int], None],
-                                n: int) -> None:
+def matrix_multiply_by_squaring(
+        A: Matrix,
+        B: Matrix,
+        C: Matrix,
+        matrix_square: Callable[[Matrix, Matrix, int], None],
+        n: int,
+) -> None:
     """Multiplies two square matrices and adds the result to the third square matrix, using a function for squaring
     matrices.
 
@@ -25,7 +30,7 @@ def matrix_multiply_by_squaring(A: Matrix, B: Matrix, C: Matrix, matrix_square: 
     matrix_add(C, E.submatrix((1, n), (n + 1, 2 * n)), C, n)
 
 
-def __create_padded_input_matrix(A, B, n):
+def __create_padded_input_matrix(A: Matrix, B: Matrix, n: int) -> Matrix:
     M = Matrix(2 * n, 2 * n)
     for i in range_of(1, to=n):
         for j in range_of(1, to=n):

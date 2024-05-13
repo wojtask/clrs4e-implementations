@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional
 
 from book.data_structures import Array
 from book.data_structures import Matrix
@@ -24,7 +24,7 @@ def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array:
     return minimums
 
 
-def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Union[Array, None]:
+def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Array]:
     if m == 0:
         return None
     A_ = A.even_rows_submatrix()

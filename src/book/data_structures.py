@@ -1,7 +1,9 @@
 from builtins import len
 from typing import Any
+from typing import List
 from typing import Tuple
 from typing import Union
+from typing_extensions import Self
 
 
 class Array:
@@ -31,7 +33,7 @@ class Array:
 
 
 class Matrix:
-    def __init__(self, rows: Union[int, Tuple[int, int]], cols: Union[int, Tuple[int, int]], elements=None) -> None:
+    def __init__(self, rows: Union[int, Tuple[int, int]], cols: Union[int, Tuple[int, int]], elements: list = None) -> None:
         if isinstance(rows, int) and isinstance(cols, int) and elements is None:
             assert rows >= 0
             assert cols >= 0
@@ -41,24 +43,24 @@ class Matrix:
         else:
             raise TypeError('Invalid parameters')
 
-    def __create_matrix(self, rows, cols):
+    def __create_matrix(self, rows: int, cols: int) -> None:
         self.__start_row, self.__end_row = 1, rows
         self.__start_col, self.__end_col = 1, cols
         self.__elements = [[0] * cols for _ in range(rows)]
 
-    def __create_submatrix(self, rows, cols, elements):
+    def __create_submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int], elements: List) -> None:
         self.__start_row, self.__end_row = rows[0], rows[1]
         self.__start_col, self.__end_col = cols[0], cols[1]
         self.__elements = elements
 
-    def submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int]):
+    def submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int]) -> Self:
         assert 1 <= rows[0] <= rows[1] <= len(self.__elements)
         assert 1 <= cols[0] <= cols[1] <= len(self.__elements[0])
         rows_shifted = rows[0] + self.__start_row - 1, rows[1] + self.__start_row - 1
         cols_shifted = cols[0] + self.__start_col - 1, cols[1] + self.__start_col - 1
         return Matrix(rows_shifted, cols_shifted, self.__elements)
 
-    def even_rows_submatrix(self):
+    def even_rows_submatrix(self) -> Self:
         even_rows = [row for i, row in enumerate(self.__elements, start=1) if i % 2 == 0]
         submatrix_rows_indices = self.__start_row, self.__start_row + len(even_rows) - 1
         return Matrix(submatrix_rows_indices, (self.__start_col, self.__end_col), even_rows)

@@ -1,3 +1,6 @@
+from typing import Tuple
+
+from book.chapter4.section1 import MatrixPartition
 from book.data_structures import Matrix
 from util import range_of
 
@@ -27,13 +30,14 @@ def matrix_multiply_recursive_by_copying(A: Matrix, B: Matrix, C: Matrix, n: int
     __merge_submatrices_by_copying(C, C11, C12, C21, C22, n)
 
 
-def __partition_matrices_by_copying(A, B, C, n):
+def __partition_matrices_by_copying(A: Matrix, B: Matrix, C: Matrix, n: int) \
+        -> Tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
     return __partition_matrix_by_copying(A, n), \
         __partition_matrix_by_copying(B, n), \
         __partition_matrix_by_copying(C, n)
 
 
-def __partition_matrix_by_copying(M, n):
+def __partition_matrix_by_copying(M: Matrix, n: int) -> MatrixPartition:
     M11 = Matrix(n // 2, n // 2)
     M12 = Matrix(n // 2, n // 2)
     M21 = Matrix(n // 2, n // 2)
@@ -47,7 +51,7 @@ def __partition_matrix_by_copying(M, n):
     return M11, M12, M21, M22
 
 
-def __merge_submatrices_by_copying(M, M11, M12, M21, M22, n):
+def __merge_submatrices_by_copying(M: Matrix, M11: Matrix, M12: Matrix, M21: Matrix, M22: Matrix, n: int) -> None:
     for i in range_of(1, to=n // 2):
         for j in range_of(1, to=n // 2):
             M[i, j] = M11[i, j]

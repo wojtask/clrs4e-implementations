@@ -1,3 +1,7 @@
+from typing import Iterable
+from typing import Tuple
+
+from book.chapter4.section1 import MatrixPartition
 from book.data_structures import Matrix
 from util import range_of
 
@@ -41,30 +45,31 @@ def strassen(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     matrix_subtract(P1, P7, C22, n // 2)
 
 
-def __partition_matrices(A, B, C, n):
+def __partition_matrices(A: Matrix, B: Matrix, C: Matrix, n: int) \
+        -> Tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
     return __partition_matrix(A, n), \
         __partition_matrix(B, n), \
         __partition_matrix(C, n)
 
 
-def __partition_matrix(M, n):
+def __partition_matrix(M: Matrix, n: int) -> MatrixPartition:
     return M.submatrix((1, n // 2), (1, n // 2)), \
         M.submatrix((1, n // 2), (n // 2 + 1, n)), \
         M.submatrix((n // 2 + 1, n), (1, n // 2)), \
         M.submatrix((n // 2 + 1, n), (n // 2 + 1, n))
 
 
-def __create_intermediate_matrices(n):
+def __create_intermediate_matrices(n: int) -> Iterable[Matrix]:
     return [Matrix(n, n) for _ in range_of(1, to=17)]
 
 
-def matrix_add(A, B, C, n):
+def matrix_add(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     for i in range_of(1, to=n):
         for j in range_of(1, to=n):
             C[i, j] += A[i, j] + B[i, j]
 
 
-def matrix_subtract(A, B, C, n):
+def matrix_subtract(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     for i in range_of(1, to=n):
         for j in range_of(1, to=n):
             C[i, j] += A[i, j] - B[i, j]

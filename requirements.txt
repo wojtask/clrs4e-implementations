@@ -2,3 +2,4 @@ sympy
 numpy
 mpmath
 hypothesis
+typing_extensions

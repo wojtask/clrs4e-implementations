@@ -16,7 +16,7 @@ from book.chapter5.section3 import random_sample
 from book.chapter5.section3 import randomized_hire_assistant
 from book.chapter5.section3 import randomly_permute
 from test_case import ClrsTestCase
-from test_solutions.test_chapter2 import binary_to_decimal
+from test_util import binary_to_decimal
 from test_util import create_array
 from util import range_of
 

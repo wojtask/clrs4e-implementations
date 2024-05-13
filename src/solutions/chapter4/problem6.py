@@ -2,6 +2,7 @@ from enum import Enum
 from enum import auto
 from random import random
 from typing import Set
+from typing import Tuple
 
 
 class ChipCondition(Enum):
@@ -19,7 +20,7 @@ class BadChipStrategy(Enum):
     ALWAYS_REPORT_GOOD = 1.0
     ALWAYS_REPORT_BAD = 0.0
 
-    def report(self):
+    def report(self) -> ChipCondition:
         return ChipCondition.GOOD if random() < self.value else ChipCondition.BAD
 
 
@@ -67,6 +68,6 @@ def identify_all_good_chips(chips: Set, *, strategy: BadChipStrategy = BadChipSt
 
 
 def __test_chips(first: Chip, second: Chip, *, strategy: BadChipStrategy) \
-        -> (ChipCondition, ChipCondition):
+        -> Tuple[ChipCondition, ChipCondition]:
     return (second.condition if first.condition == ChipCondition.GOOD else strategy.report(),
             first.condition if second.condition == ChipCondition.GOOD else strategy.report())

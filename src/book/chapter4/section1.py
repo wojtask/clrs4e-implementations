@@ -1,5 +1,9 @@
+from typing import Tuple
+
 from book.data_structures import Matrix
 from util import range_of
+
+MatrixPartition = Tuple[Matrix, Matrix, Matrix, Matrix]
 
 
 def matrix_multiply(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
@@ -46,13 +50,14 @@ def matrix_multiply_recursive(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
     matrix_multiply_recursive(A22, B22, C22, n // 2)
 
 
-def __partition_matrices(A, B, C, n):
+def __partition_matrices(A: Matrix, B: Matrix, C: Matrix, n: int) \
+        -> Tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
     return __partition_matrix(A, n), \
         __partition_matrix(B, n), \
         __partition_matrix(C, n)
 
 
-def __partition_matrix(M, n):
+def __partition_matrix(M: Matrix, n: int) -> MatrixPartition:
     return M.submatrix((1, n // 2), (1, n // 2)), \
         M.submatrix((1, n // 2), (n // 2 + 1, n)), \
         M.submatrix((n // 2 + 1, n), (1, n // 2)), \

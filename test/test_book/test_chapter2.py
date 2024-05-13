@@ -1,4 +1,5 @@
 from hypothesis import given
+from hypothesis import strategies as st
 from hypothesis.strategies import floats
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
@@ -16,8 +17,9 @@ from test_util import create_array
 
 class TestChapter2(ClrsTestCase):
 
-    @given(lists(integers(), min_size=1))
-    def test_insertion_sort(self, elements):
+    @given(st.data())
+    def test_insertion_sort(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
         A = create_array(elements)
         n = len(elements)
 
@@ -26,8 +28,9 @@ class TestChapter2(ClrsTestCase):
         self.assertArraySorted(A, end=n)
         self.assertArrayPermuted(A, elements, end=n)
 
-    @given(lists(integers(), min_size=1))
-    def test_sum_array(self, elements):
+    @given(st.data())
+    def test_sum_array(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
         A = create_array(elements)
         n = len(elements)
 
@@ -36,8 +39,9 @@ class TestChapter2(ClrsTestCase):
         expected_sum = sum(elements)
         self.assertEqual(actual_sum, expected_sum)
 
-    @given(lists(integers(), min_size=1))
-    def test_merge_sort(self, elements):
+    @given(st.data())
+    def test_merge_sort(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
         A = create_array(elements)
         n = len(elements)
 
@@ -46,8 +50,9 @@ class TestChapter2(ClrsTestCase):
         self.assertArraySorted(A, end=n)
         self.assertArrayPermuted(A, elements, end=n)
 
-    @given(lists(integers(), min_size=1))
-    def test_insertion_sort_with_binary_search(self, elements):
+    @given(st.data())
+    def test_insertion_sort_with_binary_search(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
         A = create_array(elements)
         n = len(elements)
 
@@ -56,8 +61,9 @@ class TestChapter2(ClrsTestCase):
         self.assertArraySorted(A, end=n)
         self.assertArrayPermuted(A, elements, end=n)
 
-    @given(lists(integers(), min_size=1))
-    def test_bubblesort(self, elements):
+    @given(st.data())
+    def test_bubblesort(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
         A = create_array(elements)
         n = len(elements)
 
@@ -66,9 +72,10 @@ class TestChapter2(ClrsTestCase):
         self.assertArraySorted(A, end=n)
         self.assertArrayPermuted(A, elements, end=n)
 
-    @given(lists(floats(min_value=-10.0, max_value=10.0), min_size=1, max_size=5),
-           floats(min_value=-10.0, max_value=10.0))
-    def test_horner(self, coefficients, x):
+    @given(st.data())
+    def test_horner(self, data):
+        coefficients = data.draw(lists(floats(min_value=-10.0, max_value=10.0), min_size=1, max_size=5))
+        x = data.draw(floats(min_value=-10.0, max_value=10.0))
         A = create_array(coefficients, start=0)
         n = len(coefficients) - 1
 

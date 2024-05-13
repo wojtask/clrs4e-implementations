@@ -26,15 +26,15 @@ def hire_assistant(rank: Array, n: int) -> None:
             __hire_candidate(i)
 
 
-def __interview_candidate(i):
+def __interview_candidate(i: int) -> None:
     print('interviewing candidate ' + str(i))
 
 
-def __compare_candidates(i, j, rank):
+def __compare_candidates(i: int, j: int, rank: Array) -> bool:
     return j == 0 or rank[i] > rank[j]
 
 
-def __hire_candidate(i):
+def __hire_candidate(i: int) -> None:
     print('hiring candidate ' + str(i))
 
 

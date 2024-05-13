@@ -26,7 +26,7 @@ from test_util import create_matrix
 from util import range_of
 
 
-def is_monge_array(A, m, n):
+def is_monge_array(A: Matrix, m: int, n: int) -> bool:
     for i in range_of(1, to=m - 1):
         for j in range_of(1, to=n - 1):
             if A[i, j] + A[i + 1, j + 1] > A[i, j + 1] + A[i + 1, j]:
@@ -135,7 +135,7 @@ class TestChapter4(ClrsTestCase):
         B = create_matrix(elements2)
         C = Matrix(n, n)
 
-        def matrix_square_function(D, E, m):
+        def matrix_square_function(D: Matrix, E: Matrix, m: int) -> None:
             matrix_multiply(D, D, E, m)
 
         matrix_multiply_by_squaring(A, B, C, matrix_square_function, n)
