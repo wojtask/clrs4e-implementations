@@ -4,6 +4,7 @@ from hypothesis import strategies as st
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
+from solutions.chapter5.problem2 import random_search
 from solutions.chapter5.section1.exercise2 import random
 from solutions.chapter5.section1.exercise3 import unbiased_random
 from solutions.chapter5.section3.exercise1 import randomly_permute_
@@ -45,3 +46,17 @@ class TestChapter5(ClrsTestCase):
         randomly_permute_(A, n)
 
         self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_random_search(self, data):
+        elements = data.draw(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20))
+        x = data.draw(integers(min_value=-10, max_value=10))
+        A = create_array(elements)
+        n = len(elements)
+
+        actual_index = random_search(A, n, x)
+
+        if actual_index:
+            self.assertEqual(A[actual_index], x)
+        else:
+            self.assertNotIn(x, elements)
