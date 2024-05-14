@@ -15,6 +15,7 @@ from book.chapter5.section3 import permute_without_identity
 from book.chapter5.section3 import random_sample
 from book.chapter5.section3 import randomized_hire_assistant
 from book.chapter5.section3 import randomly_permute
+from book.chapter5.section4 import online_maximum
 from test_case import ClrsTestCase
 from test_util import binary_to_decimal
 from test_util import create_array
@@ -145,3 +146,17 @@ class TestChapter5(ClrsTestCase):
             except ValueError as e:
                 self.assertEqual(str(e), 'overflow')
                 break
+
+    @given(st.data())
+    def test_online_maximum(self, data):
+        n = data.draw(st.integers(min_value=1, max_value=10))
+        k = data.draw(st.integers(min_value=0, max_value=n))
+        score_elements = data.draw(lists(integers(), min_size=n, max_size=n, unique=True))
+        score = create_array(score_elements)
+
+        actual_maximum_position = online_maximum(score, k, n)
+
+        self.assertIn(actual_maximum_position, range_of(1, to=n))
+        if actual_maximum_position < n:
+            for i in range_of(1, to=k):
+                self.assertGreater(score[actual_maximum_position], score[i])
