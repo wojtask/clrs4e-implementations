@@ -19,15 +19,15 @@ def random_search(A: Array, n: int, x: int) -> Optional[int]:
     Returns:
         An index i such that x equals A[i] or None if x does not appear in A.
     """
-    B = Array(1, n)
-    for k in range_of(1, to=n):
-        B[k] = False
-    checked = 0
-    while checked < n:
+    picked = Array(1, n)
+    for i in range_of(1, to=n):
+        picked[i] = False
+    k = 0
+    while k < n:
         i = random(1, n)
         if A[i] == x:
             return i
-        if not B[i]:
-            B[i] = True
-            checked += 1
+        if not picked[i]:
+            picked[i] = True
+            k += 1
     return None
