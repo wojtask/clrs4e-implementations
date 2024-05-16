@@ -8,6 +8,8 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
 from book.chapter5.problem1 import increment
+from book.chapter5.problem2 import deterministic_search
+from book.chapter5.problem2 import scramble_search
 from book.chapter5.section1 import hire_assistant
 from book.chapter5.section3 import permute_by_cycle
 from book.chapter5.section3 import permute_with_all
@@ -160,3 +162,31 @@ class TestChapter5(ClrsTestCase):
         if actual_maximum_position < n:
             for i in range_of(1, to=k):
                 self.assertGreater(score[actual_maximum_position], score[i])
+
+    @given(st.data())
+    def test_deterministic_search(self, data):
+        elements = data.draw(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20))
+        x = data.draw(integers(min_value=-10, max_value=10))
+        A = create_array(elements)
+        n = len(elements)
+
+        actual_index = deterministic_search(A, n, x)
+
+        if actual_index:
+            self.assertEqual(A[actual_index], x)
+        else:
+            self.assertNotIn(x, elements)
+
+    @given(st.data())
+    def test_scramble_search(self, data):
+        elements = data.draw(lists(integers(min_value=-10, max_value=10), min_size=1, max_size=20))
+        x = data.draw(integers(min_value=-10, max_value=10))
+        A = create_array(elements)
+        n = len(elements)
+
+        actual_index = scramble_search(A, n, x)
+
+        if actual_index:
+            self.assertEqual(A[actual_index], x)
+        else:
+            self.assertNotIn(x, elements)
