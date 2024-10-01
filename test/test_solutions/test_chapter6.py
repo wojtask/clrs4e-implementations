@@ -6,6 +6,7 @@ from hypothesis.strategies import lists
 from book.chapter6.section1 import build_max_heap
 from book.data_structures import Array
 from solutions.chapter6.section2.exercise3 import min_heapify
+from solutions.chapter6.section2.exercise6 import iterative_max_heapify
 from test_case import ClrsTestCase
 from test_util import create_array
 from util import range_of
@@ -37,4 +38,21 @@ class TestChapter6(ClrsTestCase):
 
         self.assertEqual(A.heap_size, n)
         self.assertMinHeap(A)
+        self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_iterative_max_heapify(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
+        n = len(elements)
+        A = create_array(elements)
+        build_max_heap(A, n)
+        new_root = data.draw(integers(max_value=A[1] - 1))
+        elements.remove(A[1])
+        elements.append(new_root)
+        A[1] = new_root  # possibly violate the max-heap property at the root
+
+        iterative_max_heapify(A, 1)
+
+        self.assertEqual(A.heap_size, n)
+        self.assertMaxHeap(A)
         self.assertArrayPermuted(A, elements, end=n)
