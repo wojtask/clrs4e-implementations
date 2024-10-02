@@ -3,7 +3,7 @@ from hypothesis import strategies as st
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
-from book.chapter6.section1 import build_max_heap
+from book.chapter6.section3 import build_max_heap
 from book.data_structures import Array
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify

@@ -3,7 +3,7 @@ from hypothesis import strategies as st
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
-from book.chapter6.section1 import build_max_heap
+from book.chapter6.section3 import build_max_heap
 from test_case import ClrsTestCase
 from test_util import create_array
 
