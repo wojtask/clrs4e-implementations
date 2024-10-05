@@ -1,5 +1,4 @@
-from typing import Iterable
-from typing import Tuple
+from collections.abc import Iterable
 
 from book.chapter4.section1 import MatrixPartition
 from book.data_structures import Matrix
@@ -46,7 +45,7 @@ def strassen(A: Matrix, B: Matrix, C: Matrix, n: int) -> None:
 
 
 def __partition_matrices(A: Matrix, B: Matrix, C: Matrix, n: int) \
-        -> Tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
+        -> tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
     return __partition_matrix(A, n), \
         __partition_matrix(B, n), \
         __partition_matrix(C, n)

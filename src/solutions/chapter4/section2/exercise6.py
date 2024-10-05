@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 from book.data_structures import Matrix
 from solutions.chapter4.section2.exercise2 import matrix_add

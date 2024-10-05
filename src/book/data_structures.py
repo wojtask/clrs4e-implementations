@@ -1,22 +1,27 @@
 from builtins import len
 from typing import Any
-from typing import List
-from typing import Tuple
+from typing import TypeVar
 from typing import Union
+
 from typing_extensions import Self
 
+T = TypeVar('T')
 
-class Array:
+
+class Array[T]:
+    __start: int
+    __elements: list[T]
+
     def __init__(self, start: int, end: int) -> None:
         assert 0 <= start <= end
         self.__start = start
         self.__elements = [None] * (end - start + 1)
 
-    def __getitem__(self, index: int) -> Any:
+    def __getitem__(self, index: int) -> T:
         assert self.__start <= index < self.__start + len(self.__elements)
         return self.__elements[index - self.__start]
 
-    def __setitem__(self, index: int, value: Any) -> None:
+    def __setitem__(self, index: int, value: T) -> None:
         assert self.__start <= index < self.__start + len(self.__elements)
         self.__elements[index - self.__start] = value
 
@@ -33,46 +38,45 @@ class Array:
 
 
 class Matrix:
-    def __init__(self, rows: Union[int, Tuple[int, int]], cols: Union[int, Tuple[int, int]], elements: list = None) -> None:
-        if isinstance(rows, int) and isinstance(cols, int) and elements is None:
-            assert rows >= 0
-            assert cols >= 0
-            self.__create_matrix(rows, cols)
-        elif isinstance(rows, tuple) and isinstance(cols, tuple) and elements is not None:
-            self.__create_submatrix(rows, cols, elements)
+    __start_row: int
+    __end_row: int
+    __start_col: int
+    __end_col: int
+    __elements: list[list[Union[int, float]]]
+
+    def __init__(self, end_row: int, end_col: int, start_row: int = 1, start_col: int = 1,
+                 elements: list[list[Union[int, float]]] = None) -> None:
+        if elements is None:
+            assert start_row == 1
+            assert start_col == 1
+            self.__elements = [[0] * end_col for _ in range(end_row)]
         else:
-            raise TypeError('Invalid parameters')
+            self.__elements = elements
+        self.__start_row, self.__end_row = start_row, end_row
+        self.__start_col, self.__end_col = start_col, end_col
 
-    def __create_matrix(self, rows: int, cols: int) -> None:
-        self.__start_row, self.__end_row = 1, rows
-        self.__start_col, self.__end_col = 1, cols
-        self.__elements = [[0] * cols for _ in range(rows)]
-
-    def __create_submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int], elements: List) -> None:
-        self.__start_row, self.__end_row = rows[0], rows[1]
-        self.__start_col, self.__end_col = cols[0], cols[1]
-        self.__elements = elements
-
-    def submatrix(self, rows: Tuple[int, int], cols: Tuple[int, int]) -> Self:
+    def submatrix(self, rows: tuple[int, int], cols: tuple[int, int]) -> Self:
         assert 1 <= rows[0] <= rows[1] <= len(self.__elements)
         assert 1 <= cols[0] <= cols[1] <= len(self.__elements[0])
         rows_shifted = rows[0] + self.__start_row - 1, rows[1] + self.__start_row - 1
         cols_shifted = cols[0] + self.__start_col - 1, cols[1] + self.__start_col - 1
-        return Matrix(rows_shifted, cols_shifted, self.__elements)
+        return Matrix(start_row=rows_shifted[0], end_row=rows_shifted[1], start_col=cols_shifted[0],
+                      end_col=cols_shifted[1], elements=self.__elements)
 
     def even_rows_submatrix(self) -> Self:
         even_rows = [row for i, row in enumerate(self.__elements, start=1) if i % 2 == 0]
-        submatrix_rows_indices = self.__start_row, self.__start_row + len(even_rows) - 1
-        return Matrix(submatrix_rows_indices, (self.__start_col, self.__end_col), even_rows)
+        submatrix_end_row = self.__start_row + len(even_rows) - 1
+        return Matrix(start_row=self.__start_row, end_row=submatrix_end_row, start_col=self.__start_col,
+                      end_col=self.__end_col, elements=even_rows)
 
-    def __getitem__(self, indices: Tuple[int, int]) -> Union[int, float]:
+    def __getitem__(self, indices: tuple[int, int]) -> Union[int, float]:
         row = indices[0]
         col = indices[1]
         assert 1 <= row <= self.__end_row - self.__start_row + 1
         assert 1 <= col <= self.__end_col - self.__start_col + 1
         return self.__elements[self.__start_row - 1 + row - 1][self.__start_col - 1 + col - 1]
 
-    def __setitem__(self, indices: Tuple[int, int], value: Union[int, float]) -> None:
+    def __setitem__(self, indices: tuple[int, int], value: Union[int, float]) -> None:
         row = indices[0]
         col = indices[1]
         assert 1 <= row <= self.__end_row - self.__start_row + 1

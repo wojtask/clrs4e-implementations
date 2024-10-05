@@ -2,8 +2,6 @@ from book.data_structures import Array
 from util import range_of
 
 
-
-
 def horner(A: Array, n: int, x: float) -> float:
     """Evaluates a polynomial for a given value using Horner's rule.
 

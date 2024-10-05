@@ -1,11 +1,11 @@
-from typing import List
+from typing import Union
 
 from book.data_structures import Array
 from book.data_structures import Matrix
 from util import range_of
 
 
-def create_array(elements: List, start: int = 1) -> Array:
+def create_array(elements: list, start: int = 1) -> Array:
     n = len(elements)
     array = Array(start, n + start - 1)
     i = start
@@ -15,7 +15,7 @@ def create_array(elements: List, start: int = 1) -> Array:
     return array
 
 
-def create_matrix(elements: List[List]) -> Matrix:
+def create_matrix(elements: list[list[Union[int, float]]]) -> Matrix:
     rows = len(elements)
     cols = len(elements[0])
     matrix = Matrix(rows, cols)

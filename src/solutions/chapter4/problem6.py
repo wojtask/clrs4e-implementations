@@ -1,8 +1,6 @@
 from enum import Enum
 from enum import auto
 from random import random
-from typing import Set
-from typing import Tuple
 
 
 class ChipCondition(Enum):
@@ -24,7 +22,7 @@ class BadChipStrategy(Enum):
         return ChipCondition.GOOD if random() < self.value else ChipCondition.BAD
 
 
-def identify_good_chip(chips: Set, *, strategy: BadChipStrategy = BadChipStrategy.COIN_FLIP) -> Chip:
+def identify_good_chip(chips: set[Chip], *, strategy: BadChipStrategy = BadChipStrategy.COIN_FLIP) -> Chip:
     """Identifies a good chip in a set of chips containing more good than bad chips.
 
     Args:
@@ -47,7 +45,7 @@ def identify_good_chip(chips: Set, *, strategy: BadChipStrategy = BadChipStrateg
     return identify_good_chip(selected_chips, strategy=strategy)
 
 
-def identify_all_good_chips(chips: Set, *, strategy: BadChipStrategy = BadChipStrategy.COIN_FLIP) -> Set:
+def identify_all_good_chips(chips: set[Chip], *, strategy: BadChipStrategy = BadChipStrategy.COIN_FLIP) -> set[Chip]:
     """Identifies all good chips in a set of chips that contains more good than bad chips.
 
     Args:
@@ -68,6 +66,6 @@ def identify_all_good_chips(chips: Set, *, strategy: BadChipStrategy = BadChipSt
 
 
 def __test_chips(first: Chip, second: Chip, *, strategy: BadChipStrategy) \
-        -> Tuple[ChipCondition, ChipCondition]:
+        -> tuple[ChipCondition, ChipCondition]:
     return (second.condition if first.condition == ChipCondition.GOOD else strategy.report(),
             first.condition if second.condition == ChipCondition.GOOD else strategy.report())

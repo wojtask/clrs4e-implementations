@@ -1,5 +1,4 @@
 import operator
-from typing import List
 
 from hypothesis import given
 from hypothesis import strategies as st
@@ -24,7 +23,7 @@ from test_util import create_array
 from util import range_of
 
 
-def count_inversions_naive(elements: List) -> int:
+def count_inversions_naive(elements: list) -> int:
     A = create_array(elements)
     n = len(elements)
     inversions = 0

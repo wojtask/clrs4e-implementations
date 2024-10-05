@@ -1,5 +1,3 @@
-from typing import Set
-
 from book.chapter5.section1 import hire_assistant
 from book.data_structures import Array
 from solutions.chapter5.section1.exercise2 import random
@@ -93,7 +91,7 @@ def permute_by_cycle(A: Array, n: int) -> Array:
     return B
 
 
-def random_sample(m: int, n: int) -> Set:
+def random_sample(m: int, n: int) -> set[int]:
     """Generates a random sample of the set {1, 2, ..., n}, i.e., an m-element subset. Each generated m-subset is
     equally likely.
 

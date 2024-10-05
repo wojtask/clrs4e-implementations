@@ -1,7 +1,4 @@
-from typing import Tuple
-
-
-def complex_multiply(a: float, b: float, c: float, d: float) -> Tuple[float, float]:
+def complex_multiply(a: float, b: float, c: float, d: float) -> tuple[float, float]:
     """Multiplies two complex numbers using only three multiplications of real numbers.
 
     Args:

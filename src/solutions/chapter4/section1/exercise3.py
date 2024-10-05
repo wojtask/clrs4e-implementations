@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from book.chapter4.section1 import MatrixPartition
 from book.data_structures import Matrix
 from util import range_of
@@ -31,7 +29,7 @@ def matrix_multiply_recursive_by_copying(A: Matrix, B: Matrix, C: Matrix, n: int
 
 
 def __partition_matrices_by_copying(A: Matrix, B: Matrix, C: Matrix, n: int) \
-        -> Tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
+        -> tuple[MatrixPartition, MatrixPartition, MatrixPartition]:
     return __partition_matrix_by_copying(A, n), \
         __partition_matrix_by_copying(B, n), \
         __partition_matrix_by_copying(C, n)
