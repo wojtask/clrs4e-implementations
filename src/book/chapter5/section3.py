@@ -19,7 +19,7 @@ def randomized_hire_assistant(rank: Array[int], n: int) -> None:
     hire_assistant(rank, n)
 
 
-def randomly_permute(A: Array[int], n: int) -> None:
+def randomly_permute(A: Array[T], n: int) -> None:
     """Permutes an array in place, producing a uniform random permutation.
 
     Implements:
@@ -35,7 +35,7 @@ def randomly_permute(A: Array[int], n: int) -> None:
         A[i], A[j] = A[j], A[i]
 
 
-def permute_without_identity(A: Array[int], n: int) -> None:
+def permute_without_identity(A: Array[T], n: int) -> None:
     """A deliberately faulty algorithm for producing any permutation of an array without the identity permutation.
     Fails to produce any permutation in which an element on a given position occupied the same position in the original
     array.
@@ -103,7 +103,7 @@ def random_sample(m: int, n: int) -> set[int]:
         m: the cardinality of the sample
         n: the cardinality of the set, 0 <= m <= n
     """
-    S = set()
+    S = set[int]()
     for k in range_of(n - m + 1, to=n):
         i = random(1, k)
         if i in S:

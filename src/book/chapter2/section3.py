@@ -79,7 +79,7 @@ def insertion_sort_with_binary_search(A: Array[CT], n: int) -> None:
         A[k] = key
 
 
-def __binary_search_position(A: Array[CT], x: int, p: int, r: int) -> int:
+def __binary_search_position(A: Array[CT], x: CT, p: int, r: int) -> int:
     if p > r:
         return p
     q = (p + r) // 2

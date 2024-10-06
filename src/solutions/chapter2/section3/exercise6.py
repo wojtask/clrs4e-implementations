@@ -1,10 +1,9 @@
-from typing import Optional
+from __future__ import annotations
 
 from book.data_structures import Array
-from book.data_structures import CT
 
 
-def binary_search(A: Array[CT], p: int, r: int, x: int) -> Optional[int]:
+def binary_search(A: Array[int], p: int, r: int, x: int) -> int | None:
     """Searches for a number in a sorted sequence of numbers using binary search.
 
     Implements:

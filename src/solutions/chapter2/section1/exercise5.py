@@ -20,7 +20,7 @@ def add_binary_integers(A: Array[Bit], B: Array[Bit], n: int) -> Array[Bit]:
     C = Array[Bit](0, n)
     carry = 0
     for i in range_of(0, to=n - 1):
-        C[i] = (A[i] + B[i] + carry) % 2
+        C[i] = (A[i] + B[i] + carry) % 2  # type: ignore
         carry = (A[i] + B[i] + carry) // 2
-    C[n] = carry
+    C[n] = carry  # type: ignore
     return C

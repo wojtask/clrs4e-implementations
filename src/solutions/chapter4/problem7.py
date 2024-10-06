@@ -1,5 +1,4 @@
-from typing import Optional
-from typing import Union
+from __future__ import annotations
 
 from book.data_structures import Array
 from book.data_structures import Matrix
@@ -7,7 +6,7 @@ from util import ceil_div
 from util import range_of
 
 
-def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[Union[int, float]]:
+def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[int | float]:
     """Finds the leftmost minimum in each row of a Monge array.
 
     Args:
@@ -25,14 +24,14 @@ def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[Union[int, float
     return minimums
 
 
-def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Array[Union[int, float]]]:
+def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Array[int] | None:
     if m == 0:
         return None
     A_ = A.even_rows_submatrix()
     even_rows_leftmost_minimums_indices = __monge_leftmost_minimums_indices(A_, m // 2, n)
     odd_rows_leftmost_minimums_indices = __monge_odd_rows_leftmost_minimums_indices(A, m, n,
                                                                                     even_rows_leftmost_minimums_indices)
-    indices = Array(1, m)
+    indices = Array[int](1, m)
     for i in range_of(1, to=m // 2):
         indices[2 * i] = even_rows_leftmost_minimums_indices[i]
     for i in range_of(1, to=ceil_div(m, 2)):
@@ -40,9 +39,11 @@ def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Arr
     return indices
 
 
-def __monge_odd_rows_leftmost_minimums_indices(A: Matrix, m: int, n: int,
-                                               even_rows_leftmost_minimums_indices: Array[Union[int, float]]) \
-        -> Array[Union[int, float]]:
+def __monge_odd_rows_leftmost_minimums_indices(A: Matrix,
+                                               m: int,
+                                               n: int,
+                                               even_rows_leftmost_minimums_indices: Array[int])\
+        -> Array[int | float]:
     odd_rows_leftmost_minimums_indices = Array(1, ceil_div(m, 2))
     for i in range_of(1, to=ceil_div(m, 2)):
         prev_minimum_index = even_rows_leftmost_minimums_indices[i - 1] if i > 1 else 1

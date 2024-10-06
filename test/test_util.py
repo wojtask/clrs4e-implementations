@@ -1,4 +1,4 @@
-from typing import Union
+from __future__ import annotations
 
 from book.data_structures import Array
 from book.data_structures import Bit
@@ -17,7 +17,7 @@ def create_array(elements: list[T], start: int = 1) -> Array[T]:
     return array
 
 
-def create_matrix(elements: list[list[Union[int, float]]]) -> Matrix:
+def create_matrix(elements: list[list[int | float]]) -> Matrix:
     rows = len(elements)
     cols = len(elements[0])
     matrix = Matrix(rows, cols)

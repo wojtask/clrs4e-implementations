@@ -17,7 +17,7 @@ def polynomial_evaluate(A: Array[float], n: int, x: float) -> float:
     Returns:
         The value of the polynomial for x.
     """
-    p = 0
+    p = 0.0
     for i in range_of(0, to=n):
         s = A[i]
         for j in range_of(1, to=i):

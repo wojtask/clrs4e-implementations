@@ -17,7 +17,7 @@ def horner(A: Array[float], n: int, x: float) -> float:
     Returns:
         The value of the polynomial for x.
     """
-    p = 0
+    p = 0.0
     for i in range_of(n, downto=0):
         p = A[i] + x * p
     return p
