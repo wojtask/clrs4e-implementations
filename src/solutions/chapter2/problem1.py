@@ -1,9 +1,10 @@
 from book.chapter2.section3 import merge
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def merge_sort_with_insertion_sort(A: Array, p: int, r: int, k: int) -> None:
+def merge_sort_with_insertion_sort(A: Array[CT], p: int, r: int, k: int) -> None:
     """Sorts an array using merge sort, while delegating small subproblems to insertion sort.
 
     Args:
@@ -22,7 +23,7 @@ def merge_sort_with_insertion_sort(A: Array, p: int, r: int, k: int) -> None:
     merge(A, p, q, r)
 
 
-def __insertion_sort_sublist(A: Array, p: int, r: int) -> None:
+def __insertion_sort_sublist(A: Array[CT], p: int, r: int) -> None:
     for i in range_of(p + 1, to=r):
         key = A[i]
         j = i - 1

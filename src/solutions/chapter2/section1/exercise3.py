@@ -1,8 +1,9 @@
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def insertion_sort_decreasing(A: Array, n: int) -> None:
+def insertion_sort_decreasing(A: Array[CT], n: int) -> None:
     """Sorts an array into monotonically decreasing order using insertion sort.
 
     Args:

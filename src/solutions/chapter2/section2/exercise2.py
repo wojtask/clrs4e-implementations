@@ -1,8 +1,9 @@
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def selection_sort(A: Array, n: int) -> None:
+def selection_sort(A: Array[CT], n: int) -> None:
     """Sorts an array using selection sort.
 
     Implements:

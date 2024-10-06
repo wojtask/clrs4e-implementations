@@ -8,7 +8,7 @@ __p = uniform(0, 1)
 
 
 # Added the implicit rank array to the list of parameters
-def hire_assistant(rank: Array, n: int) -> None:
+def hire_assistant(rank: Array[int], n: int) -> None:
     """Interviews a set of candidates and hires the best qualified one as an office assistant.
 
     Implements:
@@ -30,7 +30,7 @@ def __interview_candidate(i: int) -> None:
     print('interviewing candidate ' + str(i))
 
 
-def __compare_candidates(i: int, j: int, rank: Array) -> bool:
+def __compare_candidates(i: int, j: int, rank: Array[int]) -> bool:
     return j == 0 or rank[i] > rank[j]
 
 

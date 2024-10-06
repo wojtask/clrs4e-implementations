@@ -3,7 +3,7 @@ from book.data_structures import Array
 from solutions.chapter2.section3.exercise6 import binary_search
 
 
-def sum_search(A: Array, n: int, x: int) -> bool:
+def sum_search(A: Array[int], n: int, x: int) -> bool:
     """Determines whether a set of integers contains two elements that sum to a given value.
 
     Args:

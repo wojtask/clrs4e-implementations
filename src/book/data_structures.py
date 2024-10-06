@@ -1,11 +1,27 @@
 from builtins import len
+from collections.abc import Callable
 from typing import Any
+from typing import Literal
 from typing import TypeVar
 from typing import Union
 
+from typing_extensions import Protocol
 from typing_extensions import Self
 
+
+class Comparable(Protocol):
+    def __le__(self, other: Any) -> bool:
+        pass
+
+
+class Indexable[T](Protocol):
+    __getitem__: Callable[[int], T]
+    __setitem__: Callable[[int, T], None]
+
+
 T = TypeVar('T')
+CT = TypeVar('CT', bound=Comparable)
+Bit = Literal[0, 1]
 
 
 class Array[T]:

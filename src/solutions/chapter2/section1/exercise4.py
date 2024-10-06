@@ -1,10 +1,11 @@
 from typing import Optional
 
 from book.data_structures import Array
+from book.data_structures import T
 from util import range_of
 
 
-def linear_search(A: Array, n: int, x: int) -> Optional[int]:
+def linear_search(A: Array[T], n: int, x: int) -> Optional[int]:
     """Searches for a number in a sequence of numbers using linear search.
 
     Implements:

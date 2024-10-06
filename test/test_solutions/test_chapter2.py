@@ -7,6 +7,7 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 from numpy.polynomial import polynomial
 
+from book.data_structures import CT
 from solutions.chapter2.problem1 import merge_sort_with_insertion_sort
 from solutions.chapter2.problem3 import polynomial_evaluate
 from solutions.chapter2.problem4 import count_inversions
@@ -23,7 +24,7 @@ from test_util import create_array
 from util import range_of
 
 
-def count_inversions_naive(elements: list) -> int:
+def count_inversions_naive(elements: list[CT]) -> int:
     A = create_array(elements)
     n = len(elements)
     inversions = 0

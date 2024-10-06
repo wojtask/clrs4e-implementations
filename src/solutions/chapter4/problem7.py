@@ -1,4 +1,5 @@
 from typing import Optional
+from typing import Union
 
 from book.data_structures import Array
 from book.data_structures import Matrix
@@ -6,7 +7,7 @@ from util import ceil_div
 from util import range_of
 
 
-def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array:
+def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[Union[int, float]]:
     """Finds the leftmost minimum in each row of a Monge array.
 
     Args:
@@ -24,7 +25,7 @@ def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array:
     return minimums
 
 
-def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Array]:
+def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Array[Union[int, float]]]:
     if m == 0:
         return None
     A_ = A.even_rows_submatrix()
@@ -40,7 +41,8 @@ def __monge_leftmost_minimums_indices(A: Matrix, m: int, n: int) -> Optional[Arr
 
 
 def __monge_odd_rows_leftmost_minimums_indices(A: Matrix, m: int, n: int,
-                                               even_rows_leftmost_minimums_indices: Array) -> Array:
+                                               even_rows_leftmost_minimums_indices: Array[Union[int, float]]) \
+        -> Array[Union[int, float]]:
     odd_rows_leftmost_minimums_indices = Array(1, ceil_div(m, 2))
     for i in range_of(1, to=ceil_div(m, 2)):
         prev_minimum_index = even_rows_leftmost_minimums_indices[i - 1] if i > 1 else 1

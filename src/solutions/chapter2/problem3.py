@@ -2,7 +2,7 @@ from book.data_structures import Array
 from util import range_of
 
 
-def polynomial_evaluate(A: Array, n: int, x: float) -> float:
+def polynomial_evaluate(A: Array[float], n: int, x: float) -> float:
     """Evaluates a polynomial for a given value using the naive method.
 
     Implements:

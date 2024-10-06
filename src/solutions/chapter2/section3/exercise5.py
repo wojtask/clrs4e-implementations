@@ -1,7 +1,8 @@
 from book.data_structures import Array
+from book.data_structures import CT
 
 
-def recursive_insertion_sort(A: Array, n: int) -> None:
+def recursive_insertion_sort(A: Array[CT], n: int) -> None:
     """Sorts an array using a recursive version of insertion sort.
 
     Implements:

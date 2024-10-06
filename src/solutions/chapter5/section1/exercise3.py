@@ -1,9 +1,8 @@
-from typing import Literal
-
 from book.chapter5.section1 import biased_random
+from book.data_structures import Bit
 
 
-def unbiased_random() -> Literal[0, 1]:
+def unbiased_random() -> Bit:
     """Outputs unbiased answer, either 0 or 1, using Biased-Random as a subroutine.
 
     Implements:

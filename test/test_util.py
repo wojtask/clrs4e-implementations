@@ -1,11 +1,13 @@
 from typing import Union
 
 from book.data_structures import Array
+from book.data_structures import Bit
 from book.data_structures import Matrix
+from book.data_structures import T
 from util import range_of
 
 
-def create_array(elements: list, start: int = 1) -> Array:
+def create_array(elements: list[T], start: int = 1) -> Array[T]:
     n = len(elements)
     array = Array(start, n + start - 1)
     i = start
@@ -25,7 +27,7 @@ def create_matrix(elements: list[list[Union[int, float]]]) -> Matrix:
     return matrix
 
 
-def binary_to_decimal(A: Array, n: int) -> int:
+def binary_to_decimal(A: Array[Bit], n: int) -> int:
     result = 0
     for i in range_of(0, to=n - 1):
         result += A[i] * 2 ** i

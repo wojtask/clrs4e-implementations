@@ -1,20 +1,21 @@
 from typing import Optional
 
 from book.data_structures import Array
+from book.data_structures import T
 from solutions.chapter5.section1.exercise2 import random
 from util import range_of
 
 
-def random_search(A: Array, n: int, x: int) -> Optional[int]:
-    """Searches for a number in a sequence of numbers by randomly choosing subsequent numbers to check.
+def random_search(A: Array[T], n: int, x: T) -> Optional[int]:
+    """Searches for an element in a sequence of elements by randomly choosing next element to check.
 
     Implements:
         Random-Search
 
     Args:
-        A: an Array containing the sequence of numbers
-        n: the number of numbers in the sequence
-        x: the number to search for
+        A: an Array containing the sequence of elements
+        n: the number of elements in the sequence
+        x: the element to search for
 
     Returns:
         An index i such that x equals A[i] or None if x does not appear in A.

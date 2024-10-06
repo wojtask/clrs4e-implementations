@@ -1,10 +1,11 @@
 from book.chapter5.section1 import hire_assistant
 from book.data_structures import Array
+from book.data_structures import T
 from solutions.chapter5.section1.exercise2 import random
 from util import range_of
 
 
-def randomized_hire_assistant(rank: Array, n: int) -> None:
+def randomized_hire_assistant(rank: Array[int], n: int) -> None:
     """Randomized version of Hire-Assistant.
 
     Implements:
@@ -18,7 +19,7 @@ def randomized_hire_assistant(rank: Array, n: int) -> None:
     hire_assistant(rank, n)
 
 
-def randomly_permute(A: Array, n: int) -> None:
+def randomly_permute(A: Array[int], n: int) -> None:
     """Permutes an array in place, producing a uniform random permutation.
 
     Implements:
@@ -34,7 +35,7 @@ def randomly_permute(A: Array, n: int) -> None:
         A[i], A[j] = A[j], A[i]
 
 
-def permute_without_identity(A: Array, n: int) -> None:
+def permute_without_identity(A: Array[int], n: int) -> None:
     """A deliberately faulty algorithm for producing any permutation of an array without the identity permutation.
     Fails to produce any permutation in which an element on a given position occupied the same position in the original
     array.
@@ -52,7 +53,7 @@ def permute_without_identity(A: Array, n: int) -> None:
         A[i], A[j] = A[j], A[i]
 
 
-def permute_with_all(A: Array, n: int) -> None:
+def permute_with_all(A: Array[T], n: int) -> None:
     """Permutes an array in place. Can't produce a uniform random permutation.
 
     Implements:
@@ -68,7 +69,7 @@ def permute_with_all(A: Array, n: int) -> None:
         A[i], A[j] = A[j], A[i]
 
 
-def permute_by_cycle(A: Array, n: int) -> Array:
+def permute_by_cycle(A: Array[T], n: int) -> Array[T]:
     """Permutes an array in place. Can't produce a uniform random permutation.
 
     Implements:
@@ -81,7 +82,7 @@ def permute_by_cycle(A: Array, n: int) -> Array:
     Returns:
         The permuted array.
     """
-    B = Array(1, n)
+    B = Array[T](1, n)
     offset = random(1, n)
     for i in range_of(1, to=n):
         dest = i + offset

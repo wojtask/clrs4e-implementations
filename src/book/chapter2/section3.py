@@ -1,8 +1,9 @@
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def merge(A: Array, p: int, q: int, r: int) -> None:
+def merge(A: Array[CT], p: int, q: int, r: int) -> None:
     """Merges two sorted subarrays into a single sorted subarray in place.
 
     Implements:
@@ -16,8 +17,8 @@ def merge(A: Array, p: int, q: int, r: int) -> None:
     """
     nL = q - p + 1
     nR = r - q
-    L = Array(0, nL - 1)
-    R = Array(0, nR - 1)
+    L = Array[CT](0, nL - 1)
+    R = Array[CT](0, nR - 1)
     for i in range_of(0, to=nL - 1):
         L[i] = A[p + i]
     for j in range_of(0, to=nR - 1):
@@ -43,7 +44,7 @@ def merge(A: Array, p: int, q: int, r: int) -> None:
         k += 1
 
 
-def merge_sort(A: Array, p: int, r: int) -> None:
+def merge_sort(A: Array[CT], p: int, r: int) -> None:
     """Sorts an array using merge sort.
 
     Implements:
@@ -62,7 +63,7 @@ def merge_sort(A: Array, p: int, r: int) -> None:
     merge(A, p, q, r)
 
 
-def insertion_sort_with_binary_search(A: Array, n: int) -> None:
+def insertion_sort_with_binary_search(A: Array[CT], n: int) -> None:
     """Sorts an array using insertion sort with binary search instead of linear search.
 
     Args:
@@ -78,7 +79,7 @@ def insertion_sort_with_binary_search(A: Array, n: int) -> None:
         A[k] = key
 
 
-def __binary_search_position(A: Array, x: int, p: int, r: int) -> int:
+def __binary_search_position(A: Array[CT], x: int, p: int, r: int) -> int:
     if p > r:
         return p
     q = (p + r) // 2

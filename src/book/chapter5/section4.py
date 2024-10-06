@@ -5,7 +5,7 @@ from util import range_of
 
 
 # Added the implicit score array to the list of parameters
-def online_maximum(score: Array, k: int, n: int) -> int:
+def online_maximum(score: Array[int], k: int, n: int) -> int:
     """An online version of the algorithm to find the best candidate.
 
     Implements:

@@ -1,9 +1,10 @@
 from book.data_structures import Array
+from book.data_structures import T
 from solutions.chapter5.section1.exercise2 import random
 from util import range_of
 
 
-def randomly_permute_(A: Array, n: int) -> None:
+def randomly_permute_(A: Array[T], n: int) -> None:
     """Permutes an array in place, producing a uniform random permutation.
 
     Implements:

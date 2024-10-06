@@ -6,12 +6,14 @@ from typing import Any
 from book.chapter6.section1 import left
 from book.chapter6.section1 import right
 from book.data_structures import Array
+from book.data_structures import CT
+from book.data_structures import T
 from util import range_of
 
 
 class ClrsTestCase(unittest.TestCase):
 
-    def assertArraySorted(self, array: Array, start: int = 1, end: int = None,
+    def assertArraySorted(self, array: Array[CT], start: int = 1, end: int = None,
                           cmp: Callable[[Any, Any], bool] = operator.le) -> None:
         if start >= end:
             return
@@ -20,7 +22,7 @@ class ClrsTestCase(unittest.TestCase):
                 self.fail(f'Array {array} is not sorted according to the relation {cmp}: '
                           f'elements ${array[i]}, ${array[i + 1]} are out of order')
 
-    def assertArrayPermuted(self, array: Array, elements: list, start: int = 1, end: int = None) -> None:
+    def assertArrayPermuted(self, array: Array[T], elements: list[T], start: int = 1, end: int = None) -> None:
         msg = f'Array {array} is not a permutation of {elements}'
         if end - start + 1 != len(elements):
             self.fail(msg)
@@ -54,7 +56,7 @@ class ClrsTestCase(unittest.TestCase):
         assertMaxSubheap(1)
 
     def assertMaxHeap(self, heap) -> None:
-        self.assertHeap(heap, lambda x, y: x >= y)
+        self.assertHeap(heap, operator.ge)
 
     def assertMinHeap(self, heap) -> None:
-        self.assertHeap(heap, lambda x, y: x <= y)
+        self.assertHeap(heap, operator.le)

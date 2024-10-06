@@ -1,8 +1,9 @@
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def merge_inversions(A: Array, p: int, q: int, r: int) -> int:
+def merge_inversions(A: Array[CT], p: int, q: int, r: int) -> int:
     """Merges two sorted subarrays to form a single sorted subarray in place, and counts inversions.
 
     Args:
@@ -16,8 +17,8 @@ def merge_inversions(A: Array, p: int, q: int, r: int) -> int:
     """
     nL = q - p + 1
     nR = r - q
-    L = Array(0, nL - 1)
-    R = Array(0, nR - 1)
+    L = Array[CT](0, nL - 1)
+    R = Array[CT](0, nR - 1)
     for i in range_of(0, to=nL - 1):
         L[i] = A[p + i]
     for j in range_of(0, to=nR - 1):
@@ -46,7 +47,7 @@ def merge_inversions(A: Array, p: int, q: int, r: int) -> int:
     return inversions
 
 
-def count_inversions(A: Array, p: int, r: int) -> int:
+def count_inversions(A: Array[CT], p: int, r: int) -> int:
     """Counts inversions in an array. Sorts the input array as a side effect.
 
     Implements:

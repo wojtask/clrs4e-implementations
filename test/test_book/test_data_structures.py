@@ -15,7 +15,7 @@ class TestArray(ClrsTestCase):
         n = data.draw(integers(min_value=1, max_value=10))
         index = data.draw(integers(min_value=1, max_value=n))
         element = data.draw(integers())
-        array = Array(1, n)
+        array = Array[int](1, n)
 
         array[index] = element
 
@@ -24,7 +24,7 @@ class TestArray(ClrsTestCase):
     @given(st.data())
     def test_new_array_is_empty(self, data):
         n = data.draw(integers(min_value=1, max_value=10))
-        array = Array(1, n)
+        array = Array[int](1, n)
 
         for i in range_of(1, to=n):
             self.assertIsNone(array[i])
@@ -34,7 +34,7 @@ class TestArray(ClrsTestCase):
         start = data.draw(integers(max_value=-1))
 
         with self.assertRaises(AssertionError):
-            Array(start, 10)
+            Array[int](start, 10)
 
     @given(st.data())
     def test_create_array_with_invalid_index_range(self, data):
@@ -43,14 +43,14 @@ class TestArray(ClrsTestCase):
         assume(start > end)
 
         with self.assertRaises(AssertionError):
-            Array(start, end)
+            Array[int](start, end)
 
     @given(st.data())
     def test_access_by_invalid_index(self, data):
         n = data.draw(integers(min_value=1, max_value=10))
         index = data.draw(integers(min_value=1, max_value=10))
         assume(index > n)
-        array = Array(1, n)
+        array = Array[int](1, n)
 
         with self.assertRaises(AssertionError):
             _ = array[index]
@@ -61,7 +61,7 @@ class TestArray(ClrsTestCase):
         index = data.draw(integers(min_value=1, max_value=10))
         element = data.draw(integers())
         assume(index > n)
-        array = Array(1, n)
+        array = Array[int](1, n)
 
         with self.assertRaises(AssertionError):
             array[index] = element

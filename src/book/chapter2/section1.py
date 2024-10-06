@@ -1,8 +1,9 @@
 from book.data_structures import Array
+from book.data_structures import CT
 from util import range_of
 
 
-def insertion_sort(A: Array, n: int) -> None:
+def insertion_sort(A: Array[CT], n: int) -> None:
     """Sorts an array using insertion sort.
 
     Implements:
@@ -21,7 +22,7 @@ def insertion_sort(A: Array, n: int) -> None:
         A[j + 1] = key
 
 
-def sum_array(A: Array, n: int) -> int:
+def sum_array(A: Array[int], n: int) -> int:
     """Computes the sum of numbers in a sequence.
 
     Implements:
