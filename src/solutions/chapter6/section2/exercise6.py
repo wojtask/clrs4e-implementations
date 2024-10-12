@@ -1,8 +1,10 @@
 from book.chapter6.section1 import left
 from book.chapter6.section1 import right
+from book.data_structures import CT
+from book.data_structures import Heap
 
 
-def iterative_max_heapify(A, i: int) -> None:
+def iterative_max_heapify(A: Heap[CT], i: int) -> None:
     """Restores the max-heap property violated by a single node (an iterative version).
 
     Implements:

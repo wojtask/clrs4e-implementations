@@ -131,3 +131,7 @@ class Matrix:
         return repr(
             [row[self.__start_col - 1: self.__end_col] for row in
              self.__elements[self.__start_row - 1: self.__end_row]])
+
+
+class Heap(Array[CT]):
+    heap_size: int = 0

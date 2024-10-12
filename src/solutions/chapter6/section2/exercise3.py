@@ -1,8 +1,10 @@
 from book.chapter6.section1 import left
 from book.chapter6.section1 import right
+from book.data_structures import CT
+from book.data_structures import Heap
 
 
-def min_heapify(A, i: int) -> None:
+def min_heapify(A: Heap[CT], i: int) -> None:
     """Restores the min-heap property violated by a single node.
 
     Implements:

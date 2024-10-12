@@ -44,7 +44,7 @@ def __monge_odd_rows_leftmost_minimums_indices(A: Matrix,
                                                m: int,
                                                n: int,
                                                even_rows_leftmost_minimums_indices: Array[int]) -> Array[int]:
-    odd_rows_leftmost_minimums_indices = Array(1, ceil_div(m, 2))
+    odd_rows_leftmost_minimums_indices = Array[int](1, ceil_div(m, 2))
     for i in range_of(1, to=ceil_div(m, 2)):
         prev_minimum_index = even_rows_leftmost_minimums_indices[i - 1] if i > 1 else 1
         next_minimum_index = even_rows_leftmost_minimums_indices[i] if i <= m // 2 else n
