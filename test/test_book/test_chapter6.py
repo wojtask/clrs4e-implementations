@@ -67,7 +67,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap([], n)
         A = PriorityQueue(heap, n)
 
-        with self.assertRaises(ValueError, msg="heap underflow"):
+        with self.assertRaisesRegex(ValueError, "heap underflow"):
             max_heap_maximum(A)
 
     @given(st.data())
@@ -119,7 +119,7 @@ class TestChapter6(ClrsTestCase):
         x = random.choice(key_objects)
         k = x.key - data.draw(integers(min_value=1))
 
-        with self.assertRaises(ValueError, msg="new key is smaller than current key"):
+        with self.assertRaisesRegex(ValueError, "new key is smaller than current key"):
             max_heap_increase_key(A, x, k)
 
             self.assertNotEquals(x.key, k)
@@ -158,7 +158,7 @@ class TestChapter6(ClrsTestCase):
         new_key = data.draw(integers())
         x = KeyObject(new_key, data.draw(text()))
 
-        with self.assertRaises(ValueError, msg="heap overflow"):
+        with self.assertRaisesRegex(ValueError, "heap overflow"):
             max_heap_insert(A, x, n)
 
             self.assertMaxHeap(A)

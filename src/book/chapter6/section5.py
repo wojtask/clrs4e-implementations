@@ -4,7 +4,7 @@ from book.chapter6.section1 import parent
 from book.chapter6.section2 import max_heapify
 from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
-from util import range_of
+from solutions.chapter2.section1.exercise4 import linear_search
 
 
 def max_heap_maximum(A: PriorityQueue) -> KeyObject:
@@ -64,10 +64,7 @@ def max_heap_increase_key(A: PriorityQueue, x: KeyObject, k: int) -> None:
 
 
 def __find_index_of_object(A: PriorityQueue, x: KeyObject) -> int:
-    for i in range_of(1, to=A.heap_size):
-        if A[i] == x:
-            return i
-    raise ValueError('element not found in the heap')
+    return linear_search(A, A.heap_size, x)
 
 
 def max_heap_insert(A: PriorityQueue, x: KeyObject, n: int) -> None:
