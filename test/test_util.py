@@ -29,12 +29,11 @@ def create_matrix(elements: list[list[int]]) -> Matrix:
     return matrix
 
 
-def create_heap(elements: list[CT]) -> Heap[CT]:
-    n = len(elements)
-    heap = Heap[CT](1, n)
-    for i in range_of(1, n):
+def create_heap(elements: list[CT], capacity: int = None) -> Heap[CT]:
+    heap = Heap[CT](1, capacity if capacity else len(elements))
+    heap.heap_size = len(elements)
+    for i in range_of(1, to=len(elements)):
         heap[i] = elements[i - 1]
-    heap.heap_size = n
     return heap
 
 

@@ -9,6 +9,8 @@ from typing import TypeVar
 
 from typing_extensions import Protocol
 
+from util import range_of
+
 T = TypeVar('T')
 CT = TypeVar('CT', bound='Comparable')
 
@@ -135,3 +137,39 @@ class Matrix:
 
 class Heap(Array[CT]):
     heap_size: int = 0
+
+
+class KeyObject:
+    def __init__(self, key: int, data=None) -> None:
+        self.key = key
+        self.data = data
+
+    def __lt__(self, other: KeyObject) -> bool:
+        return self.key < other.key
+
+    def __le__(self, other: KeyObject) -> bool:
+        return self.key <= other.key
+
+    def __gt__(self, other: KeyObject) -> bool:
+        return self.key > other.key
+
+    def __ge__(self, other: KeyObject) -> bool:
+        return self.key >= other.key
+
+
+# TODO(#476) Consider removing this data structure, and instead implement the priority queue directly on a heap.
+#   Clarify if we need the mapping between objects and heap indices, because as mentioned in the book, a heap
+#   implementing a priority queue contains pointers to the objects, which should suffice to address the objects.
+class PriorityQueue(Heap[KeyObject]):
+
+    def __init__(self, heap: Heap[KeyObject], n: int) -> None:
+        # TODO(#21) implement the object mappings with a hash table instead of Python dictionary
+        super().__init__(1, n)
+        self.heap_size = heap.heap_size
+        self.mapping = {}
+        for i in range_of(1, to=heap.heap_size):
+            self.__setitem__(i, heap[i])
+
+    def __setitem__(self, index: int, value: KeyObject) -> None:
+        super().__setitem__(index, value)
+        self.mapping[value] = index

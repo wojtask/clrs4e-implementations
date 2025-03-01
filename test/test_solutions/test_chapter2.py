@@ -114,7 +114,7 @@ class TestChapter2(ClrsTestCase):
             self.assertNotIn(x, elements)
 
     @given(st.data())
-    def test_sum_search_positive(self, data):
+    def test_sum_search(self, data):
         elements = data.draw(lists(integers(min_value=-10, max_value=10), min_size=1, unique=True))
         x = data.draw(integers(min_value=-20, max_value=20))
         A = create_array(elements)

@@ -7,6 +7,8 @@ from book.chapter6.section1 import left
 from book.chapter6.section1 import right
 from book.data_structures import Array
 from book.data_structures import CT
+from book.data_structures import Heap
+from book.data_structures import PriorityQueue
 from book.data_structures import T
 from util import range_of
 
@@ -38,7 +40,7 @@ class ClrsTestCase(unittest.TestCase):
             if not match:
                 self.fail(msg)
 
-    def assertHeap(self, heap, cmp: Callable[[Any, Any], bool]) -> None:
+    def assertHeap(self, heap: Heap[CT], cmp: Callable[[Any, Any], bool]) -> None:
         msg = f'Array {heap} is not a max-heap'
 
         def assertMaxSubheap(i: int) -> None:
@@ -55,8 +57,12 @@ class ClrsTestCase(unittest.TestCase):
 
         assertMaxSubheap(1)
 
-    def assertMaxHeap(self, heap) -> None:
+    def assertMaxHeap(self, heap: Heap[CT]) -> None:
         self.assertHeap(heap, operator.ge)
 
-    def assertMinHeap(self, heap) -> None:
+    def assertMinHeap(self, heap: Heap[CT]) -> None:
         self.assertHeap(heap, operator.le)
+
+    def assertPriorityQueueMappingConsistent(self, queue: PriorityQueue) -> None:
+        for i in range_of(1, queue.heap_size):
+            self.assertEqual(queue.mapping[queue[i]], i)
