@@ -153,6 +153,7 @@ class TestChapter6(ClrsTestCase):
         key_objects = [KeyObject(key, data.draw(text())) for key in keys]
         n = len(key_objects)
         heap = create_heap(key_objects)
+        build_max_heap(heap, n)
         A = PriorityQueue(heap, n)
         new_key = data.draw(integers())
         x = KeyObject(new_key, data.draw(text()))
