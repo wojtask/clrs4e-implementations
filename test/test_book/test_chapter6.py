@@ -6,6 +6,7 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 from hypothesis.strategies import text
 
+from book.chapter6.problem1 import build_max_heap_
 from book.chapter6.section3 import build_max_heap
 from book.chapter6.section4 import heapsort
 from book.chapter6.section5 import max_heap_extract_max
@@ -163,3 +164,16 @@ class TestChapter6(ClrsTestCase):
             self.assertEqual(A.heap_size, n)
             self.assertArrayPermuted(A, key_objects, end=n)
             self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_build_max_heap_(self, data):
+        keys = data.draw(lists(integers(), min_size=1))
+        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        n = len(key_objects)
+        A = create_heap(key_objects)
+
+        build_max_heap_(A, n)
+
+        self.assertEqual(A.heap_size, n)
+        self.assertMaxHeap(A)
+        self.assertArrayPermuted(A, key_objects, end=n)
