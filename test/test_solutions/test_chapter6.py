@@ -18,6 +18,7 @@ from solutions.chapter6.section5.exercise3 import min_heap_decrease_key
 from solutions.chapter6.section5.exercise3 import min_heap_extract_min
 from solutions.chapter6.section5.exercise3 import min_heap_insert
 from solutions.chapter6.section5.exercise3 import min_heap_minimum
+from solutions.chapter6.section5.exercise4 import max_heap_decrease_key
 from test_case import ClrsTestCase
 from test_util import create_heap
 from util import range_of
@@ -189,6 +190,45 @@ class TestChapter6(ClrsTestCase):
             min_heap_insert(A, x, n)
 
             self.assertMinHeap(A)
+            self.assertEqual(A.heap_size, n)
+            self.assertArrayPermuted(A, key_objects, end=n)
+            self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_max_heap_decrease_key(self, data):
+        keys = data.draw(lists(integers(), min_size=1))
+        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        heap = create_heap(key_objects)
+        n = len(key_objects)
+        build_max_heap(heap, n)
+        A = PriorityQueue(heap, n)
+        x = random.choice(key_objects)
+        k = x.key - data.draw(integers(min_value=0))
+
+        max_heap_decrease_key(A, x, k)
+
+        self.assertEqual(x.key, k)
+        self.assertEqual(A.heap_size, n)
+        self.assertMaxHeap(A)
+        self.assertArrayPermuted(A, key_objects, end=n)
+        self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_max_heap_decrease_key_invalid_key(self, data):
+        keys = data.draw(lists(integers(), min_size=1))
+        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        heap = create_heap(key_objects)
+        n = len(key_objects)
+        build_max_heap(heap, n)
+        A = PriorityQueue(heap, n)
+        x = random.choice(key_objects)
+        k = x.key + data.draw(integers(min_value=1))
+
+        with self.assertRaisesRegex(ValueError, "new key is larger than current key"):
+            max_heap_decrease_key(A, x, k)
+
+            self.assertNotEquals(x.key, k)
+            self.assertMaxHeap(A)
             self.assertEqual(A.heap_size, n)
             self.assertArrayPermuted(A, key_objects, end=n)
             self.assertPriorityQueueMappingConsistent(A)
