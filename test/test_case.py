@@ -64,5 +64,5 @@ class ClrsTestCase(unittest.TestCase):
         self.assertHeap(heap, operator.le)
 
     def assertPriorityQueueMappingConsistent(self, queue: PriorityQueue) -> None:
-        for i in range_of(1, queue.heap_size):
+        for i in range_of(1, to=queue.heap_size):
             self.assertEqual(queue.mapping[queue[i]], i)

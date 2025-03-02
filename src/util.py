@@ -4,6 +4,7 @@ from collections.abc import Iterable
 
 
 def range_of(_from: int,
+             *,
              to: int | None = None,
              downto: int | None = None,
              by: int | None = None) -> Iterable:
