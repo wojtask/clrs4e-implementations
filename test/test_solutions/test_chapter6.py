@@ -12,6 +12,8 @@ from book.data_structures import CT
 from book.data_structures import Heap
 from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
+from solutions.chapter6.problem2 import multiary_child
+from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
 from solutions.chapter6.section5.exercise3 import min_heap_decrease_key
@@ -272,3 +274,13 @@ class TestChapter6(ClrsTestCase):
             self.assertEqual(A.heap_size, n)
             self.assertArrayPermuted(A, key_objects, end=n)
             self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_multiary_parent_child(self, data):
+        d = data.draw(integers(min_value=2, max_value=20))
+        i = data.draw(integers(min_value=1))
+        k = data.draw(integers(min_value=1, max_value=d))
+
+        actual_node_index = multiary_parent(d, multiary_child(d, i, k))
+
+        self.assertEqual(actual_node_index, i)
