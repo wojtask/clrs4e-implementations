@@ -24,3 +24,22 @@ def add_binary_integers(A: Array[Bit], B: Array[Bit], n: int) -> Array[Bit]:
         carry = (A[i] + B[i] + carry) // 2
     C[n] = carry  # type: ignore
     return C
+
+def main():
+    # Your main logic goes here
+    # print(add_binary_integers(Array()))
+    array_bit_ = Array[Bit](0, 2)
+    array_bit_[0] = 1
+    array_bit_[1] = 0
+    array_bit_[2] = 1
+    print("first array: " + array_bit_.__str__())
+
+    array_bit_1 = Array[Bit](0, 2)
+    array_bit_1[0] = 0
+    array_bit_1[1] = 0
+    array_bit_1[2] = 1
+    print("second array: " + array_bit_1.__str__())
+    print("resulting array: " + add_binary_integers(array_bit_, array_bit_1, 2).__str__())
+
+if __name__ == "__main__":
+    main()
