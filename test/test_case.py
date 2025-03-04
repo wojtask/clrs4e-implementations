@@ -3,8 +3,7 @@ import unittest
 from collections.abc import Callable
 from typing import Any
 
-from book.chapter6.section1 import left
-from book.chapter6.section1 import right
+from book.chapter6.section1 import parent
 from book.data_structures import Array
 from book.data_structures import CT
 from book.data_structures import Heap
@@ -40,28 +39,15 @@ class ClrsTestCase(unittest.TestCase):
             if not match:
                 self.fail(msg)
 
-    def assertHeap(self, heap: Heap[CT], cmp: Callable[[Any, Any], bool]) -> None:
-        msg = f'Array {heap} is not a max-heap'
-
-        def assertMaxSubheap(i: int) -> None:
-            l = left(i)
-            if l <= heap.heap_size:
-                if not cmp(heap[i], heap[l]):
-                    self.fail(msg)
-                assertMaxSubheap(l)
-            r = right(i)
-            if r <= heap.heap_size:
-                if not cmp(heap[i], heap[r]):
-                    self.fail(msg)
-                assertMaxSubheap(r)
-
-        assertMaxSubheap(1)
+    def assertHeap(self, heap: Heap[CT], heap_property: Callable[[int], bool]) -> None:
+        for i in range_of(2, to=heap.heap_size):
+            self.assertTrue(heap_property(i))
 
     def assertMaxHeap(self, heap: Heap[CT]) -> None:
-        self.assertHeap(heap, operator.ge)
+        self.assertHeap(heap, lambda i: heap[parent(i)] >= heap[i])
 
     def assertMinHeap(self, heap: Heap[CT]) -> None:
-        self.assertHeap(heap, operator.le)
+        self.assertHeap(heap, lambda i: heap[parent(i)] <= heap[i])
 
     def assertPriorityQueueMappingConsistent(self, queue: PriorityQueue) -> None:
         for i in range_of(1, to=queue.heap_size):
