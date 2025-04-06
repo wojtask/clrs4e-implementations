@@ -22,6 +22,15 @@ They help detecting and fixing bugs or limitations in the suggested algorithms a
 * Laying a foundation for a more practical (or "production-ready") library of algorithms and data structures for real
   use cases.
 
+### History
+
+A couple of years ago I started implementing the algorithms from the second edition of the book while working on
+the [solutions](https://github.com/wojtask/CormenSol) in Polish.
+On GitHub there are legacy projects written in [Java](https://github.com/wojtask/CormenImpl)
+and [Python](https://github.com/wojtask/CormenPy).
+Soon after the fourth edition of the book got published, I deprecated those projects and began working on the solutions
+to the fourth edition by migrating the old material, i.e., adapting it to the new edition and translating it to English.
+
 ### Choice of a programming language
 
 **Python 3** was chosen as a programming language for several reasons:
@@ -56,30 +65,6 @@ To run all tests, run the following command from the main project directory:
 ```shell
 PYTHONPATH=./src python3 -m unittest discover -v test/
 ```
-
-### History and Future
-
-A couple of yeas ago I started implementing the algorithms from the second edition of the book while working on
-the [solutions](https://github.com/wojtask/CormenSol) in Polish.
-On GitHub there are legacy projects written in [Java](https://github.com/wojtask/CormenImpl)
-and [Python](https://github.com/wojtask/CormenPy).
-Soon after the fourth edition of the book got published, I deprecated those projects and began working on the solutions
-to the fourth edition by migrating the old material, i.e., adapting it to the new edition and translating it to English.
-
-I plan to adapt the implementations similarly by moving the legacy code and keeping it consistent as I work on solving
-exercises in each chapter.
-Therefore, the progress on the implementations almost entirely depends on
-the [progress](https://github.com/wojtask/clrs4e-solutions#progress) in the solutions.
-
-I also plan to rethink the approach to testing by introducing two test categories &mdash; fast and deterministic unit
-tests and robust property-based tests for generating random test cases.
-The idea is to make writing tests easier and better control their execution.
-By delegating the generation of test cases to libraries such as [Hypothesis](https://hypothesis.works/), I could
-simplify many legacy tests that implemented their own test cases generators.
-Also, keeping the two test types separated, I could better control when each are run, which would lead to speeding up
-the testing process.
-This can be achieved by running only the fast unit tests synchronously during build's test phase, and defining an
-asynchronous mechanism for running the other tests.
 
 ### Pseudocode translation rules
 
@@ -910,4 +895,8 @@ while True:
   <tr></tr>
 </table>
 
-**Stay tuned for more information once I migrate some amount of code.**
+### Progress
+
+Currently, the implementations are being migrated and adapted from the legacy project by moving the legacy code and keeping it consistent, as I work on solving exercises in each chapter.
+Therefore, the progress on the implementations almost entirely depends on
+the [progress](https://github.com/wojtask/clrs4e-solutions#progress) in the solutions.
