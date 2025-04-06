@@ -44,6 +44,19 @@ Algorithms with no pseudocodes provided are implemented in a more flexible and o
 an idiomatic Python code.
 The code in such cases is often appropriately structured to increase readability.
 
+### Project structure
+
+The code is located in the **src** directory split into the **book** and **solutions** subdirectories.
+This structure makes a clear distinction between the code that implements algorithms and data structures provided by the book, from the code that implements algorithms and data structures suggested in the solutions.
+Both subdirectories are further split to organize the code by the chapter they come from.
+Aside the **src** directory there is the similarly structured **test** directory containing unit tests.
+The unit tests are written in the [`unittest`](https://docs.python.org/3/library/unittest.html) framework, and most of them follow a property-based testing approach using the [Hypothesis](https://hypothesis.readthedocs.io/) library.
+
+To run all tests, run the following command from the main project directory:
+```shell
+PYTHONPATH=./src python3 -m unittest discover -v test/
+```
+
 ### History and Future
 
 A couple of yeas ago I started implementing the algorithms from the second edition of the book while working on
