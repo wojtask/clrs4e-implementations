@@ -16,6 +16,7 @@ from solutions.chapter6.problem2 import multiary_child
 from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
+from solutions.chapter6.section5.exercise10 import max_heap_delete
 from solutions.chapter6.section5.exercise3 import min_heap_decrease_key
 from solutions.chapter6.section5.exercise3 import min_heap_extract_min
 from solutions.chapter6.section5.exercise3 import min_heap_insert
@@ -253,6 +254,24 @@ class TestChapter6(ClrsTestCase):
         self.assertEqual(A.heap_size, n)
         self.assertMaxHeap(A)
         self.assertArrayPermuted(A, key_objects, end=n)
+        self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_max_heap_delete(self, data):
+        keys = data.draw(lists(integers(), min_size=1))
+        key_objects = [KeyObject(key, '') for key in keys]
+        heap = create_heap(key_objects)
+        n = len(key_objects)
+        build_max_heap(heap, n)
+        A = PriorityQueue(heap, n)
+        x = random.choice(key_objects)
+
+        max_heap_delete(A, x)
+
+        key_objects.remove(x)
+        self.assertEqual(A.heap_size, n - 1)
+        self.assertMaxHeap(A)
+        self.assertArrayPermuted(A, key_objects, end=n - 1)
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
