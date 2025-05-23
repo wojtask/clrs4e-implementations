@@ -5,7 +5,7 @@ from solutions.chapter2.section1.exercise4 import linear_search
 
 
 def max_heap_increase_key_(A: PriorityQueue, x: KeyObject, k: int) -> None:
-    """Increases the value of the element's key to the new value. This version of the procedure uses less object
+    """Increases the value of the element's key to the new value. This version of the procedure uses fewer object
     assignments than the original Max-Heap-Insert-Key.
 
     Implements:
