@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import random
 from typing import Union
 
@@ -11,11 +13,15 @@ from book.chapter6.section3 import build_max_heap
 from book.data_structures import CT
 from book.data_structures import Heap
 from book.data_structures import KeyObject
+from book.data_structures import T
 from solutions.chapter6.problem2 import multiary_child
 from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
 from solutions.chapter6.section5.exercise10 import max_heap_delete
+from solutions.chapter6.section5.exercise11 import SortedList
+from solutions.chapter6.section5.exercise11 import SortedListNode
+from solutions.chapter6.section5.exercise11 import merge_sorted_lists
 from solutions.chapter6.section5.exercise3 import min_heap_decrease_key
 from solutions.chapter6.section5.exercise3 import min_heap_extract_min
 from solutions.chapter6.section5.exercise3 import min_heap_insert
@@ -28,6 +34,7 @@ from solutions.chapter6.section5.exercise9 import max_heap_push
 from solutions.chapter6.section5.exercise9 import min_heap_dequeue
 from solutions.chapter6.section5.exercise9 import min_heap_enqueue
 from test_case import ClrsTestCase
+from test_util import create_array
 from test_util import create_heap
 from test_util import create_priority_queue
 from util import range_of
@@ -42,6 +49,30 @@ def build_min_heap_by_inversion(A: Union[Heap[CT], Heap[KeyObject]], n: int) -> 
             A[i].key = -A[i].key
         else:
             A[i] = -A[i]
+
+
+def create_sorted_list(elements: list[T]) -> SortedList[T]:
+    sortedList = SortedList[T]()
+    tail = None
+    for element in elements:
+        x = SortedListNode[T]()
+        x.key = element
+        if sortedList.head is None:
+            sortedList.head = x
+            tail = x
+        else:
+            tail.next = x
+            tail = x
+    return sortedList
+
+
+def convert_sorted_list(sorted_list: SortedList[T]) -> list[T]:
+    result = []
+    x = sorted_list.head
+    while x is not None:
+        result.append(x.key)
+        x = x.next
+    return result
 
 
 class TestChapter6(ClrsTestCase):
@@ -262,6 +293,26 @@ class TestChapter6(ClrsTestCase):
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
+    def test_max_heap_increase_key__invalid_key(self, data):
+        keys = data.draw(lists(integers(), min_size=1))
+        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        heap = create_heap(key_objects)
+        n = len(key_objects)
+        build_max_heap(heap, n)
+        A = create_priority_queue(heap, n)
+        x = random.choice(key_objects)
+        k = x.key - data.draw(integers(min_value=1))
+
+        with self.assertRaisesRegex(ValueError, "new key is smaller than current key"):
+            max_heap_increase_key_(A, x, k)
+
+            self.assertNotEquals(x.key, k)
+            self.assertMaxHeap(A)
+            self.assertEqual(A.heap_size, n)
+            self.assertArrayPermuted(A, key_objects, end=n)
+            self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
     def test_min_heap_queue(self, data):
         # simulate the queue - enqueue, dequeue, then again enqueue and dequeue
         keys1 = data.draw(lists(integers(), min_size=10, max_size=20))
@@ -350,24 +401,22 @@ class TestChapter6(ClrsTestCase):
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
-    def test_max_heap_increase_key__invalid_key(self, data):
-        keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects)
-        n = len(key_objects)
-        build_max_heap(heap, n)
-        A = create_priority_queue(heap, n)
-        x = random.choice(key_objects)
-        k = x.key - data.draw(integers(min_value=1))
+    def test_merge_sorted_lists(self, data):
+        k = data.draw(integers(min_value=1, max_value=10))
+        sorted_lists = [create_sorted_list(data.draw(lists(integers(), min_size=1, max_size=10).map(sorted)))
+                        for _ in range_of(1, to=k)]
+        sorted_lists_array = create_array(sorted_lists)
+        all_elements = []
+        for sorted_list in sorted_lists:
+            all_elements.extend(convert_sorted_list(sorted_list))
 
-        with self.assertRaisesRegex(ValueError, "new key is smaller than current key"):
-            max_heap_increase_key_(A, x, k)
+        actual_merged_list = merge_sorted_lists(sorted_lists_array, k)
 
-            self.assertNotEquals(x.key, k)
-            self.assertMaxHeap(A)
-            self.assertEqual(A.heap_size, n)
-            self.assertArrayPermuted(A, key_objects, end=n)
-            self.assertPriorityQueueMappingConsistent(A)
+        actual_all_elements = convert_sorted_list(actual_merged_list)
+        actual_all_elements_array = create_array(actual_all_elements)
+        n = len(all_elements)
+        self.assertArraySorted(actual_all_elements_array, end=n)
+        self.assertArrayPermuted(actual_all_elements_array, all_elements, end=n)
 
     @given(st.data())
     def test_multiary_parent_child(self, data):
