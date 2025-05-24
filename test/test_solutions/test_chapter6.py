@@ -23,6 +23,11 @@ from solutions.chapter6.section5.exercise3 import min_heap_insert
 from solutions.chapter6.section5.exercise3 import min_heap_minimum
 from solutions.chapter6.section5.exercise4 import max_heap_decrease_key
 from solutions.chapter6.section5.exercise8 import max_heap_increase_key_
+from solutions.chapter6.section5.exercise9 import ControlledPriorityQueue
+from solutions.chapter6.section5.exercise9 import max_heap_pop
+from solutions.chapter6.section5.exercise9 import max_heap_push
+from solutions.chapter6.section5.exercise9 import min_heap_dequeue
+from solutions.chapter6.section5.exercise9 import min_heap_enqueue
 from test_case import ClrsTestCase
 from test_util import create_heap
 from util import range_of
@@ -255,6 +260,78 @@ class TestChapter6(ClrsTestCase):
         self.assertMaxHeap(A)
         self.assertArrayPermuted(A, key_objects, end=n)
         self.assertPriorityQueueMappingConsistent(A)
+
+    @given(st.data())
+    def test_min_heap_queue(self, data):
+        # simulate the queue - enqueue, dequeue, then again enqueue and dequeue
+        keys1 = data.draw(lists(integers(), min_size=10, max_size=20))
+        d1 = data.draw(integers(min_value=1, max_value=len(keys1)))
+        keys2 = data.draw(lists(integers(), min_size=10, max_size=20))
+        d2 = data.draw(integers(min_value=1, max_value=len(keys1) - d1 + len(keys2)))
+        key_objects1 = [KeyObject(key, '') for key in keys1]
+        key_objects2 = [KeyObject(key, '') for key in keys2]
+        n = 100
+        heap = Heap[KeyObject](1, n)
+        A = ControlledPriorityQueue(heap, n)
+
+        for x in key_objects1:
+            min_heap_enqueue(A, x, n)
+
+        self.assertMinHeap(A)
+        self.assertArrayPermuted(A, key_objects1, end=len(key_objects1))
+        self.assertPriorityQueueMappingConsistent(A)
+
+        for i in range_of(1, to=d1):
+            actual_key_object = min_heap_dequeue(A)
+            self.assertEqual(actual_key_object, key_objects1[i - 1])
+
+        for x in key_objects2:
+            min_heap_enqueue(A, x, n)
+
+        self.assertMinHeap(A)
+        expected_key_objects = key_objects1[d1:] + key_objects2
+        self.assertArrayPermuted(A, expected_key_objects, end=len(expected_key_objects))
+        self.assertPriorityQueueMappingConsistent(A)
+
+        for i in range_of(1, to=d2):
+            actual_key_object = min_heap_dequeue(A)
+            self.assertEqual(actual_key_object, expected_key_objects[i - 1])
+
+    @given(st.data())
+    def test_max_heap_stack(self, data):
+        # simulate the stack - push, pop, then again push and pop
+        keys1 = data.draw(lists(integers(), min_size=10, max_size=20))
+        d1 = data.draw(integers(min_value=1, max_value=len(keys1)))
+        keys2 = data.draw(lists(integers(), min_size=10, max_size=20))
+        d2 = data.draw(integers(min_value=1, max_value=len(keys1) - d1 + len(keys2)))
+        key_objects1 = [KeyObject(key, '') for key in keys1]
+        key_objects2 = [KeyObject(key, '') for key in keys2]
+        n = 100
+        heap = Heap[KeyObject](1, n)
+        A = ControlledPriorityQueue(heap, n)
+
+        for x in key_objects1:
+            max_heap_push(A, x, n)
+
+        self.assertMaxHeap(A)
+        self.assertArrayPermuted(A, key_objects1, end=len(key_objects1))
+        self.assertPriorityQueueMappingConsistent(A)
+
+        for i in range_of(1, to=d1):
+            actual_key_object = max_heap_pop(A)
+            self.assertEqual(actual_key_object, key_objects1[-i])
+
+        for x in key_objects2:
+            max_heap_push(A, x, n)
+
+        self.assertMaxHeap(A)
+        expected_key_objects = key_objects1[:-d1] + key_objects2
+        self.assertArrayPermuted(A, expected_key_objects, end=len(expected_key_objects))
+        self.assertPriorityQueueMappingConsistent(A)
+
+        for i in range_of(1, to=d2):
+            actual_key_object = max_heap_pop(A)
+            self.assertEqual(actual_key_object, expected_key_objects[-i])
 
     @given(st.data())
     def test_max_heap_delete(self, data):
