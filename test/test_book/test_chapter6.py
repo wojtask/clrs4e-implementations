@@ -14,9 +14,9 @@ from book.chapter6.section5 import max_heap_increase_key
 from book.chapter6.section5 import max_heap_insert
 from book.chapter6.section5 import max_heap_maximum
 from book.data_structures import KeyObject
-from book.data_structures import PriorityQueue
 from test_case import ClrsTestCase
 from test_util import create_heap
+from test_util import create_priority_queue
 
 
 class TestChapter6(ClrsTestCase):
@@ -51,7 +51,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
 
         actual_maximum = max_heap_maximum(A)
 
@@ -65,7 +65,7 @@ class TestChapter6(ClrsTestCase):
     def test_max_heap_maximum_underflow(self, data):
         n = data.draw(integers(min_value=1, max_value=10))
         heap = create_heap([], n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
 
         with self.assertRaisesRegex(ValueError, "heap underflow"):
             max_heap_maximum(A)
@@ -77,7 +77,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
 
         actual_maximum = max_heap_extract_max(A)
 
@@ -96,7 +96,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
         x = random.choice(key_objects)
         k = x.key + data.draw(integers(min_value=0))
 
@@ -115,7 +115,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
         x = random.choice(key_objects)
         k = x.key - data.draw(integers(min_value=1))
 
@@ -136,7 +136,7 @@ class TestChapter6(ClrsTestCase):
         heap = create_heap(key_objects, n)
         heap_size = len(key_objects)
         build_max_heap(heap, heap_size)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
         x = KeyObject(new_key, data.draw(text()))
 
@@ -154,7 +154,7 @@ class TestChapter6(ClrsTestCase):
         n = len(key_objects)
         heap = create_heap(key_objects)
         build_max_heap(heap, n)
-        A = PriorityQueue(heap, n)
+        A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
         x = KeyObject(new_key, data.draw(text()))
 

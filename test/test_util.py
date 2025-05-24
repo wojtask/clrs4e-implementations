@@ -5,6 +5,7 @@ from book.data_structures import Bit
 from book.data_structures import CT
 from book.data_structures import Heap
 from book.data_structures import Matrix
+from book.data_structures import PriorityQueue
 from book.data_structures import T
 from util import range_of
 
@@ -35,6 +36,14 @@ def create_heap(elements: list[CT], capacity: int = None) -> Heap[CT]:
     for i in range_of(1, to=len(elements)):
         heap[i] = elements[i - 1]
     return heap
+
+
+def create_priority_queue(heap: Heap[CT], capacity: int = None) -> PriorityQueue[CT]:
+    priority_queue = PriorityQueue(capacity if capacity else heap.heap_size)
+    priority_queue.heap_size = heap.heap_size
+    for i in range_of(1, to=heap.heap_size):
+        priority_queue[i] = heap[i]
+    return priority_queue
 
 
 def binary_to_decimal(A: Array[Bit], n: int) -> int:

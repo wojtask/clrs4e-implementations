@@ -3,6 +3,7 @@ from __future__ import annotations
 from builtins import len
 from collections.abc import Callable
 from typing import Any
+from typing import Dict
 from typing import Generic
 from typing import Literal
 from typing import TypeVar
@@ -84,7 +85,7 @@ class Matrix:
         self.__start_row, self.__end_row = start_row, end_row
         self.__start_col, self.__end_col = start_col, end_col
 
-    def submatrix(self, rows: tuple[int, int], cols: tuple[int, int]) -> "Matrix":
+    def submatrix(self, rows: tuple[int, int], cols: tuple[int, int]) -> Matrix:
         assert 1 <= rows[0] <= rows[1] <= len(self.__elements)
         assert 1 <= cols[0] <= cols[1] <= len(self.__elements[0])
         rows_shifted = rows[0] + self.__start_row - 1, rows[1] + self.__start_row - 1
@@ -92,7 +93,7 @@ class Matrix:
         return Matrix(start_row=rows_shifted[0], end_row=rows_shifted[1], start_col=cols_shifted[0],
                       end_col=cols_shifted[1], elements=self.__elements)
 
-    def even_rows_submatrix(self) -> "Matrix":
+    def even_rows_submatrix(self) -> Matrix:
         even_rows = [row for i, row in enumerate(self.__elements, start=1) if i % 2 == 0]
         submatrix_end_row = self.__start_row + len(even_rows) - 1
         return Matrix(start_row=self.__start_row, end_row=submatrix_end_row, start_col=self.__start_col,
@@ -162,13 +163,11 @@ class KeyObject:
 #   implementing a priority queue contains pointers to the objects, which should suffice to address the objects.
 class PriorityQueue(Heap[KeyObject]):
 
-    def __init__(self, heap: Heap[KeyObject], n: int) -> None:
+    def __init__(self, n: int) -> None:
         # TODO(#21) implement the object mappings with a hash table instead of Python dictionary
         super().__init__(1, n)
-        self.heap_size = heap.heap_size
-        self.mapping = {}
-        for i in range_of(1, to=heap.heap_size):
-            self.__setitem__(i, heap[i])
+        self.heap_size: int = 0
+        self.mapping: Dict[KeyObject, int] = {}
 
     def __setitem__(self, index: int, value: KeyObject) -> None:
         super().__setitem__(index, value)
