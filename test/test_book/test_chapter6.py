@@ -47,7 +47,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_maximum(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -73,7 +73,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_extract_max(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -92,7 +92,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_increase_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -111,7 +111,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_increase_key_invalid_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -132,13 +132,13 @@ class TestChapter6(ClrsTestCase):
     def test_max_heap_insert(self, data):
         n = data.draw(integers(min_value=1, max_value=100))
         keys = data.draw(lists(integers(), max_size=n - 1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects, n)
         heap_size = len(key_objects)
         build_max_heap(heap, heap_size)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject(new_key, data.draw(text()))
+        x = KeyObject[str](new_key, data.draw(text()))
 
         max_heap_insert(A, x, n)
 
@@ -150,13 +150,13 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_insert_overflow(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         n = len(key_objects)
         heap = create_heap(key_objects)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject(new_key, data.draw(text()))
+        x = KeyObject[str](new_key, data.draw(text()))
 
         with self.assertRaisesRegex(ValueError, "heap overflow"):
             max_heap_insert(A, x, n)
@@ -169,7 +169,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_build_max_heap_(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         n = len(key_objects)
         A = create_heap(key_objects)
 

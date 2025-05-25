@@ -3,11 +3,12 @@ import math
 from book.chapter6.section1 import parent
 from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
+from book.data_structures import T
 from solutions.chapter2.section1.exercise4 import linear_search
 from solutions.chapter6.section2.exercise3 import min_heapify
 
 
-def min_heap_minimum(A: PriorityQueue) -> KeyObject:
+def min_heap_minimum(A: PriorityQueue[T]) -> KeyObject[T]:
     """Returns the element of the dynamic set with the smallest key.
 
     Implements:
@@ -24,7 +25,7 @@ def min_heap_minimum(A: PriorityQueue) -> KeyObject:
     return A[1]
 
 
-def min_heap_extract_min(A: PriorityQueue) -> KeyObject:
+def min_heap_extract_min(A: PriorityQueue[T]) -> KeyObject[T]:
     """Removes and returns the element of the dynamic set with the smallest key.
 
     Implements:
@@ -43,7 +44,7 @@ def min_heap_extract_min(A: PriorityQueue) -> KeyObject:
     return min
 
 
-def min_heap_decrease_key(A: PriorityQueue, x: KeyObject, k: int) -> None:
+def min_heap_decrease_key(A: PriorityQueue[T], x: KeyObject[T], k: float) -> None:
     """Decreases the value of the element's key to the new value.
 
     Implements:
@@ -63,11 +64,13 @@ def min_heap_decrease_key(A: PriorityQueue, x: KeyObject, k: int) -> None:
         i = parent(i)
 
 
-def __find_index_of_object(A: PriorityQueue, x: KeyObject) -> int:
-    return linear_search(A, A.heap_size, x)
+def __find_index_of_object(A: PriorityQueue[T], x: KeyObject[T]) -> int:
+    index = linear_search(A, A.heap_size, x)
+    assert index is not None
+    return index
 
 
-def min_heap_insert(A: PriorityQueue, x: KeyObject, n: int) -> None:
+def min_heap_insert(A: PriorityQueue[T], x: KeyObject[T], n: int) -> None:
     """Inserts a new element into the dynamic set.
 
     Implements:

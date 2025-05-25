@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import random
-from typing import Union
 
 from hypothesis import given
 from hypothesis import strategies as st
@@ -40,7 +39,7 @@ from test_util import create_priority_queue
 from util import range_of
 
 
-def build_min_heap_by_inversion(A: Union[Heap[CT], Heap[KeyObject]], n: int) -> None:
+def build_min_heap_by_inversion(A: Heap[CT] | Heap[KeyObject[T]], n: int) -> None:
     """Relies on the fact that when we replace each element of a max-heap by the element's opposite, the resulting array
     is a min-heap."""
     build_max_heap(A, n)
@@ -51,22 +50,23 @@ def build_min_heap_by_inversion(A: Union[Heap[CT], Heap[KeyObject]], n: int) -> 
             A[i] = -A[i]
 
 
-def create_sorted_list(elements: list[T]) -> SortedList[T]:
-    sortedList = SortedList[T]()
-    tail = None
+def create_sorted_list(elements: list[T]) -> SortedList:
+    sortedList = SortedList()
+    tail: SortedListNode | None = None
     for element in elements:
-        x = SortedListNode[T]()
+        x = SortedListNode()
         x.key = element
         if sortedList.head is None:
             sortedList.head = x
             tail = x
         else:
+            assert tail is not None
             tail.next = x
             tail = x
     return sortedList
 
 
-def convert_sorted_list(sorted_list: SortedList[T]) -> list[T]:
+def convert_sorted_list(sorted_list: SortedList) -> list[T]:
     result = []
     x = sorted_list.head
     while x is not None:
@@ -115,7 +115,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_min_heap_minimum(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_min_heap_by_inversion(heap, n)
@@ -141,7 +141,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_min_heap_extract_min(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_min_heap_by_inversion(heap, n)
@@ -160,7 +160,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_min_heap_decrease_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_min_heap_by_inversion(heap, n)
@@ -179,7 +179,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_min_heap_decrease_key_invalid_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_min_heap_by_inversion(heap, n)
@@ -200,13 +200,13 @@ class TestChapter6(ClrsTestCase):
     def test_min_heap_insert(self, data):
         n = data.draw(integers(min_value=1, max_value=100))
         keys = data.draw(lists(integers(), max_size=n - 1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects, n)
         heap_size = len(key_objects)
         build_min_heap_by_inversion(heap, heap_size)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject(new_key, data.draw(text()))
+        x = KeyObject[str](new_key, data.draw(text()))
 
         min_heap_insert(A, x, n)
 
@@ -218,13 +218,13 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_min_heap_insert_overflow(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         n = len(key_objects)
         heap = create_heap(key_objects)
         build_min_heap_by_inversion(heap, n)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject(new_key, data.draw(text()))
+        x = KeyObject[str](new_key, data.draw(text()))
 
         with self.assertRaisesRegex(ValueError, "heap overflow"):
             min_heap_insert(A, x, n)
@@ -237,7 +237,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_decrease_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -256,7 +256,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_decrease_key_invalid_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -276,7 +276,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_increase_key_(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, '') for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -295,7 +295,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_increase_key__invalid_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, data.draw(text())) for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)
@@ -319,10 +319,10 @@ class TestChapter6(ClrsTestCase):
         d1 = data.draw(integers(min_value=1, max_value=len(keys1)))
         keys2 = data.draw(lists(integers(), min_size=10, max_size=20))
         d2 = data.draw(integers(min_value=1, max_value=len(keys1) - d1 + len(keys2)))
-        key_objects1 = [KeyObject(key, '') for key in keys1]
-        key_objects2 = [KeyObject(key, '') for key in keys2]
+        key_objects1 = [KeyObject[str](key, data.draw(text())) for key in keys1]
+        key_objects2 = [KeyObject[str](key, data.draw(text())) for key in keys2]
         n = 100
-        A = ControlledPriorityQueue(n)
+        A = ControlledPriorityQueue[str](n)
 
         for x in key_objects1:
             min_heap_enqueue(A, x, n)
@@ -354,10 +354,10 @@ class TestChapter6(ClrsTestCase):
         d1 = data.draw(integers(min_value=1, max_value=len(keys1)))
         keys2 = data.draw(lists(integers(), min_size=10, max_size=20))
         d2 = data.draw(integers(min_value=1, max_value=len(keys1) - d1 + len(keys2)))
-        key_objects1 = [KeyObject(key, '') for key in keys1]
-        key_objects2 = [KeyObject(key, '') for key in keys2]
+        key_objects1 = [KeyObject[str](key, data.draw(text())) for key in keys1]
+        key_objects2 = [KeyObject[str](key, data.draw(text())) for key in keys2]
         n = 100
-        A = ControlledPriorityQueue(n)
+        A = ControlledPriorityQueue[str](n)
 
         for x in key_objects1:
             max_heap_push(A, x, n)
@@ -385,7 +385,7 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_delete(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject(key, '') for key in keys]
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
         heap = create_heap(key_objects)
         n = len(key_objects)
         build_max_heap(heap, n)

@@ -3,14 +3,12 @@ from __future__ import annotations
 from builtins import len
 from collections.abc import Callable
 from typing import Any
-from typing import Dict
 from typing import Generic
 from typing import Literal
 from typing import TypeVar
 
 from typing_extensions import Protocol
-
-from util import range_of
+from typing_extensions import TypeAlias
 
 T = TypeVar('T')
 CT = TypeVar('CT', bound='Comparable')
@@ -35,7 +33,7 @@ class Indexable(Protocol[T]):
     __setitem__: Callable[[int, T], None]
 
 
-Bit = Literal[0, 1]
+Bit: TypeAlias = Literal[0, 1]
 
 
 class Array(Generic[T]):
@@ -140,35 +138,35 @@ class Heap(Array[CT]):
     heap_size: int = 0
 
 
-class KeyObject:
-    def __init__(self, key: int, data=None) -> None:
+class KeyObject(Generic[T]):
+    def __init__(self, key: float, data: T) -> None:
         self.key = key
         self.data = data
 
-    def __lt__(self, other: KeyObject) -> bool:
+    def __lt__(self, other: KeyObject[T]) -> bool:
         return self.key < other.key
 
-    def __le__(self, other: KeyObject) -> bool:
+    def __le__(self, other: KeyObject[T]) -> bool:
         return self.key <= other.key
 
-    def __gt__(self, other: KeyObject) -> bool:
+    def __gt__(self, other: KeyObject[T]) -> bool:
         return self.key > other.key
 
-    def __ge__(self, other: KeyObject) -> bool:
+    def __ge__(self, other: KeyObject[T]) -> bool:
         return self.key >= other.key
 
 
 # TODO(#476) Consider removing this data structure, and instead implement the priority queue directly on a heap.
 #   Clarify if we need the mapping between objects and heap indices, because as mentioned in the book, a heap
 #   implementing a priority queue contains pointers to the objects, which should suffice to address the objects.
-class PriorityQueue(Heap[KeyObject]):
+class PriorityQueue(Heap[KeyObject[T]]):
 
     def __init__(self, n: int) -> None:
         # TODO(#21) implement the object mappings with a hash table instead of Python dictionary
         super().__init__(1, n)
         self.heap_size: int = 0
-        self.mapping: Dict[KeyObject, int] = {}
+        self.mapping: dict[KeyObject[T], int] = {}
 
-    def __setitem__(self, index: int, value: KeyObject) -> None:
+    def __setitem__(self, index: int, value: KeyObject[T]) -> None:
         super().__setitem__(index, value)
         self.mapping[value] = index

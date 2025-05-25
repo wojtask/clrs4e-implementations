@@ -1,10 +1,11 @@
 from book.chapter6.section1 import parent
 from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
+from book.data_structures import T
 from solutions.chapter2.section1.exercise4 import linear_search
 
 
-def max_heap_increase_key_(A: PriorityQueue, x: KeyObject, k: int) -> None:
+def max_heap_increase_key_(A: PriorityQueue[T], x: KeyObject[T], k: float) -> None:
     """Increases the value of the element's key to the new value. This version of the procedure uses fewer object
     assignments than the original Max-Heap-Insert-Key.
 
@@ -26,5 +27,7 @@ def max_heap_increase_key_(A: PriorityQueue, x: KeyObject, k: int) -> None:
     A[i] = x
 
 
-def __find_index_of_object(A: PriorityQueue, x: KeyObject) -> int:
-    return linear_search(A, A.heap_size, x)
+def __find_index_of_object(A: PriorityQueue[T], x: KeyObject[T]) -> int:
+    index = linear_search(A, A.heap_size, x)
+    assert index is not None
+    return index

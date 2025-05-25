@@ -4,6 +4,7 @@ from book.data_structures import Array
 from book.data_structures import Bit
 from book.data_structures import CT
 from book.data_structures import Heap
+from book.data_structures import KeyObject
 from book.data_structures import Matrix
 from book.data_structures import PriorityQueue
 from book.data_structures import T
@@ -30,7 +31,7 @@ def create_matrix(elements: list[list[int]]) -> Matrix:
     return matrix
 
 
-def create_heap(elements: list[CT], capacity: int = None) -> Heap[CT]:
+def create_heap(elements: list[CT], capacity: int | None = None) -> Heap[CT]:
     heap = Heap[CT](1, capacity if capacity else len(elements))
     heap.heap_size = len(elements)
     for i in range_of(1, to=len(elements)):
@@ -38,8 +39,8 @@ def create_heap(elements: list[CT], capacity: int = None) -> Heap[CT]:
     return heap
 
 
-def create_priority_queue(heap: Heap[CT], capacity: int = None) -> PriorityQueue[CT]:
-    priority_queue = PriorityQueue(capacity if capacity else heap.heap_size)
+def create_priority_queue(heap: Heap[KeyObject[T]], capacity: int | None = None) -> PriorityQueue[T]:
+    priority_queue = PriorityQueue[T](capacity if capacity else heap.heap_size)
     priority_queue.heap_size = heap.heap_size
     for i in range_of(1, to=heap.heap_size):
         priority_queue[i] = heap[i]

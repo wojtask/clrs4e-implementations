@@ -1,10 +1,11 @@
 from book.chapter6.section5 import max_heap_insert
 from book.data_structures import Heap
 from book.data_structures import KeyObject
+from book.data_structures import T
 from util import range_of
 
 
-def build_max_heap_(A: Heap[KeyObject], n: int) -> None:
+def build_max_heap_(A: Heap[KeyObject[T]], n: int) -> None:
     """Converts an array into a max-heap by repeatedly inserting elements to the heap.
 
     Implements:
