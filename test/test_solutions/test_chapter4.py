@@ -3,6 +3,7 @@ from hypothesis import assume
 from hypothesis import given
 from hypothesis import strategies as st
 from hypothesis.strategies import complex_numbers
+from hypothesis.strategies import floats
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 from hypothesis.strategies import sampled_from
@@ -40,10 +41,10 @@ class TestChapter4(ClrsTestCase):
     def test_matrix_multiply_recursive_general(self, data):
         n = data.draw(integers(min_value=1, max_value=15), label="Matrices dimension")
         elements1 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")
         elements2 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="Second matrix elements")
         A = create_matrix(elements1)
         B = create_matrix(elements2)
@@ -59,10 +60,10 @@ class TestChapter4(ClrsTestCase):
         k = data.draw(integers(min_value=0, max_value=4), label="Matrices dimension exponent")
         n = 2 ** k
         elements1 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")
         elements2 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="Second matrix elements")
         A = create_matrix(elements1)
         B = create_matrix(elements2)
@@ -78,10 +79,10 @@ class TestChapter4(ClrsTestCase):
         k = data.draw(integers(min_value=0, max_value=4), label="Matrices dimension exponent")
         n = 2 ** k
         elements1 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")
         elements2 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="Second matrix elements")
         A = create_matrix(elements1)
         B = create_matrix(elements2)
@@ -97,10 +98,10 @@ class TestChapter4(ClrsTestCase):
         k = data.draw(integers(min_value=0, max_value=4), label="Matrices dimension exponent")
         n = 2 ** k
         elements1 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")
         elements2 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="Second matrix elements")
         A = create_matrix(elements1)
         B = create_matrix(elements2)
@@ -126,10 +127,10 @@ class TestChapter4(ClrsTestCase):
     def test_matrix_multiply_by_squaring(self, data):
         n = data.draw(integers(min_value=1, max_value=15), label="Matrices dimension")
         elements1 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="First matrix elements")
         elements2 = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=n, max_size=n),
             label="Second matrix elements")
         A = create_matrix(elements1)
         B = create_matrix(elements2)
@@ -162,7 +163,7 @@ class TestChapter4(ClrsTestCase):
         m = data.draw(integers(min_value=1, max_value=15), label="Monge array row dimension")
         n = data.draw(integers(min_value=1, max_value=15), label="Monge array column dimension")
         elements = data.draw(
-            lists(lists(integers(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=m, max_size=m),
+            lists(lists(floats(min_value=-1000, max_value=1000), min_size=n, max_size=n), min_size=m, max_size=m),
             label="Monge array elements")
         A = create_matrix(elements)
         assume(is_monge_array(A, m, n))

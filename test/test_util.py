@@ -21,7 +21,7 @@ def create_array(elements: list[T], start: int = 1) -> Array[T]:
     return array
 
 
-def create_matrix(elements: list[list[int]]) -> Matrix:
+def create_matrix(elements: list[list[float]]) -> Matrix:
     rows = len(elements)
     cols = len(elements[0])
     matrix = Matrix(rows, cols)

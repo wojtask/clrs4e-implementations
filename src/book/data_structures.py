@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from builtins import len
 from collections.abc import Callable
 from typing import Any
@@ -70,10 +71,10 @@ class Matrix:
     __end_row: int
     __start_col: int
     __end_col: int
-    __elements: list[list[int]]
+    __elements: list[list[float]]
 
     def __init__(self, end_row: int, end_col: int, start_row: int = 1, start_col: int = 1,
-                 elements: list[list[int]] | None = None) -> None:
+                 elements: list[list[float]] | None = None) -> None:
         if elements is None:
             assert start_row == 1
             assert start_col == 1
@@ -97,13 +98,13 @@ class Matrix:
         return Matrix(start_row=self.__start_row, end_row=submatrix_end_row, start_col=self.__start_col,
                       end_col=self.__end_col, elements=even_rows)
 
-    def __getitem__(self, indices: tuple[int, int]) -> int:
+    def __getitem__(self, indices: tuple[int, int]) -> float:
         row, col = indices[0], indices[1]
         assert 1 <= row <= self.__end_row - self.__start_row + 1
         assert 1 <= col <= self.__end_col - self.__start_col + 1
         return self.__elements[self.__start_row - 1 + row - 1][self.__start_col - 1 + col - 1]
 
-    def __setitem__(self, indices: tuple[int, int], value: int) -> None:
+    def __setitem__(self, indices: tuple[int, int], value: float) -> None:
         row, col = indices[0], indices[1]
         assert 1 <= row <= self.__end_row - self.__start_row + 1
         assert 1 <= col <= self.__end_col - self.__start_col + 1
@@ -114,7 +115,7 @@ class Matrix:
             return NotImplemented
         for i, row in enumerate(self.__elements, start=1):
             for j, element in enumerate(row, start=1):
-                if element != other[i, j]:
+                if not math.isclose(element, other[i, j], abs_tol=1e-7):
                     return False
             try:
                 _ = other[i, len(row) + 1]
