@@ -1,6 +1,8 @@
 import math
 
+from book.data_structures import Array
 from book.data_structures import Matrix
+from util import range_of
 
 
 def youngify(Y: Matrix, i: int, j: int, m: int, n: int) -> None:
@@ -84,3 +86,23 @@ def young_insert(Y: Matrix, m: int, n: int, k: float) -> None:
     """
     Y[m, n] = k
     youngify_reversed(Y, m, n)
+
+
+def young_sort(A: Array[float], n: int) -> None:
+    """Sorts an array using a Young tableau.
+
+    Implements:
+        Young-Sort
+
+    Args:
+        A: The aray of n^2 numbers to sort.
+        n: The square root of the number of values to sort.
+    """
+    Y = Matrix(n, n)
+    for i in range_of(1, to=n):
+        for j in range_of(1, to=n):
+            Y[i, j] = math.inf
+    for i in range_of(1, to=n ** 2):
+        young_insert(Y, n, n, A[i])
+    for i in range_of(1, to=n ** 2):
+        A[i] = young_extract_min(Y, n, n)

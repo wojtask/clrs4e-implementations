@@ -20,6 +20,7 @@ from solutions.chapter6.problem2 import multiary_child
 from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.problem3 import young_extract_min
 from solutions.chapter6.problem3 import young_insert
+from solutions.chapter6.problem3 import young_sort
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
 from solutions.chapter6.section5.exercise10 import max_heap_delete
@@ -453,3 +454,14 @@ class TestChapter6(ClrsTestCase):
             self.assertYoungTableau(Y, m, n)
 
         self.assertArraySorted(actual_elements, end=size)
+
+    @given(st.data())
+    def test_young_sort(self, data):
+        n = data.draw(integers(min_value=1, max_value=10))
+        elements = data.draw(lists(integers(), min_size=n * n, max_size=n * n))
+        A = create_array(elements)
+
+        young_sort(A, n)
+
+        self.assertArraySorted(A, end=n * n)
+        self.assertArrayPermuted(A, elements, end=n * n)
