@@ -46,3 +46,41 @@ def young_extract_min(Y: Matrix, m: int, n: int) -> float:
     Y[m, n] = math.inf
     youngify(Y, 1, 1, m, n)
     return y
+
+
+def youngify_reversed(Y: Matrix, i: int, j: int) -> None:
+    """Restores the Young tableau property violated by a single element. Moves the violating element upwards or
+    leftwards in the matrix.
+
+    Implements:
+        Youngify-Reversed
+
+    Args:
+        Y: The Young tableau.
+        i: The row index of the element that violates the Young tableau property in Y.
+        j: The column index of the element that violates the Young tableau property in Y.
+    """
+    (i_, j_) = (i, j)
+    if i > 1 and Y[i - 1, j] > Y[i_, j_]:
+        (i_, j_) = (i - 1, j)
+    if j > 1 and Y[i, j - 1] > Y[i_, j_]:
+        (i_, j_) = (i, j - 1)
+    if (i_, j_) != (i, j):
+        Y[i, j], Y[i_, j_] = Y[i_, j_], Y[i, j]
+        youngify_reversed(Y, i_, j_)
+
+
+def young_insert(Y: Matrix, m: int, n: int, k: float) -> None:
+    """Inserts a new element into a Young tableau.
+
+    Implements:
+        Young-Insert
+
+    Args:
+        Y: The nonfull Young tableau.
+        m: The number of rows of Y.
+        n: The number of columns of Y.
+        k: The element to insert into Y.
+    """
+    Y[m, n] = k
+    youngify_reversed(Y, m, n)

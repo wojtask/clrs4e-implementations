@@ -1,20 +1,25 @@
 from __future__ import annotations
 
+import math
 import random
 
 from hypothesis import given
 from hypothesis import strategies as st
+from hypothesis.strategies import floats
 from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 from hypothesis.strategies import text
 
 from book.chapter6.section3 import build_max_heap
+from book.data_structures import Array
 from book.data_structures import CT
 from book.data_structures import Heap
 from book.data_structures import KeyObject
 from book.data_structures import T
 from solutions.chapter6.problem2 import multiary_child
 from solutions.chapter6.problem2 import multiary_parent
+from solutions.chapter6.problem3 import young_extract_min
+from solutions.chapter6.problem3 import young_insert
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
 from solutions.chapter6.section5.exercise10 import max_heap_delete
@@ -35,6 +40,7 @@ from solutions.chapter6.section5.exercise9 import min_heap_enqueue
 from test_case import ClrsTestCase
 from test_util import create_array
 from test_util import create_heap
+from test_util import create_matrix
 from test_util import create_priority_queue
 from util import range_of
 
@@ -427,3 +433,23 @@ class TestChapter6(ClrsTestCase):
         actual_node_index = multiary_parent(d, multiary_child(d, i, k))
 
         self.assertEqual(actual_node_index, i)
+
+    @given(st.data())
+    def test_young_tableau(self, data):
+        m = data.draw(integers(min_value=1, max_value=10))
+        n = data.draw(integers(min_value=1, max_value=10))
+        elements = data.draw(lists(floats(min_value=-1000, max_value=1000), min_size=1, max_size=m * n))
+        size = len(elements)
+        Y = create_matrix([[math.inf] * n for _ in range_of(1, to=m)])
+        self.assertYoungTableau(Y, m, n)
+
+        for element in elements:
+            young_insert(Y, m, n, element)
+            self.assertYoungTableau(Y, m, n)
+
+        actual_elements = Array(1, size)
+        for i in range_of(1, to=size):
+            actual_elements[i] = young_extract_min(Y, m, n)
+            self.assertYoungTableau(Y, m, n)
+
+        self.assertArraySorted(actual_elements, end=size)

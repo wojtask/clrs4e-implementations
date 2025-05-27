@@ -7,6 +7,7 @@ from book.chapter6.section1 import parent
 from book.data_structures import Array
 from book.data_structures import CT
 from book.data_structures import Heap
+from book.data_structures import Matrix
 from book.data_structures import PriorityQueue
 from book.data_structures import T
 from util import range_of
@@ -52,3 +53,12 @@ class ClrsTestCase(unittest.TestCase):
     def assertPriorityQueueMappingConsistent(self, queue: PriorityQueue) -> None:
         for i in range_of(1, to=queue.heap_size):
             self.assertEqual(queue.mapping[queue[i]], i)
+
+    def assertYoungTableau(self, Y: Matrix, m: int, n: int) -> None:
+        for j in range_of(2, to=n):
+            self.assertLessEqual(Y[1, j - 1], Y[1, j])
+        for i in range_of(2, to=m):
+            self.assertLessEqual(Y[i - 1, 1], Y[i, 1])
+            for j in range_of(2, to=n):
+                self.assertLessEqual(Y[i - 1, j], Y[i, j])
+                self.assertLessEqual(Y[i, j - 1], Y[i, j])
