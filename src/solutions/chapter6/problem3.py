@@ -106,3 +106,30 @@ def young_sort(A: Array[float], n: int) -> None:
         young_insert(Y, n, n, A[i])
     for i in range_of(1, to=n ** 2):
         A[i] = young_extract_min(Y, n, n)
+
+
+def young_search(Y, m: int, n: int, k: float) -> bool:
+    """Determines whether a Young tableau contains a value.
+
+    Implement:
+        Young-Search
+
+    Args:
+        Y: The Young tableau.
+        m: The number of rows of Y.
+        n: The number of columns of Y.
+        k: The value to search for.
+
+    Returns:
+        True iff Y contains k.
+    """
+    i = 1
+    j = n
+    while i <= m and j >= 1:
+        if k == Y[i, j]:
+            return True
+        if k > Y[i, j]:
+            i += 1
+        else:
+            j -= 1
+    return False

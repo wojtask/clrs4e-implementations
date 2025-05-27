@@ -20,6 +20,7 @@ from solutions.chapter6.problem2 import multiary_child
 from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.problem3 import young_extract_min
 from solutions.chapter6.problem3 import young_insert
+from solutions.chapter6.problem3 import young_search
 from solutions.chapter6.problem3 import young_sort
 from solutions.chapter6.section2.exercise3 import min_heapify
 from solutions.chapter6.section2.exercise6 import iterative_max_heapify
@@ -448,10 +449,16 @@ class TestChapter6(ClrsTestCase):
             young_insert(Y, m, n, element)
             self.assertYoungTableau(Y, m, n)
 
+        for element in elements:
+            self.assertTrue(young_search(Y, m, n, element))
+
         actual_elements = Array(1, size)
         for i in range_of(1, to=size):
             actual_elements[i] = young_extract_min(Y, m, n)
             self.assertYoungTableau(Y, m, n)
+
+        for element in elements:
+            self.assertFalse(young_search(Y, m, n, element))
 
         self.assertArraySorted(actual_elements, end=size)
 
