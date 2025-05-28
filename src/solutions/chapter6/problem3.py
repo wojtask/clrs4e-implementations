@@ -50,12 +50,12 @@ def young_extract_min(Y: Matrix, m: int, n: int) -> float:
     return y
 
 
-def youngify_reversed(Y: Matrix, i: int, j: int) -> None:
+def reversed_youngify(Y: Matrix, i: int, j: int) -> None:
     """Restores the Young tableau property violated by a single element. Moves the violating element upwards or
     leftwards in the matrix.
 
     Implements:
-        Youngify-Reversed
+        Reversed-Youngify
 
     Args:
         Y: The Young tableau.
@@ -69,7 +69,7 @@ def youngify_reversed(Y: Matrix, i: int, j: int) -> None:
         (i_, j_) = (i, j - 1)
     if (i_, j_) != (i, j):
         Y[i, j], Y[i_, j_] = Y[i_, j_], Y[i, j]
-        youngify_reversed(Y, i_, j_)
+        reversed_youngify(Y, i_, j_)
 
 
 def young_insert(Y: Matrix, m: int, n: int, k: float) -> None:
@@ -85,7 +85,7 @@ def young_insert(Y: Matrix, m: int, n: int, k: float) -> None:
         k: The element to insert into Y.
     """
     Y[m, n] = k
-    youngify_reversed(Y, m, n)
+    reversed_youngify(Y, m, n)
 
 
 def young_sort(A: Array[float], n: int) -> None:
