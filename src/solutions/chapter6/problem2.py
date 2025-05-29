@@ -108,3 +108,22 @@ def __find_index_of_object(A: PriorityQueue[T], x: KeyObject[T]) -> int:
     index = linear_search(A, A.heap_size, x)
     assert index is not None
     return index
+
+
+def multiary_max_heap_insert(A: PriorityQueue[T], d: int, x: KeyObject[T], n: int) -> None:
+    """Inserts a new element into a multiary max-heap.
+
+    Implements:
+        Multiary-Max-Heap-Insert
+
+    Args:
+        A: the array representing the d-ary max-heap
+        d: the arity of the heap
+        x: the new element to insert to A
+        n: the number of elements in A
+    """
+    if A.heap_size == n:
+        raise ValueError('heap overflow')
+    A.heap_size += 1
+    A[A.heap_size] = x
+    multiary_max_heap_increase_key(A, d, x, x.key)

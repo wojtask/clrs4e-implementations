@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+import operator
 import random
 
 from hypothesis import given
@@ -15,8 +16,11 @@ from book.data_structures import Array
 from book.data_structures import CT
 from book.data_structures import Heap
 from book.data_structures import KeyObject
+from book.data_structures import PriorityQueue
 from book.data_structures import T
 from solutions.chapter6.problem2 import multiary_child
+from solutions.chapter6.problem2 import multiary_max_heap_extract_max
+from solutions.chapter6.problem2 import multiary_max_heap_insert
 from solutions.chapter6.problem2 import multiary_parent
 from solutions.chapter6.problem3 import young_extract_min
 from solutions.chapter6.problem3 import young_insert
@@ -435,6 +439,26 @@ class TestChapter6(ClrsTestCase):
         actual_node_index = multiary_parent(d, multiary_child(d, i, k))
 
         self.assertEqual(actual_node_index, i)
+
+    @given(st.data())
+    def test_multiary_max_heap(self, data):
+        d = data.draw(integers(min_value=2, max_value=10))
+        keys = data.draw(lists(integers(), min_size=1, max_size=1000))
+        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
+        n = len(key_objects)
+        A = PriorityQueue[str](n)
+
+        for x in key_objects:
+            multiary_max_heap_insert(A, d, x, n)
+            self.assertHeap(A, heap_property=lambda i: A[multiary_parent(d, i)] >= A[i])
+
+        actual_elements = Array(1, n)
+        for j in range_of(1, to=n):
+            actual_elements[j] = multiary_max_heap_extract_max(A, d)
+            self.assertHeap(A, heap_property=lambda i: A[multiary_parent(d, i)] >= A[i])
+
+        self.assertArraySorted(actual_elements, end=n, cmp=operator.ge)
+        self.assertArrayPermuted(actual_elements, key_objects, end=n)
 
     @given(st.data())
     def test_young_tableau(self, data):
