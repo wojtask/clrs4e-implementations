@@ -3,6 +3,7 @@ from book.data_structures import CT
 from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
 from book.data_structures import T
+from solutions.chapter2.section1.exercise4 import linear_search
 from util import ceil_div
 
 
@@ -80,3 +81,30 @@ def multiary_max_heap_extract_max(A: PriorityQueue[T], d: int) -> KeyObject[T]:
     A.heap_size -= 1
     multiary_max_heapify(A, d, 1)
     return max
+
+
+def multiary_max_heap_increase_key(A: PriorityQueue[T], d: int, x: KeyObject[T], k: float) -> None:
+    """Increases the key of a multiary max-heap node.
+
+    Implements:
+        Multiary-Max-Heap-Increase-Key
+
+    Args:
+        A: the array representing the d-ary max-heap
+        d: the arity of the heap
+        x: the element in A whose key to increase
+        k: the new value of the key, at least as large as x.key
+    """
+    if k < x.key:
+        raise ValueError('new key is smaller than current key')
+    x.key = k
+    i = __find_index_of_object(A, x)
+    while i > 1 and A[multiary_parent(d, i)].key < A[i].key:
+        A[i], A[multiary_parent(d, i)] = A[multiary_parent(d, i)], A[i]
+        i = multiary_parent(d, i)
+
+
+def __find_index_of_object(A: PriorityQueue[T], x: KeyObject[T]) -> int:
+    index = linear_search(A, A.heap_size, x)
+    assert index is not None
+    return index
