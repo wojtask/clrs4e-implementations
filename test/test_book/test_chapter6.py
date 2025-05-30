@@ -13,7 +13,7 @@ from book.chapter6.section5 import max_heap_extract_max
 from book.chapter6.section5 import max_heap_increase_key
 from book.chapter6.section5 import max_heap_insert
 from book.chapter6.section5 import max_heap_maximum
-from book.data_structures import KeyObject
+from book.data_structures import Record
 from test_case import ClrsTestCase
 from test_util import create_heap
 from test_util import create_priority_queue
@@ -47,19 +47,19 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_maximum(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects)
-        n = len(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        heap = create_heap(records)
+        n = len(records)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
 
         actual_maximum = max_heap_maximum(A)
 
-        expected_maximum = max(key_objects)
+        expected_maximum = max(records)
         self.assertEqual(actual_maximum.key, expected_maximum.key)
         self.assertEqual(A.heap_size, n)
         self.assertMaxHeap(A)
-        self.assertArrayPermuted(A, key_objects, end=n)
+        self.assertArrayPermuted(A, records, end=n)
 
     @given(st.data())
     def test_max_heap_maximum_underflow(self, data):
@@ -73,31 +73,31 @@ class TestChapter6(ClrsTestCase):
     @given(st.data())
     def test_max_heap_extract_max(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects)
-        n = len(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        heap = create_heap(records)
+        n = len(records)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
 
         actual_maximum = max_heap_extract_max(A)
 
-        expected_maximum = max(key_objects)
-        key_objects.remove(actual_maximum)
+        expected_maximum = max(records)
+        records.remove(actual_maximum)
         self.assertEqual(actual_maximum.key, expected_maximum.key)
         self.assertEqual(A.heap_size, n - 1)
         self.assertMaxHeap(A)
-        self.assertArrayPermuted(A, key_objects, end=n - 1)
+        self.assertArrayPermuted(A, records, end=n - 1)
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
     def test_max_heap_increase_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects)
-        n = len(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        heap = create_heap(records)
+        n = len(records)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
-        x = random.choice(key_objects)
+        x = random.choice(records)
         k = x.key + data.draw(integers(min_value=0))
 
         max_heap_increase_key(A, x, k)
@@ -105,18 +105,18 @@ class TestChapter6(ClrsTestCase):
         self.assertEqual(x.key, k)
         self.assertEqual(A.heap_size, n)
         self.assertMaxHeap(A)
-        self.assertArrayPermuted(A, key_objects, end=n)
+        self.assertArrayPermuted(A, records, end=n)
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
     def test_max_heap_increase_key_invalid_key(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects)
-        n = len(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        heap = create_heap(records)
+        n = len(records)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
-        x = random.choice(key_objects)
+        x = random.choice(records)
         k = x.key - data.draw(integers(min_value=1))
 
         with self.assertRaisesRegex(ValueError, "new key is smaller than current key"):
@@ -125,56 +125,56 @@ class TestChapter6(ClrsTestCase):
             self.assertNotEquals(x.key, k)
             self.assertMaxHeap(A)
             self.assertEqual(A.heap_size, n)
-            self.assertArrayPermuted(A, key_objects, end=n)
+            self.assertArrayPermuted(A, records, end=n)
             self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
     def test_max_heap_insert(self, data):
         n = data.draw(integers(min_value=1, max_value=100))
         keys = data.draw(lists(integers(), max_size=n - 1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        heap = create_heap(key_objects, n)
-        heap_size = len(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        heap = create_heap(records, n)
+        heap_size = len(records)
         build_max_heap(heap, heap_size)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject[str](new_key, data.draw(text()))
+        x = Record[str](new_key, data.draw(text()))
 
         max_heap_insert(A, x, n)
 
         self.assertMaxHeap(A)
         self.assertEqual(A.heap_size, heap_size + 1)
-        self.assertArrayPermuted(A, key_objects + [x], end=A.heap_size)
+        self.assertArrayPermuted(A, records + [x], end=A.heap_size)
         self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
     def test_max_heap_insert_overflow(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        n = len(key_objects)
-        heap = create_heap(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        n = len(records)
+        heap = create_heap(records)
         build_max_heap(heap, n)
         A = create_priority_queue(heap, n)
         new_key = data.draw(integers())
-        x = KeyObject[str](new_key, data.draw(text()))
+        x = Record[str](new_key, data.draw(text()))
 
         with self.assertRaisesRegex(ValueError, "heap overflow"):
             max_heap_insert(A, x, n)
 
             self.assertMaxHeap(A)
             self.assertEqual(A.heap_size, n)
-            self.assertArrayPermuted(A, key_objects, end=n)
+            self.assertArrayPermuted(A, records, end=n)
             self.assertPriorityQueueMappingConsistent(A)
 
     @given(st.data())
     def test_build_max_heap_(self, data):
         keys = data.draw(lists(integers(), min_size=1))
-        key_objects = [KeyObject[str](key, data.draw(text())) for key in keys]
-        n = len(key_objects)
-        A = create_heap(key_objects)
+        records = [Record[str](key, data.draw(text())) for key in keys]
+        n = len(records)
+        A = create_heap(records)
 
         build_max_heap_(A, n)
 
         self.assertEqual(A.heap_size, n)
         self.assertMaxHeap(A)
-        self.assertArrayPermuted(A, key_objects, end=n)
+        self.assertArrayPermuted(A, records, end=n)

@@ -1,7 +1,7 @@
 from book.chapter6.section5 import max_heap_extract_max
 from book.chapter6.section5 import max_heap_insert
-from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
+from book.data_structures import Record
 from book.data_structures import T
 from solutions.chapter6.section5.exercise3 import min_heap_extract_min
 from solutions.chapter6.section5.exercise3 import min_heap_insert
@@ -11,7 +11,7 @@ class ControlledPriorityQueue(PriorityQueue[T]):
     priority: int = 1
 
 
-def min_heap_enqueue(A: ControlledPriorityQueue[T], x: KeyObject[T], n: int) -> None:
+def min_heap_enqueue(A: ControlledPriorityQueue[T], x: Record[T], n: int) -> None:
     """Inserts an element into a first-in, first-out queue implemented with a priority queue.
 
     Implements:
@@ -27,7 +27,7 @@ def min_heap_enqueue(A: ControlledPriorityQueue[T], x: KeyObject[T], n: int) -> 
     A.priority += 1
 
 
-def min_heap_dequeue(A: ControlledPriorityQueue[T]) -> KeyObject[T]:
+def min_heap_dequeue(A: ControlledPriorityQueue[T]) -> Record[T]:
     """Deletes an element from a first-in, first-out queue implemented with a priority queue.
 
     Implements:
@@ -42,7 +42,7 @@ def min_heap_dequeue(A: ControlledPriorityQueue[T]) -> KeyObject[T]:
     return min_heap_extract_min(A)
 
 
-def max_heap_push(A: ControlledPriorityQueue[T], x: KeyObject[T], n: int) -> None:
+def max_heap_push(A: ControlledPriorityQueue[T], x: Record[T], n: int) -> None:
     """Inserts an element into a stack implemented with a priority queue.
 
     Implements:
@@ -58,7 +58,7 @@ def max_heap_push(A: ControlledPriorityQueue[T], x: KeyObject[T], n: int) -> Non
     A.priority += 1
 
 
-def max_heap_pop(A: ControlledPriorityQueue[T]) -> KeyObject[T]:
+def max_heap_pop(A: ControlledPriorityQueue[T]) -> Record[T]:
     """Deletes an element from a stack implemented with a priority queue.
 
     Implements:

@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing_extensions import TypeAlias
 
 from book.data_structures import Array
-from book.data_structures import KeyObject
 from book.data_structures import PriorityQueue
+from book.data_structures import Record
 from solutions.chapter6.section5.exercise3 import min_heap_extract_min
 from solutions.chapter6.section5.exercise3 import min_heap_insert
 from util import range_of
@@ -40,7 +40,7 @@ def merge_sorted_lists(sorted_lists: Array[SortedList], k: int) -> SortedList:
             x = sorted_list.head
             sorted_list.head = sorted_list.head.next
             x.next = None
-            min_heap_insert(Q, KeyObject[NodePayloadType](key=x.key, data=(x, sorted_list)), k)
+            min_heap_insert(Q, Record[NodePayloadType](key=x.key, data=(x, sorted_list)), k)
     merged_list = SortedList()
     tail: SortedListNode | None = None
     while Q.heap_size > 0:
@@ -53,6 +53,6 @@ def merge_sorted_lists(sorted_lists: Array[SortedList], k: int) -> SortedList:
             tail.next = element
             tail = tail.next
         if list_.head is not None:
-            min_heap_insert(Q, KeyObject[NodePayloadType](key=list_.head.key, data=(list_.head, list_)), k)
+            min_heap_insert(Q, Record[NodePayloadType](key=list_.head.key, data=(list_.head, list_)), k)
             list_.head = list_.head.next
     return merged_list

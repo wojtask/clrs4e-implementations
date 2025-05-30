@@ -4,9 +4,9 @@ from book.data_structures import Array
 from book.data_structures import Bit
 from book.data_structures import CT
 from book.data_structures import Heap
-from book.data_structures import KeyObject
 from book.data_structures import Matrix
 from book.data_structures import PriorityQueue
+from book.data_structures import Record
 from book.data_structures import T
 from util import range_of
 
@@ -39,7 +39,7 @@ def create_heap(elements: list[CT], capacity: int | None = None) -> Heap[CT]:
     return heap
 
 
-def create_priority_queue(heap: Heap[KeyObject[T]], capacity: int | None = None) -> PriorityQueue[T]:
+def create_priority_queue(heap: Heap[Record[T]], capacity: int | None = None) -> PriorityQueue[T]:
     priority_queue = PriorityQueue[T](capacity if capacity else heap.heap_size)
     priority_queue.heap_size = heap.heap_size
     for i in range_of(1, to=heap.heap_size):

@@ -37,6 +37,24 @@ class Indexable(Protocol[T]):
 Bit: TypeAlias = Literal[0, 1]
 
 
+class Record(Generic[T]):
+    def __init__(self, key: float, data: T) -> None:
+        self.key = key
+        self.data = data
+
+    def __lt__(self, other: Record[T]) -> bool:
+        return self.key < other.key
+
+    def __le__(self, other: Record[T]) -> bool:
+        return self.key <= other.key
+
+    def __gt__(self, other: Record[T]) -> bool:
+        return self.key > other.key
+
+    def __ge__(self, other: Record[T]) -> bool:
+        return self.key >= other.key
+
+
 class Array(Generic[T]):
     __start: int
     __elements: list[T]
@@ -139,35 +157,17 @@ class Heap(Array[CT]):
     heap_size: int = 0
 
 
-class KeyObject(Generic[T]):
-    def __init__(self, key: float, data: T) -> None:
-        self.key = key
-        self.data = data
-
-    def __lt__(self, other: KeyObject[T]) -> bool:
-        return self.key < other.key
-
-    def __le__(self, other: KeyObject[T]) -> bool:
-        return self.key <= other.key
-
-    def __gt__(self, other: KeyObject[T]) -> bool:
-        return self.key > other.key
-
-    def __ge__(self, other: KeyObject[T]) -> bool:
-        return self.key >= other.key
-
-
 # TODO(#476) Consider removing this data structure, and instead implement the priority queue directly on a heap.
 #   Clarify if we need the mapping between objects and heap indices, because as mentioned in the book, a heap
 #   implementing a priority queue contains pointers to the objects, which should suffice to address the objects.
-class PriorityQueue(Heap[KeyObject[T]]):
+class PriorityQueue(Heap[Record[T]]):
 
     def __init__(self, n: int) -> None:
         # TODO(#21) implement the object mappings with a hash table instead of Python dictionary
         super().__init__(1, n)
         self.heap_size: int = 0
-        self.mapping: dict[KeyObject[T], int] = {}
+        self.mapping: dict[Record[T], int] = {}
 
-    def __setitem__(self, index: int, value: KeyObject[T]) -> None:
+    def __setitem__(self, index: int, value: Record[T]) -> None:
         super().__setitem__(index, value)
         self.mapping[value] = index
