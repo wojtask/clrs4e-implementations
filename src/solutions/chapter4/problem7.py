@@ -6,7 +6,7 @@ from util import ceil_div
 from util import range_of
 
 
-def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[int]:
+def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[float]:
     """Finds the leftmost minimum in each row of a Monge array.
 
     Args:
@@ -18,7 +18,7 @@ def monge_leftmost_minimums(A: Matrix, m: int, n: int) -> Array[int]:
         The array containing the leftmost minimums of A, ordered by rows.
     """
     indices = __monge_leftmost_minimums_indices(A, m, n)
-    minimums = Array[int](1, m)
+    minimums = Array[float](1, m)
     for i in range_of(1, to=m):
         minimums[i] = A[i, indices[i]]
     return minimums
