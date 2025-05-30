@@ -4,7 +4,6 @@ from book.chapter6.section1 import parent
 from book.data_structures import PriorityQueue
 from book.data_structures import Record
 from book.data_structures import T
-from solutions.chapter2.section1.exercise4 import linear_search
 from solutions.chapter6.section2.exercise3 import min_heapify
 
 
@@ -65,9 +64,7 @@ def min_heap_decrease_key(A: PriorityQueue[T], x: Record[T], k: float) -> None:
 
 
 def __find_index_of_object(A: PriorityQueue[T], x: Record[T]) -> int:
-    index = linear_search(A, A.heap_size, x)
-    assert index is not None
-    return index
+    return A.mapping[x]
 
 
 def min_heap_insert(A: PriorityQueue[T], x: Record[T], n: int) -> None:

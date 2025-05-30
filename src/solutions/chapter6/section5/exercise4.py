@@ -2,7 +2,6 @@ from book.chapter6.section2 import max_heapify
 from book.data_structures import PriorityQueue
 from book.data_structures import Record
 from book.data_structures import T
-from solutions.chapter2.section1.exercise4 import linear_search
 
 
 def max_heap_decrease_key(A: PriorityQueue[T], x: Record[T], k: float) -> None:
@@ -24,6 +23,4 @@ def max_heap_decrease_key(A: PriorityQueue[T], x: Record[T], k: float) -> None:
 
 
 def __find_index_of_object(A: PriorityQueue[T], x: Record[T]) -> int:
-    index = linear_search(A, A.heap_size, x)
-    assert index is not None
-    return index
+    return A.mapping[x]

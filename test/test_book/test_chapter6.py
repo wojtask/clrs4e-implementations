@@ -171,7 +171,8 @@ class TestChapter6(ClrsTestCase):
         keys = data.draw(lists(integers(), min_size=1))
         records = [Record[str](key, data.draw(text())) for key in keys]
         n = len(records)
-        A = create_heap(records)
+        heap = create_heap(records)
+        A = create_priority_queue(heap, n)
 
         build_max_heap_(A, n)
 

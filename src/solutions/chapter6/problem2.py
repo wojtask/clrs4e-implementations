@@ -1,9 +1,7 @@
 from book.chapter6.section5 import max_heap_maximum
-from book.data_structures import CT
 from book.data_structures import PriorityQueue
 from book.data_structures import Record
 from book.data_structures import T
-from solutions.chapter2.section1.exercise4 import linear_search
 from util import ceil_div
 
 
@@ -40,7 +38,7 @@ def multiary_child(d: int, i: int, k: int) -> int:
     return d * (i - 1) + k + 1
 
 
-def multiary_max_heapify(A: PriorityQueue[CT], d: int, i: int) -> None:
+def multiary_max_heapify(A: PriorityQueue[T], d: int, i: int) -> None:
     """Restores the max-heap property violated by a single multiary max-heap node.
 
     Implements:
@@ -105,9 +103,7 @@ def multiary_max_heap_increase_key(A: PriorityQueue[T], d: int, x: Record[T], k:
 
 
 def __find_index_of_object(A: PriorityQueue[T], x: Record[T]) -> int:
-    index = linear_search(A, A.heap_size, x)
-    assert index is not None
-    return index
+    return A.mapping[x]
 
 
 def multiary_max_heap_insert(A: PriorityQueue[T], d: int, x: Record[T], n: int) -> None:
