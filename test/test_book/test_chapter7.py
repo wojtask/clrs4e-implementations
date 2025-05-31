@@ -6,8 +6,10 @@ from hypothesis.strategies import lists
 from book.chapter7.section1 import quicksort
 from book.chapter7.section3 import randomized_quicksort
 from book.chapter7.section4 import insertion_quicksort
+from book.chapter7.section4 import median_of_3_partition
 from test_case import ClrsTestCase
 from test_util import create_array
+from util import range_of
 
 
 class TestChapter7(ClrsTestCase):
@@ -44,4 +46,18 @@ class TestChapter7(ClrsTestCase):
         insertion_quicksort(A, 1, n, k)
 
         self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_median_of_3_partition(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
+        A = create_array(elements)
+        n = len(elements)
+
+        actual_pivot_index = median_of_3_partition(A, 1, n)
+
+        for i in range_of(1, to=actual_pivot_index):
+            self.assertLessEqual(A[i], A[actual_pivot_index])
+        for i in range_of(actual_pivot_index + 1, to=n):
+            self.assertGreaterEqual(A[i], A[actual_pivot_index])
         self.assertArrayPermuted(A, elements, end=n)
