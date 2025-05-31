@@ -4,6 +4,7 @@ from hypothesis.strategies import integers
 from hypothesis.strategies import lists
 
 from book.chapter7.problem4 import stooge_sort
+from book.chapter7.problem5 import tre_quicksort
 from book.chapter7.section1 import quicksort
 from book.chapter7.section3 import randomized_quicksort
 from book.chapter7.section4 import insertion_quicksort
@@ -70,6 +71,17 @@ class TestChapter7(ClrsTestCase):
         n = len(elements)
 
         stooge_sort(A, 1, n)
+
+        self.assertArraySorted(A, end=n)
+        self.assertArrayPermuted(A, elements, end=n)
+
+    @given(st.data())
+    def test_tre_quicksort(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
+        A = create_array(elements)
+        n = len(elements)
+
+        tre_quicksort(A, 1, n)
 
         self.assertArraySorted(A, end=n)
         self.assertArrayPermuted(A, elements, end=n)
