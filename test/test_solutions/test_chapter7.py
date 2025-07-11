@@ -1,4 +1,5 @@
 import math
+import operator
 
 from hypothesis import given
 from hypothesis import strategies as st
@@ -7,6 +8,7 @@ from hypothesis.strategies import just
 from hypothesis.strategies import lists
 
 from solutions.chapter7.section1.exercise2 import fair_partition
+from solutions.chapter7.section1.exercise4 import quicksort_decreasing
 from test_case import ClrsTestCase
 from test_util import create_array
 from util import range_of
@@ -41,3 +43,14 @@ class TestChapter7(ClrsTestCase):
         actual_split_index = fair_partition(A, 1, n)
 
         self.assertEqual(actual_split_index, (n + 1) // 2)
+
+    @given(st.data())
+    def test_quicksort_decreasing(self, data):
+        elements = data.draw(lists(integers(), min_size=1))
+        A = create_array(elements)
+        n = len(elements)
+
+        quicksort_decreasing(A, 1, n)
+
+        self.assertArraySorted(A, end=n, cmp=operator.ge)
+        self.assertArrayPermuted(A, elements, end=n)
